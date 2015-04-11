@@ -33,7 +33,6 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +64,8 @@ public class LoginForm extends JFrame {
     private final Font errorFont;
     
     private final Dimension headerDimension;
+    
+    private Color theme;
     
     private ResourceBundle bundle;
     
@@ -101,6 +102,8 @@ public class LoginForm extends JFrame {
     }
     
     private void initialize() {
+        this.theme = Palette.getTheme();
+        
         this.bundle = ResourceBundle.getBundle(
                 "ResourceBundle.LoginForm", Language.getLanguage());
         
@@ -127,7 +130,7 @@ public class LoginForm extends JFrame {
         
         this.errorLabel.setFont(this.errorFont);
         this.errorLabel.setForeground(Color.RED);
-        
+
         this.loginButton.setText(this.bundle.getString("btnLogin"));
         this.loginButton.addActionListener(new loginListener());
         
@@ -139,7 +142,7 @@ public class LoginForm extends JFrame {
         
         this.headerPanel.add(this.titleLabel);
         this.headerPanel.setLayout(new BorderLayout());
-        this.headerPanel.setBackground(new Color(63, 81, 181));
+        this.headerPanel.setBackground(this.theme);
         this.headerPanel.setPreferredSize(this.headerDimension);
         
         this.loginPanel.setLayout(new SpringLayout());
