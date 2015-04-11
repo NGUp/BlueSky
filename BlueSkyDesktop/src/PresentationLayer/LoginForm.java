@@ -30,8 +30,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,6 +61,7 @@ public class LoginForm extends JFrame {
     private final FlatButton loginButton;
     
     private final Font bodyLabelFont;
+    private final Font errorFont;
     
     private final Dimension headerDimension;
     
@@ -85,6 +90,7 @@ public class LoginForm extends JFrame {
         this.headerDimension = new Dimension();
         
         this.bodyLabelFont = new Font("Segoe UI", Font.PLAIN, 16);
+        this.errorFont = new Font("Segoe UI", Font.PLAIN, 12);
         
         this.bundle = ResourceBundle.getBundle(
                 "ResourceBundle.LoginForm", LoginForm.supportedLocales[0]);
@@ -113,18 +119,19 @@ public class LoginForm extends JFrame {
                 "</body></html>"
         );
         
-        this.usernameLabel.setFont(bodyLabelFont);
+        this.usernameLabel.setFont(this.bodyLabelFont);
         this.usernameLabel.setText(
                 this.bundle.getString("lblUsername") + ": ");
         
-        this.passwordLabel.setFont(bodyLabelFont);
+        this.passwordLabel.setFont(this.bodyLabelFont);
         this.passwordLabel.setText(
                 this.bundle.getString("lblPassword") + ": ");
         
-        this.errorLabel.setFont(bodyLabelFont);
+        this.errorLabel.setFont(this.errorFont);
         this.errorLabel.setForeground(Color.RED);
         
         this.loginButton.setText(this.bundle.getString("btnLogin"));
+        this.loginButton.addActionListener(new loginListener());
         
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
@@ -158,5 +165,30 @@ public class LoginForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
         this.add(this.bodyPanel, BorderLayout.CENTER);
+    }
+    
+    private class loginListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String usernamePattern = "^[a-zA-Z0-9]{4,}$";
+            String passwordPattern = "^[a-zA-Z0-9!@#$%^&*?_~]{8,}$";
+            
+            Pattern regex = Pattern.compile(usernamePattern);
+            Matcher matcher = regex.matcher(usernameTextField.getText());
+            
+            if (matcher.matches() == false) {   // Check regex for username
+                errorLabel.setText(bundle.getString("errUsername"));
+            } else {
+                regex = Pattern.compile(passwordPattern);
+                matcher = regex.matcher(passwordTextField.getText());
+                
+                if (matcher.matches() == false) {   // Check regex for password
+                    errorLabel.setText(bundle.getString("errPassword"));
+                } else {
+                    errorLabel.setText("");
+                }
+            }
+        }
     }
 }

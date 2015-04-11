@@ -21,26 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
-
-import java.util.ListResourceBundle;
+package Core;
 
 /**
- * ResourceBundle for Vietnamese
- * 
- */
-public class LoginForm_vi_VN extends ListResourceBundle{
-
-    @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "Hệ thống bán vé máy bay" },
-            { "lblUsername", "Tên đăng nhập" },
-            { "lblPassword", "Mật khẩu" },
-            { "btnLogin", "Đăng nhập" },
-            { "errUsername", "Tên đăng nhập không hợp lệ." },
-            { "errPassword", "Mật khẩu không hợp lệ" }
-        };
-    }
+* Configuration
+*
+*/
+public class Config {
     
+    /**
+     * The database host
+     * 
+     */
+    public final static String host = "127.0.0.1";
+    
+    /**
+     * The database port
+     * 
+     */
+    public final static String port = "3306";
+    
+    /**
+     * The database name
+     * 
+     */
+    public final static String database = "dact";
+    
+    /**
+     * Username of the Database
+     * 
+     */
+    public final static String username = "root";
+    
+    /**
+     * Password of the Database
+     * 
+     */
+    public final static String password = "vertrigo";
+    
+    /**
+     * The connection string
+     * 
+     */
+    public final static String connectionString = String.format(
+            "jdbc:mysql://%s:%s/%s?useUnicode=yes&characterEncoding=UTF-8",
+            host, port, database);
 }
