@@ -33,37 +33,49 @@ public class Config {
      * The database host
      * 
      */
-    public final static String host = "127.0.0.1";
+    public static String host;
     
     /**
      * The database port
      * 
      */
-    public final static String port = "3306";
+    public static String port;
     
     /**
      * The database name
      * 
      */
-    public final static String database = "dact";
+    public static String database;
     
     /**
      * Username of the Database
      * 
      */
-    public final static String username = "root";
+    public static String username;
     
     /**
      * Password of the Database
      * 
      */
-    public final static String password = "vertrigo";
+    public static String password;
+    
+    /**
+     * Language of the application
+     * 
+     */
+    public static String language;
+    
+    /**
+     * Theme of the application
+     * 
+     */
+    public static String theme;
     
     /**
      * The connection string
      * 
      */
-    public final static String connectionString = String.format(
+    public static String connectionString = String.format(
             "jdbc:mysql://%s:%s/%s?useUnicode=yes&characterEncoding=UTF-8",
             host, port, database);
 }

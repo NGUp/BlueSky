@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bluesky>
+	<configuration>
+		<host>127.0.0.1</host>
+		<port>3306</port>
+		<database>qlcb</database>
+		<username>root</username>
+		<password>vertrigo</password>
+		<language>vi_VN</language>
+		<theme>Indigo</theme>
+	</configuration>
+</bluesky>
