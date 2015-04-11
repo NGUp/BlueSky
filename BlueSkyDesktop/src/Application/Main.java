@@ -23,12 +23,11 @@
  */
 package Application;
 
-import IO.Configuration;
+import BusinessLogicLayer.ConfigurationBUS;
+import PresentationLayer.ConfigurationForm;
 import PresentationLayer.LoginForm;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -42,29 +41,30 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
         
         /**
          * Read configuration file
          */
-        File file = new File("E:/Hoc tap/CNTT/PTUDQL_2/Do an/BlueSky/config.xml");
-        Configuration config = new Configuration(file);
+        File file = new File("../config.xml");
         
-        try {
-            config.readConfiguration();
-        } catch (ParserConfigurationException | IOException | SAXException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        if (!(file.exists() && !file.isDirectory())) {  // Check if not exists
+            ConfigurationForm form = new ConfigurationForm();
+            form.build();
+        } else {
+            ConfigurationBUS config = new ConfigurationBUS(file);
+            config.readConfig();
+
+            /**
+             * Display GUI
+             */
+            SwingUtilities.invokeLater(new Runnable(){
+                @Override
+                public void run() {
+                    LoginForm app = new LoginForm();
+                    app.build();
+                }
+            });
         }
-        
-        /**
-         * Display GUI
-         */
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run() {
-                LoginForm app = new LoginForm();
-                app.build();
-            }
-        });
     }
 }

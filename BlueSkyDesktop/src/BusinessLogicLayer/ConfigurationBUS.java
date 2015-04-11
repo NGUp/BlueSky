@@ -21,49 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package IO;
+package BusinessLogicLayer;
 
 import DataAccessLayer.ConfigurationDAO;
-import Core.Config;
+import DataTransferObject.Connection;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
-import static org.junit.Assert.*;
-import org.junit.Test;
 import org.xml.sax.SAXException;
 
-/**
- * Testing read XML file
- * 
- */
-public class XMLSpec {
+public class ConfigurationBUS {
     private final ConfigurationDAO config;
     
-    public XMLSpec() {
-        File file = new File("../config.xml");
+    public ConfigurationBUS() {
+        this.config = new ConfigurationDAO();
+    }
+    
+    public ConfigurationBUS(File file) {
         this.config = new ConfigurationDAO(file);
     }
     
-    /**
-     * Read configuration file
-     * 
-     */
-    @Test
-    public void readConfigFileSpec() {
-        try {
-            this.config.readConfiguration();
-            
-            assertEquals(Config.host, "127.0.0.1");
-            assertEquals(Config.port, "3306");
-            assertEquals(Config.database, "qlcb");
-            assertEquals(Config.username, "root");
-            assertEquals(Config.password, "vertrigo");
-            assertEquals(Config.language, "vi_VN");
-            assertEquals(Config.theme, "Indigo");
-        } catch (ParserConfigurationException | IOException | SAXException ex) {
-            Logger.getLogger(XMLSpec.class.getName()).log(Level.SEVERE, null, ex);
+    public void readConfig() throws ParserConfigurationException, IOException, SAXException {
+        this.config.readConfiguration();
+    }
+    
+    public void writeConfig(Connection connection)
+            throws Exception {
+        
+        if (!"".equals(connection.getPort()) &&
+                !"".equals(connection.getHost()) &&
+                !"".equals(connection.getDatabase()) &&
+                !"".equals(connection.getUsername()) &&
+                !"".equals(connection.getPassword())) {
+        } else {
+            throw new NullPointerException("Variables must be not left blank.");
         }
+        
+        if (config.isConnected(connection)== false) {
+            throw new Exception("Configuration is wrong");
+        }
+        
+        this.config.writeConfigurationToFile(connection);
     }
 }

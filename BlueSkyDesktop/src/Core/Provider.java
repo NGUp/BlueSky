@@ -102,6 +102,33 @@ public class Provider {
     }
     
     /**
+     * Check if connected to database
+     * 
+     * @param connectionObj DataTransferObject.Connection
+     * @return boolean      is Connected to database
+     * @throws Exception 
+     */
+    public boolean isConnected(DataTransferObject.Connection connectionObj) throws Exception {
+        String connectionString = String.format(
+            "jdbc:mysql://%s:%s/%s?useUnicode=yes&characterEncoding=UTF-8",
+            connectionObj.getHost(), connectionObj.getPort(), connectionObj.getDatabase());
+        boolean reachable = false;
+        Connection _connection;
+        
+        try {
+            this.hasDriver();
+            _connection = DriverManager.getConnection(connectionString, connectionObj.getUsername(), connectionObj.getPassword());
+
+            reachable = _connection.isValid(10);
+            _connection.close();
+        } catch(Exception exception) {
+            throw exception;
+        }
+        
+        return reachable;
+    }
+    
+    /**
      * Get a statement.
      * 
      * @return Statement
