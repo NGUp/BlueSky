@@ -21,50 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package Application;
+package ResourceBundle;
 
-import IO.Configuration;
-import PresentationLayer.LoginForm;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+import Core.Config;
+import java.util.Locale;
 
 /**
- * Main Control
+ * Support for multi-languages
  * 
  */
-public class Main {
-
+public class Language {
+    
     /**
-     * @param args the command line arguments
+     * Get current language
+     * 
+     * @return Locale
      */
-    public static void main(String[] args) {
-        
-        /**
-         * Read configuration file
-         */
-        File file = new File("E:/Hoc tap/CNTT/PTUDQL_2/Do an/BlueSky/config.xml");
-        Configuration config = new Configuration(file);
-        
-        try {
-            config.readConfiguration();
-        } catch (ParserConfigurationException | IOException | SAXException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    public static Locale getLanguage() {
+        if ("en_US".equals(Config.language)) {
+            return new Locale("en, US");
         }
         
-        /**
-         * Display GUI
-         */
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run() {
-                LoginForm app = new LoginForm();
-                app.build();
-            }
-        });
+        return new Locale("vi", "VN");
     }
 }

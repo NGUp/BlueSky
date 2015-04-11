@@ -25,6 +25,7 @@ package PresentationLayer;
 
 import Components.FlatButton;
 import Components.SpringUtilities;
+import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -65,10 +66,7 @@ public class LoginForm extends JFrame {
     
     private final Dimension headerDimension;
     
-    private static final Locale[] supportedLocales = {
-        new Locale("vi", "VN")
-    };
-    private final ResourceBundle bundle;
+    private ResourceBundle bundle;
     
     public LoginForm() {
         super("BlueSky");
@@ -91,9 +89,6 @@ public class LoginForm extends JFrame {
         
         this.bodyLabelFont = new Font("Segoe UI", Font.PLAIN, 16);
         this.errorFont = new Font("Segoe UI", Font.PLAIN, 12);
-        
-        this.bundle = ResourceBundle.getBundle(
-                "ResourceBundle.LoginForm", LoginForm.supportedLocales[0]);
     }
     
     public void build() {
@@ -106,6 +101,9 @@ public class LoginForm extends JFrame {
     }
     
     private void initialize() {
+        this.bundle = ResourceBundle.getBundle(
+                "ResourceBundle.LoginForm", Language.getLanguage());
+        
         this.titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 56));
         this.titleLabel.setForeground(Color.WHITE);
         this.titleLabel.setLocation(90, 115);

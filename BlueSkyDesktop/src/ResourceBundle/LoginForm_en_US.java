@@ -21,50 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package Application;
+package ResourceBundle;
 
-import IO.Configuration;
-import PresentationLayer.LoginForm;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+import java.util.ListResourceBundle;
 
 /**
- * Main Control
+ * ResourceBundle for English (United States)
  * 
  */
-public class Main {
+public class LoginForm_en_US extends ListResourceBundle{
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        /**
-         * Read configuration file
-         */
-        File file = new File("E:/Hoc tap/CNTT/PTUDQL_2/Do an/BlueSky/config.xml");
-        Configuration config = new Configuration(file);
-        
-        try {
-            config.readConfiguration();
-        } catch (ParserConfigurationException | IOException | SAXException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        /**
-         * Display GUI
-         */
-        SwingUtilities.invokeLater(new Runnable(){
-            @Override
-            public void run() {
-                LoginForm app = new LoginForm();
-                app.build();
-            }
-        });
+    @Override
+    protected Object[][] getContents() {
+        return new Object[][] {
+            { "lblTitle", "The air ticket booking system" },
+            { "lblUsername", "Username" },
+            { "lblPassword", "Password" },
+            { "btnLogin", "Login" },
+            { "errUsername", "The username is invalid." },
+            { "errPassword", "The password is invalid." }
+        };
     }
+    
 }
