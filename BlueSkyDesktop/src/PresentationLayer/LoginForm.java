@@ -23,6 +23,8 @@
  */
 package PresentationLayer;
 
+import Components.FlatButton;
+import Components.SpringUtilities;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,16 +32,31 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 public class LoginForm extends JFrame {
     
     private final JLabel titleLabel;
+    private final JLabel usernameLabel;
+    private final JLabel passwordLabel;
+    private final JLabel errorLabel;
     
     private final JPanel headerPanel;
     private final JPanel bodyPanel;
+    private final JPanel loginPanel;
+    
+    private final JTextField usernameTextField;
+    private final JTextField passwordTextField;
+    
+    private final FlatButton loginButton;
+    
+    private final Font bodyLabelFont;
     
     private final Dimension headerDimension;
     
@@ -52,11 +69,22 @@ public class LoginForm extends JFrame {
         super("BlueSky");
         
         this.titleLabel = new JLabel();
+        this.usernameLabel = new JLabel();
+        this.passwordLabel = new JLabel();
+        this.errorLabel = new JLabel();
         
         this.headerPanel = new JPanel();
         this.bodyPanel = new JPanel();
+        this.loginPanel = new JPanel();
+        
+        this.usernameTextField = new JTextField(40);
+        this.passwordTextField = new JPasswordField(40);
+        
+        this.loginButton = new FlatButton();
         
         this.headerDimension = new Dimension();
+        
+        this.bodyLabelFont = new Font("Segoe UI", Font.PLAIN, 16);
         
         this.bundle = ResourceBundle.getBundle(
                 "ResourceBundle.LoginForm", LoginForm.supportedLocales[0]);
@@ -85,6 +113,19 @@ public class LoginForm extends JFrame {
                 "</body></html>"
         );
         
+        this.usernameLabel.setFont(bodyLabelFont);
+        this.usernameLabel.setText(
+                this.bundle.getString("lblUsername") + ": ");
+        
+        this.passwordLabel.setFont(bodyLabelFont);
+        this.passwordLabel.setText(
+                this.bundle.getString("lblPassword") + ": ");
+        
+        this.errorLabel.setFont(bodyLabelFont);
+        this.errorLabel.setForeground(Color.RED);
+        
+        this.loginButton.setText(this.bundle.getString("btnLogin"));
+        
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
@@ -95,6 +136,24 @@ public class LoginForm extends JFrame {
         this.headerPanel.setLayout(new BorderLayout());
         this.headerPanel.setBackground(new Color(63, 81, 181));
         this.headerPanel.setPreferredSize(this.headerDimension);
+        
+        this.loginPanel.setLayout(new SpringLayout());
+        this.loginPanel.setBackground(Color.WHITE);
+        this.loginPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        this.loginPanel.setPreferredSize(new Dimension(400, 200));
+        this.loginPanel.add(this.usernameLabel);
+        this.loginPanel.add(this.usernameTextField);
+        this.loginPanel.add(this.passwordLabel);
+        this.loginPanel.add(this.passwordTextField);
+        this.loginPanel.add(this.errorLabel);
+        this.loginPanel.add(this.loginButton);
+        SpringUtilities.makeGrid(this.loginPanel,
+                         3, 2, //rows, cols
+                         0, 0, //initialX, initialY
+                         8, 8);//xPad, yPad
+        
+        this.bodyPanel.setBackground(Color.WHITE);
+        this.bodyPanel.add(this.loginPanel);
         
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);

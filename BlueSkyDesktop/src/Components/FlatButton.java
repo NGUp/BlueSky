@@ -21,24 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package Components;
 
-import java.util.ListResourceBundle;
+import java.awt.Color;
+import javax.swing.JButton;
 
 /**
- * ResourceBundle for Vietnamese
+ * Flat button
  * 
  */
-public class LoginForm_vi_VN extends ListResourceBundle{
-
-    @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "Hệ thống bán vé máy bay" },
-            { "lblUsername", "Tên đăng nhập" },
-            { "lblPassword", "Mật khẩu" },
-            { "btnLogin", "Đăng nhập" }
-        };
+public class FlatButton extends JButton {
+    public FlatButton() {
+        super();
+        this.setFocusPainted(false);
+        this.setBackground(Color.WHITE);
     }
     
+    public FlatButton(String text) {
+        this.setText(text);
+        this.setFocusPainted(false);
+        this.setBackground(Color.WHITE);
+    }
 }
