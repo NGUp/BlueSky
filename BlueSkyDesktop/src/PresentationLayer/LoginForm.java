@@ -173,7 +173,7 @@ public class LoginForm extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String usernamePattern = "^[a-zA-Z0-9]{4,}$";
-            String passwordPattern = "^[a-zA-Z0-9!@#$%^&*?_~]{8,}$";
+            String passwordPattern = "^[a-zA-Z0-9!@#$%^&*?_~]{7,}$";
             
             Pattern regex = Pattern.compile(usernamePattern);
             Matcher matcher = regex.matcher(usernameTextField.getText());

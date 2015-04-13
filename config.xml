@@ -6,7 +6,7 @@
 		<database>qlcb</database>
 		<username>root</username>
 		<password>vertrigo</password>
-		<language>en_US</language>
-		<theme>Blue</theme>
+		<language>vi_VN</language>
+		<theme>Indigo</theme>
 	</configuration>
 </bluesky>

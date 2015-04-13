@@ -21,25 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package DataAccessLayer;
 
-import java.util.ListResourceBundle;
+import Core.Provider;
+import DataTransferObject.Employee;
+import java.sql.SQLException;
 
-/**
- * ResourceBundle for English (United States)
- * 
- */
-public class LoginForm_en_US extends ListResourceBundle{
-
-    @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "The air ticket booking system" },
-            { "lblUsername", "Username" },
-            { "lblPassword", "Password" },
-            { "btnLogin", "Login" },
-            { "errUsername", "The username is invalid." },
-            { "errPassword", "The password is invalid." }
-        };
+public class EmployeeDAO {
+    private final Provider provider;
+    
+    public EmployeeDAO() {
+        this.provider = new Provider();
+    }
+    
+    /**
+     * The employee login into the system
+     * 
+     * @param employee  Employee
+     * @return boolean
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
+    public boolean login(Employee employee) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Select ID From NhanVien Where TenDangNhap = `%s` And MatKhau = `%s`",
+                employee.getUsername(), employee.getPassword());
+        
+        return this.provider.executeNonQuery(sql) == 1;
     }
 }

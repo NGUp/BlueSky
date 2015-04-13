@@ -167,15 +167,21 @@ public class Provider {
      * @param sql T-SQL script
      * @throws SQLException
      * @throws ClassNotFoundException
+     * @return Integer
      */
-    public void executeNonQuery(String sql) throws SQLException, ClassNotFoundException {
+    public int executeNonQuery(String sql) throws SQLException, ClassNotFoundException {
+        
+        int result = 0;
+        
         try {
-            this.getStatement().executeUpdate(sql);
+            result = this.getStatement().executeUpdate(sql);
         } catch(SQLException | ClassNotFoundException exception) {
             throw exception;
         } finally {
             this.closeConnection();
         }
+        
+        return result;
     }
     
     /**
