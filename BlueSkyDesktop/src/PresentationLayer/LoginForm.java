@@ -187,7 +187,9 @@ public class LoginForm extends JFrame {
                 if (matcher.matches() == false) {   // Check regex for password
                     errorLabel.setText(bundle.getString("errPassword"));
                 } else {
-                    errorLabel.setText("");
+                    AdminForm app = new AdminForm();
+                    app.build();
+                    dispose();
                 }
             }
         }
