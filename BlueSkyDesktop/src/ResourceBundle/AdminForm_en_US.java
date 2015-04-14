@@ -26,7 +26,7 @@ package ResourceBundle;
 import java.util.ListResourceBundle;
 
 /**
- * ResourceBundle for Vietnamese
+ * ResourceBundle for English
  * 
  */
 public class AdminForm_en_US extends ListResourceBundle{
