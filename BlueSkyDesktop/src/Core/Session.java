@@ -21,27 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
-
-import java.util.ListResourceBundle;
+package Core;
 
 /**
- * ResourceBundle for Vietnamese
+ * Session for application
  * 
  */
-public class LoginForm_vi_VN extends ListResourceBundle{
-
-    @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "Hệ thống bán vé máy bay" },
-            { "lblUsername", "Tên đăng nhập" },
-            { "lblPassword", "Mật khẩu" },
-            { "btnLogin", "Đăng nhập" },
-            { "errUsername", "Tên đăng nhập không hợp lệ." },
-            { "errPassword", "Mật khẩu không hợp lệ" },
-            { "errLogin", "Tên đăng nhập hoặc mật khẩu không đúng." }
-        };
-    }
+public class Session {
     
+    /**
+     * User ID
+     * 
+     */
+    public static String USER_ID;
+    
+    /**
+     * User permission
+     * 
+     */
+    public static String USER_PERMISSION;
 }

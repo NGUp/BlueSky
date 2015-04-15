@@ -24,6 +24,7 @@
 package DataAccessLayer;
 
 import Core.Provider;
+import Core.Session;
 import DataTransferObject.Employee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,13 +46,16 @@ public class EmployeeDAO {
      */
     public boolean login(Employee employee) throws SQLException, ClassNotFoundException {
         String sql = String.format(
-                "Select MaNV From NhanVien Where TenDangNhap = '%s' And MatKhau = '%s'",
+                "Select MaNV, MaLoai From NhanVien Where TenDangNhap = '%s' And MatKhau = '%s'",
                 employee.getUsername(), employee.getPassword());
         
         ResultSet data = this.provider.executeQuery(sql);
         boolean result = false;
         
         if (data.next()) {
+            Session.USER_ID = data.getString("MaNV");
+            Session.USER_PERMISSION = data.getString("MaLoai");
+            
             result = true;
         }
         

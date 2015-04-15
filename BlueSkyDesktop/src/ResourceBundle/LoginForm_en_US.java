@@ -39,7 +39,8 @@ public class LoginForm_en_US extends ListResourceBundle{
             { "lblPassword", "Password" },
             { "btnLogin", "Login" },
             { "errUsername", "The username is invalid." },
-            { "errPassword", "The password is invalid." }
+            { "errPassword", "The password is invalid." },
+            { "errLogin", "Username or Password is incorrect." }
         };
     }
 }

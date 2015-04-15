@@ -23,8 +23,11 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.EmployeeBUS;
 import Components.FlatButton;
 import Components.SpringUtilities;
+import Core.Session;
+import DataTransferObject.Employee;
 import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,12 +36,16 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -148,7 +155,7 @@ public class LoginForm extends JFrame {
         this.loginPanel.setLayout(new SpringLayout());
         this.loginPanel.setBackground(Color.WHITE);
         this.loginPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
-        this.loginPanel.setPreferredSize(new Dimension(400, 200));
+        this.loginPanel.setPreferredSize(new Dimension(500, 200));
         this.loginPanel.add(this.usernameLabel);
         this.loginPanel.add(this.usernameTextField);
         this.loginPanel.add(this.passwordLabel);
@@ -168,6 +175,10 @@ public class LoginForm extends JFrame {
         this.add(this.bodyPanel, BorderLayout.CENTER);
     }
     
+    /**
+     * Listener for Login button
+     * 
+     */
     private class loginListener implements ActionListener {
 
         @Override
@@ -187,9 +198,28 @@ public class LoginForm extends JFrame {
                 if (matcher.matches() == false) {   // Check regex for password
                     errorLabel.setText(bundle.getString("errPassword"));
                 } else {
-                    AdminForm app = new AdminForm();
-                    app.build();
-                    dispose();
+                    EmployeeBUS bus = new EmployeeBUS();
+                    Employee employee = new Employee();
+                    employee.setUsername(usernameTextField.getText());
+                    employee.setPassword(passwordTextField.getText());
+                    
+                    try {
+                        if (bus.login(employee)) {
+                            if ("administrator".equals(Session.USER_PERMISSION)) {
+                                AdminForm app = new AdminForm();
+                                app.build();
+                                dispose();
+                            }
+                        } else {
+                            errorLabel.setText(bundle.getString("errLogin"));
+                        }
+                    } catch (NoSuchAlgorithmException |
+                            UnsupportedEncodingException |
+                            SQLException | ClassNotFoundException exception) {
+                        JOptionPane.showMessageDialog(null,
+                            exception.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         }
