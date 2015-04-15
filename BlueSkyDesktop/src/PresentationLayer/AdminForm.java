@@ -34,6 +34,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -67,7 +69,7 @@ public class AdminForm extends JFrame {
     
     public void build() {
         this.initialize();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds().getSize());
@@ -151,6 +153,16 @@ public class AdminForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
         this.add(this.bodyPanel, BorderLayout.CENTER);
+        this.addWindowListener(new windowListener());
+    }
+    
+    private class windowListener extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            LoginForm form = new LoginForm();
+            form.build();
+            dispose();
+        }
     }
     
     private class employeeListener extends MouseAdapter {

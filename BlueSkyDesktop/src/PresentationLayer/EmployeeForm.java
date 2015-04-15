@@ -29,6 +29,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,7 +59,7 @@ public class EmployeeForm extends JFrame {
     
     public void build() {
         this.initialize();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds().getSize());
@@ -98,5 +100,15 @@ public class EmployeeForm extends JFrame {
         
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
+        this.addWindowListener(new windowListener());
+    }
+    
+    private class windowListener extends WindowAdapter {
+        @Override
+        public void windowClosing(WindowEvent e) {
+            AdminForm form = new AdminForm();
+            form.build();
+            dispose();
+        }
     }
 }
