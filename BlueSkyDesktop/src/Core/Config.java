@@ -33,31 +33,31 @@ public class Config {
      * The database host
      * 
      */
-    public static String host;
+    public static String host = "127.0.0.1";
     
     /**
      * The database port
      * 
      */
-    public static String port;
+    public static String port = "3306";
     
     /**
      * The database name
      * 
      */
-    public static String database;
+    public static String database = "qlcb";
     
     /**
      * Username of the Database
      * 
      */
-    public static String username;
+    public static String username = "root";
     
     /**
      * Password of the Database
      * 
      */
-    public static String password;
+    public static String password = "vertrigo";
     
     /**
      * Language of the application

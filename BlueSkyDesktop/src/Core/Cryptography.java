@@ -73,7 +73,11 @@ public class Cryptography {
         
         StringBuffer hexString = new StringBuffer();
         for (int index = 0; index < theDigest.length; index++) {
-            hexString.append(Integer.toString((theDigest[index] & 0xff) + 0x100, 16).substring(1));
+            String hex = Integer.toHexString(0xff & theDigest[index]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
         }
         
         return hexString.toString();

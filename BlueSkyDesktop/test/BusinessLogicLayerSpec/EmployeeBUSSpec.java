@@ -21,43 +21,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package Core;
+package BusinessLogicLayerSpec;
 
+import BusinessLogicLayer.EmployeeBUS;
+import Core.Config;
+import DataTransferObject.Employee;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import org.junit.Test;
+import java.sql.SQLException;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
-public class CryptographySpec {
-    private final Cryptography crypto;
+public class EmployeeBUSSpec {
+    private final EmployeeBUS bus;
     
-    public CryptographySpec() {
-        this.crypto = new Cryptography();
+    public EmployeeBUSSpec() {
+        Config.host = "127.0.0.1";
+        Config.port = "3306";
+        Config.database = "qlcb";
+        Config.username = "root";
+        Config.password = "vertrigo";
+        
+        this.bus = new EmployeeBUS();
     }
     
-    /**
-     * Testing MD5 hash generator
-     * 
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
-     */
     @Test
-    public void getMD5Spec() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String plainText = "9dbh32kzkj29de0941e85e63d16574f31fc3e38b43d8fb4827a32jsa9d82h";
-        String cypherText = "d82e19712ce493b0df734368482b93bf";
-        assertEquals(cypherText, this.crypto.getMD5(plainText));
-    }
-    
-    /**
-     * Testing SHA-1 hash generator
-     * 
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
-     */
-    @Test
-    public void getSHA1Spec() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String plainText = "bluesky";
-        String cypherText = "9de0941e85e63d16574f31fc3e38b43d8fb4827a";
-        assertEquals(cypherText, this.crypto.getSHA1(plainText));
+    public void loginSpec() throws 
+            NoSuchAlgorithmException, 
+            UnsupportedEncodingException, 
+            ClassNotFoundException, SQLException {
+        Employee employee = new Employee();
+        employee.setUsername("admin");
+        employee.setPassword("bluesky");
+        
+        assertEquals(true, this.bus.login(employee));
     }
 }

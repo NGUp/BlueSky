@@ -21,43 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package Core;
+package BusinessLogicLayer;
 
+import Core.Cryptography;
+import DataAccessLayer.EmployeeDAO;
+import DataTransferObject.Employee;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import java.sql.SQLException;
 
-public class CryptographySpec {
-    private final Cryptography crypto;
+public class EmployeeBUS {
+    private final EmployeeDAO dao;
     
-    public CryptographySpec() {
-        this.crypto = new Cryptography();
+    public EmployeeBUS() {
+        this.dao = new EmployeeDAO();
     }
-    
+
     /**
-     * Testing MD5 hash generator
+     * Employee login support
      * 
+     * @param employee Employee
+     * @return boolean
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
+     * @throws SQLException
+     * @throws ClassNotFoundException 
      */
-    @Test
-    public void getMD5Spec() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String plainText = "9dbh32kzkj29de0941e85e63d16574f31fc3e38b43d8fb4827a32jsa9d82h";
-        String cypherText = "d82e19712ce493b0df734368482b93bf";
-        assertEquals(cypherText, this.crypto.getMD5(plainText));
-    }
-    
-    /**
-     * Testing SHA-1 hash generator
-     * 
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
-     */
-    @Test
-    public void getSHA1Spec() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String plainText = "bluesky";
-        String cypherText = "9de0941e85e63d16574f31fc3e38b43d8fb4827a";
-        assertEquals(cypherText, this.crypto.getSHA1(plainText));
+    public boolean login(Employee employee)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException,
+                    SQLException, ClassNotFoundException {
+        Cryptography crypto = new Cryptography();
+        
+        employee.setPassword(
+                crypto.getMD5(
+                        "9dbh32kzkj2" +
+                        crypto.getSHA1(employee.getPassword()) +
+                        "32jsa9d82h"));
+        
+        return this.dao.login(employee);
     }
 }
