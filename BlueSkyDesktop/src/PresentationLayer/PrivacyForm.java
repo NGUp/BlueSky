@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -101,6 +102,8 @@ public class PrivacyForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
         this.addWindowListener(new windowListener());
+        
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));
     }
     
     private class windowListener extends WindowAdapter {

@@ -32,6 +32,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -154,6 +155,8 @@ public class AdminForm extends JFrame {
         this.add(this.headerPanel, BorderLayout.NORTH);
         this.add(this.bodyPanel, BorderLayout.CENTER);
         this.addWindowListener(new windowListener());
+        
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));
     }
     
     private class windowListener extends WindowAdapter {

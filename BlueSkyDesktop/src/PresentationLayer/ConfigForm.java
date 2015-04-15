@@ -37,16 +37,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -237,6 +234,8 @@ public class ConfigForm extends JFrame {
         this.add(this.headerPanel, BorderLayout.NORTH);
         this.add(this.bodyPanel, BorderLayout.CENTER);
         this.addWindowListener(new windowListener());
+        
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));
     }
     
     private void exit() {
