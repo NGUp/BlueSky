@@ -75,4 +75,52 @@ public class Palette {
         
         return new Color(63, 81, 181);  // Indigo
     }
+    
+    /**
+     * Get index of current theme
+     *
+     * @return Integer
+     */
+    public static int getIndex() {
+        if (null != Config.theme) switch (Config.theme) {
+            case "Red":
+                return 0;
+            case "Pink":
+                return 1;
+            case "Purple":
+                return 2;
+            case "DeepPurple":
+                return 3;
+            case "Blue":
+                return 5;
+            case "LightBlue":
+                return 6;
+            case "Cyan":
+                return 7;
+            case "Teal":
+                return 8;
+            case "Green":
+                return 9;
+            case "LightGreen":
+                return 10;
+            case "Lime":
+                return 11;
+            case "Yellow":
+                return 12;
+            case "Amber":
+                return 13;
+            case "Orange":
+                return 14;
+            case "DeepOrange":
+                return 15;
+            case "Brown":
+                return 16;
+            case "Gray":
+                return 17;
+            case "BlueGray":
+                return 18;
+        }
+        
+        return 4;  // Indigo
+    }
 }

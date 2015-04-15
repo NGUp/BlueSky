@@ -21,40 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package DataTransferObject;
 
-import Core.Config;
-import java.util.Locale;
+public class ItemComboBox {
+    private String displayMember;
+    private String valueMember;
 
-/**
- * Support for multi-languages
- * 
- */
-public class Language {
-    
-    /**
-     * Get current language
-     * 
-     * @return Locale
-     */
-    public static Locale getLanguage() {
-        if ("en_US".equals(Config.language)) {
-            return new Locale("en, US");
-        }
-        
-        return new Locale("vi", "VN");
+    public ItemComboBox(String valueMember, String displayMember) {
+        this.valueMember = valueMember;
+        this.displayMember = displayMember;
     }
     
-    /**
-     * Get index of current language
-     * 
-     * @return Integer
-     */
-    public static int getIndex() {
-        if ("en_US".equals(Config.language)) {
-            return 0;
-        }
-        
-        return 1;
+    public void setDisplayMember(String displayMember) {
+        this.displayMember = displayMember;
+    }
+    
+    public void setValueMember(String valueMember) {
+        this.valueMember = valueMember;
+    }
+    
+    public String getDisplayMember() {
+        return this.displayMember;
+    }
+    
+    public String getValueMember() {
+        return this.valueMember;
+    }
+    
+    @Override
+    public String toString() {
+        return this.getDisplayMember();
     }
 }

@@ -34,7 +34,16 @@ public class ConfigForm_vi_VN extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Cấu hình hệ thống" }
+            { "lblTitle", "Cấu hình hệ thống" },
+            { "lblHost", "Tên miền" },
+            { "lblPort", "Cổng" },
+            { "lblDatabase", "Tên cơ sở dữ liệu" },
+            { "lblUsername", "Tên đăng nhập" },
+            { "lblPassword", "Mật khẩu" },
+            { "lblTheme", "Giao diện" },
+            { "lblLanguage", "Ngôn ngữ" },
+            { "btnCancel", "Trở về" },
+            { "btnOk", "Đồng ý" }
         };
     }
 }

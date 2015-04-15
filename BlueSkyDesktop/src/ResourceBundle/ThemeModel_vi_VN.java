@@ -23,38 +23,36 @@
  */
 package ResourceBundle;
 
-import Core.Config;
-import java.util.Locale;
+import java.util.ListResourceBundle;
 
 /**
- * Support for multi-languages
+ * ResourceBundle for Vietnamese
  * 
  */
-public class Language {
+public class ThemeModel_vi_VN extends ListResourceBundle{
     
-    /**
-     * Get current language
-     * 
-     * @return Locale
-     */
-    public static Locale getLanguage() {
-        if ("en_US".equals(Config.language)) {
-            return new Locale("en, US");
-        }
-        
-        return new Locale("vi", "VN");
-    }
-    
-    /**
-     * Get index of current language
-     * 
-     * @return Integer
-     */
-    public static int getIndex() {
-        if ("en_US".equals(Config.language)) {
-            return 0;
-        }
-        
-        return 1;
+    @Override
+    protected Object[][] getContents() {
+        return new Object[][] {
+            { "colorRed", "Đỏ" },
+            { "colorPink", "Hồng" },
+            { "colorPurple", "Tím" },
+            { "colorDeepPurple", "Tím đậm" },
+            { "colorIndigo", "Chàm" },
+            { "colorBlue", "Xanh dương" },
+            { "colorLightBlue", "Xanh dương nhạt" },
+            { "colorCyan", "Xanh lam" },
+            { "colorTeal", "Xanh két" },
+            { "colorGreen", "Xanh lá" },
+            { "colorLightGreen", "Xanh lá nhạt" },
+            { "colorLime", "Vỏ chanh" },
+            { "colorYellow", "Vàng" },
+            { "colorAmber", "Hổ phách" },
+            { "colorOrange", "Cam" },
+            { "colorDeepOrange", "Cam đậm" },
+            { "colorBrown", "Nâu" },
+            { "colorGray", "Xám" },
+            { "colorBlueGray", "Xanh xám" }
+        };
     }
 }

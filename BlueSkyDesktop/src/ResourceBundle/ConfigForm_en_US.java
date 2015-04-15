@@ -34,7 +34,16 @@ public class ConfigForm_en_US extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "System Configuration" }
+            { "lblTitle", "System Configuration" },
+            { "lblHost", "Host" },
+            { "lblPort", "Port" },
+            { "lblDatabase", "Database" },
+            { "lblUsername", "Username" },
+            { "lblPassword", "Password" },
+            { "lblTheme", "Theme" },
+            { "lblLanguage", "Language" },
+            { "btnCancel", "Cancel" },
+            { "btnOk", "Ok" }
         };
     }
 }

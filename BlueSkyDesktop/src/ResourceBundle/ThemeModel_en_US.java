@@ -23,38 +23,36 @@
  */
 package ResourceBundle;
 
-import Core.Config;
-import java.util.Locale;
+import java.util.ListResourceBundle;
 
 /**
- * Support for multi-languages
+ * ResourceBundle for English
  * 
  */
-public class Language {
-    
-    /**
-     * Get current language
-     * 
-     * @return Locale
-     */
-    public static Locale getLanguage() {
-        if ("en_US".equals(Config.language)) {
-            return new Locale("en, US");
-        }
-        
-        return new Locale("vi", "VN");
-    }
-    
-    /**
-     * Get index of current language
-     * 
-     * @return Integer
-     */
-    public static int getIndex() {
-        if ("en_US".equals(Config.language)) {
-            return 0;
-        }
-        
-        return 1;
+public class ThemeModel_en_US extends ListResourceBundle{
+
+    @Override
+    protected Object[][] getContents() {
+        return new Object[][] {
+            { "colorRed", "Red" },
+            { "colorPink", "Pink" },
+            { "colorPurple", "Purple" },
+            { "colorDeepPurple", "Deep Purple" },
+            { "colorIndigo", "Indigo" },
+            { "colorBlue", "Blue" },
+            { "colorLightBlue", "Light Blue" },
+            { "colorCyan", "Cyan" },
+            { "colorTeal", "Teal" },
+            { "colorGreen", "Green" },
+            { "colorLightGreen", "Light Green" },
+            { "colorLime", "Lime" },
+            { "colorYellow", "Yellow" },
+            { "colorAmber", "Amber" },
+            { "colorOrange", "Orange" },
+            { "colorDeepOrange", "Deep Orange" },
+            { "colorBrown", "Brown" },
+            { "colorGray", "Gray" },
+            { "colorBlueGray", "Blue Gray" }
+        };
     }
 }

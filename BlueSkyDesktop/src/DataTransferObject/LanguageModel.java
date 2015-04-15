@@ -21,40 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package DataTransferObject;
 
-import Core.Config;
-import java.util.Locale;
+import ResourceBundle.Language;
+import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 
-/**
- * Support for multi-languages
- * 
- */
-public class Language {
+public class LanguageModel extends DefaultComboBoxModel {
+    private final ResourceBundle bundle;
     
-    /**
-     * Get current language
-     * 
-     * @return Locale
-     */
-    public static Locale getLanguage() {
-        if ("en_US".equals(Config.language)) {
-            return new Locale("en, US");
-        }
+    public LanguageModel() {
+        this.bundle = ResourceBundle.getBundle(
+                "ResourceBundle.LanguageModel", Language.getLanguage());
         
-        return new Locale("vi", "VN");
-    }
-    
-    /**
-     * Get index of current language
-     * 
-     * @return Integer
-     */
-    public static int getIndex() {
-        if ("en_US".equals(Config.language)) {
-            return 0;
-        }
-        
-        return 1;
+        this.addElement(new ItemComboBox("en_US", this.bundle.getString("languageEnglish")));
+        this.addElement(new ItemComboBox("vi_VN", this.bundle.getString("languageVietnamese")));
     }
 }
