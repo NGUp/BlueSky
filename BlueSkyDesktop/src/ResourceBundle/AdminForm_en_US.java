@@ -34,7 +34,11 @@ public class AdminForm_en_US extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Administrator" }
+            { "lblTitle", "Administrator" },
+            { "lblEmployee", "Employee management" },
+            { "lblPrivacy", "Change password" },
+            { "lblUser", "User management" },
+            { "lblConfig", "Configuration" }
         };
     }
     

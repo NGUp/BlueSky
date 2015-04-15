@@ -23,13 +23,18 @@
  */
 package PresentationLayer;
 
+import Components.FeaturePanel;
 import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.util.ResourceBundle;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,6 +44,7 @@ public class AdminForm extends JFrame {
     private final JLabel titleLabel;
     
     private final JPanel headerPanel;
+    private final JPanel bodyPanel;
     
     private final Dimension headerDimension;
     
@@ -52,6 +58,7 @@ public class AdminForm extends JFrame {
         this.titleLabel = new JLabel();
         
         this.headerPanel = new JPanel();
+        this.bodyPanel = new JPanel();
         
         this.headerDimension = new Dimension();
     }
@@ -71,9 +78,15 @@ public class AdminForm extends JFrame {
         this.bundle = ResourceBundle.getBundle(
                 "ResourceBundle.AdminForm", Language.getLanguage());
         
+        GridLayout bodyLayout = new GridLayout();
+        bodyLayout.setColumns(2);
+        bodyLayout.setRows(0);
+        bodyLayout.setHgap(100);
+        bodyLayout.setVgap(30);
+        
         this.titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 36));
         this.titleLabel.setForeground(Color.WHITE);
-        this.titleLabel.setLocation(90, 0);
+        this.titleLabel.setLocation(90, 115);
         this.titleLabel.setSize(800, 60);
         this.titleLabel.setText(
                 "<html><body>" +
@@ -86,18 +99,52 @@ public class AdminForm extends JFrame {
                 "</body></html>"
         );
         
+        ImageIcon privacyIcon = new ImageIcon("lib/form/privacy.png");
+        ImageIcon employeeIcon = new ImageIcon("lib/form/employee.png");
+        ImageIcon userIcon = new ImageIcon("lib/form/user.png");
+        ImageIcon configIcon = new ImageIcon("lib/form/config.png");
+        
+        FeaturePanel employeePanel = new FeaturePanel(
+                this.bundle.getString("lblEmployee"), employeeIcon.getImage());
+        //employeePanel.addMouseListener(new EmployeeListener());
+        
+        FeaturePanel privacyPanel = new FeaturePanel(
+                this.bundle.getString("lblPrivacy"), privacyIcon.getImage());
+        
+        FeaturePanel userPanel = new FeaturePanel(
+                this.bundle.getString("lblUser"), userIcon.getImage());
+        
+        FeaturePanel configPanel = new FeaturePanel(
+                this.bundle.getString("lblConfig"), configIcon.getImage());
+        
+        JPanel bodyContentPanel = new JPanel();
+        
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
                 .getWidth();
-        this.headerDimension.height = 64;
+        this.headerDimension.height = 250;
         
         this.headerPanel.add(this.titleLabel);
         this.headerPanel.setLayout(new BorderLayout());
         this.headerPanel.setBackground(this.theme);
         this.headerPanel.setPreferredSize(this.headerDimension);
         
+        bodyContentPanel.setBorder(BorderFactory.createEmptyBorder(16, 0, 0, 0));
+        bodyContentPanel.setLayout(bodyLayout);
+        bodyContentPanel.setBackground(Color.WHITE);
+        bodyContentPanel.setSize(700, 300);
+        bodyContentPanel.add(privacyPanel);
+        bodyContentPanel.add(configPanel);
+        bodyContentPanel.add(employeePanel);
+        bodyContentPanel.add(userPanel);
+        
+        this.bodyPanel.setLayout(new FlowLayout());
+        this.bodyPanel.setBackground(Color.WHITE);
+        this.bodyPanel.add(bodyContentPanel);
+        
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
+        this.add(this.bodyPanel, BorderLayout.CENTER);
     }
 }

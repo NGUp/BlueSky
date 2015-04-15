@@ -21,25 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package Components;
 
-import java.util.ListResourceBundle;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-/**
- * ResourceBundle for Vietnamese
- * 
- */
-public class AdminForm_vi_VN extends ListResourceBundle{
-
-    @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "Quản trị viên" },
-            { "lblEmployee", "Tài khoản nhân viên" },
-            { "lblPrivacy", "Thay đổi mật khẩu" },
-            { "lblUser", "Tài khoản người dùng" },
-            { "lblConfig", "Cấu hình hệ thống" }
-        };
-    }
+public class FeaturePanel extends JPanel {
+    private final JLabel title;
+    private final ImagePanel imagePanel;
     
+    public FeaturePanel(String title, Image imageIcon) {
+        this.imagePanel = new ImagePanel(imageIcon);
+        
+        this.title = new JLabel();
+        this.title.setText(title);
+        this.title.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+        this.title.setForeground(new Color(33, 33, 33));
+        
+        this.setBackground(Color.WHITE);
+        this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.setLayout(new FlowLayout());
+        this.setComponentOrientation(
+                ComponentOrientation.LEFT_TO_RIGHT);
+        this.add(imagePanel);
+        this.add(this.title);
+    }
 }

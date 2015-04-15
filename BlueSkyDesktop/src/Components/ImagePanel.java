@@ -21,25 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE
  */
-package ResourceBundle;
+package Components;
 
-import java.util.ListResourceBundle;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-/**
- * ResourceBundle for Vietnamese
- * 
- */
-public class AdminForm_vi_VN extends ListResourceBundle{
+public class ImagePanel extends JPanel {
+
+    private Image image;
+
+    public ImagePanel(String image) {
+        this(new ImageIcon(image).getImage());
+    }
+
+    public ImagePanel(Image image) {
+        this.image = image;
+        
+        Dimension size = new Dimension(image.getWidth(null), image.getHeight(null));
+        this.setPreferredSize(size);
+        this.setMinimumSize(size);
+        this.setMaximumSize(size);
+        this.setSize(size);
+        this.setLayout(null);
+    }
 
     @Override
-    protected Object[][] getContents() {
-        return new Object[][] {
-            { "lblTitle", "Quản trị viên" },
-            { "lblEmployee", "Tài khoản nhân viên" },
-            { "lblPrivacy", "Thay đổi mật khẩu" },
-            { "lblUser", "Tài khoản người dùng" },
-            { "lblConfig", "Cấu hình hệ thống" }
-        };
+    public void paintComponent(Graphics g) {
+        g.drawImage(this.image, 0, 0, null);
     }
-    
 }
