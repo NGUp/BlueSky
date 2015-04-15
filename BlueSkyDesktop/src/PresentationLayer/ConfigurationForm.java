@@ -33,8 +33,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,8 +41,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 public class ConfigurationForm extends JFrame {
     
@@ -166,6 +162,8 @@ public class ConfigurationForm extends JFrame {
                 connection.setDatabase(databaseTextField.getText());
                 connection.setUsername(usernameTextField.getText());
                 connection.setPassword(passwordTextField.getText());
+                connection.setLanguage("vi_VN");
+                connection.setTheme(("Indigo"));
                 
                 bus.writeConfig(connection);
                 
@@ -173,11 +171,9 @@ public class ConfigurationForm extends JFrame {
                 app.build();
                 dispose();
                 
-            } catch (ParserConfigurationException | TransformerException | NullPointerException exception) {
+            } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null,
                     exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                Logger.getLogger(ConfigurationForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         

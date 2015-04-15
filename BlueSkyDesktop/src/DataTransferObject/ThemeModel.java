@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
 
 public class ThemeModel extends DefaultComboBoxModel {
-    private final ResourceBundle bundle;
+    private ResourceBundle bundle;
     
     public ThemeModel() {
         this.bundle = ResourceBundle.getBundle(

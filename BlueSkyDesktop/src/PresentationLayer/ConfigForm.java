@@ -23,9 +23,11 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.ConfigurationBUS;
 import Components.FlatButton;
 import Components.SpringUtilities;
 import Core.Config;
+import DataTransferObject.Connection;
 import DataTransferObject.ItemComboBox;
 import DataTransferObject.LanguageModel;
 import DataTransferObject.ThemeModel;
@@ -35,14 +37,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -175,8 +183,16 @@ public class ConfigForm extends JFrame {
         this.languageComboBox.setBackground(Color.WHITE);
         
         this.cancelButton.setText(this.bundle.getString("btnCancel"));
+        this.cancelButton.addActionListener(new cancelListener());
         
         this.okButton.setText(this.bundle.getString("btnOk"));
+        this.okButton.addActionListener(new okListener());
+        
+        this.hostTextField.setText(Config.host);
+        this.portTextField.setText(Config.port);
+        this.databaseTextField.setText(Config.database);
+        this.usernameTextField.setText(Config.username);
+        this.passwordTextField.setText(Config.password);
         
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
@@ -223,12 +239,52 @@ public class ConfigForm extends JFrame {
         this.addWindowListener(new windowListener());
     }
     
+    private void exit() {
+        AdminForm form = new AdminForm();
+        form.build();
+        dispose();
+    }
+    
     private class windowListener extends WindowAdapter {
+        
         @Override
         public void windowClosing(WindowEvent e) {
-            AdminForm form = new AdminForm();
-            form.build();
-            dispose();
+            exit();
+        }
+    }
+    
+    private class cancelListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            exit();
+        }
+    }
+    
+    private class okListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ConfigurationBUS bus = new ConfigurationBUS();
+            
+            try {
+                Connection connection = new Connection();
+                connection.setHost(hostTextField.getText());
+                connection.setPort(portTextField.getText());
+                connection.setDatabase(databaseTextField.getText());
+                connection.setUsername(usernameTextField.getText());
+                connection.setPassword(passwordTextField.getText());
+                connection.setLanguage(((ItemComboBox) languageComboBox.getSelectedItem()).getValueMember());
+                connection.setTheme(((ItemComboBox) themeComboBox.getSelectedItem()).getValueMember());
+                
+                bus.writeConfig(connection);
+                
+                exit();
+                
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                    exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

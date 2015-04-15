@@ -23,11 +23,14 @@
  */
 package BusinessLogicLayer;
 
+import Core.Config;
 import DataAccessLayer.ConfigurationDAO;
 import DataTransferObject.Connection;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
 
 public class ConfigurationBUS {
@@ -46,21 +49,33 @@ public class ConfigurationBUS {
     }
     
     public void writeConfig(Connection connection)
-            throws Exception {
+            throws NullPointerException,SQLException,
+                TransformerException, ParserConfigurationException,
+                Exception {
         
         if (!"".equals(connection.getPort()) &&
                 !"".equals(connection.getHost()) &&
                 !"".equals(connection.getDatabase()) &&
                 !"".equals(connection.getUsername()) &&
-                !"".equals(connection.getPassword())) {
+                !"".equals(connection.getPassword()) &&
+                !"".equals(connection.getLanguage()) &&
+                !"".equals(connection.getTheme())) {
         } else {
             throw new NullPointerException("Variables must be not left blank.");
         }
         
         if (config.isConnected(connection)== false) {
-            throw new Exception("Configuration is wrong");
+            throw new SQLException("Configuration is wrong");
         }
         
         this.config.writeConfigurationToFile(connection);
+        
+        Config.host = connection.getHost();
+        Config.port = connection.getPort();
+        Config.database = connection.getDatabase();
+        Config.username = connection.getUsername();
+        Config.password = connection.getPassword();
+        Config.theme = connection.getTheme();
+        Config.language = connection.getLanguage();
     }
 }

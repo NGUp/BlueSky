@@ -33,6 +33,8 @@ public class Connection {
     private String database;
     private String username;
     private String password;
+    private String language;
+    private String theme;
     
     public Connection() {
         
@@ -40,12 +42,15 @@ public class Connection {
     
     public Connection(
             String host, String port, String database,
-            String username, String password) {
+            String username, String password,
+            String language, String theme) {
         this.host = host;
         this.port = port;
         this.database = database;
         this.username = username;
         this.password = password;
+        this.language = language;
+        this.theme = theme;
     }
     
     public void setHost(String host) {
@@ -67,6 +72,15 @@ public class Connection {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+    
     public String getHost() {
         return this.host;
     }
@@ -85,5 +99,13 @@ public class Connection {
     
     public String getPassword() {
         return this.password;
+    }
+    
+    public String getLanguage() {
+        return this.language;
+    }
+    
+    public String getTheme() {
+        return this.theme;
     }
 }

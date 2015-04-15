@@ -146,11 +146,11 @@ public class ConfigurationDAO {
         configuration.appendChild(passwordElement);
         
         Element languageElement = doc.createElement("language");
-        languageElement.appendChild(doc.createTextNode("vi_VN"));
+        languageElement.appendChild(doc.createTextNode(connection.getLanguage()));
         configuration.appendChild(languageElement);
         
         Element themeElement = doc.createElement("theme");
-        themeElement.appendChild(doc.createTextNode("Indigo"));
+        themeElement.appendChild(doc.createTextNode(connection.getTheme()));
         configuration.appendChild(themeElement);
         
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
