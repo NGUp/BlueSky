@@ -26,20 +26,15 @@ package ResourceBundle;
 import java.util.ListResourceBundle;
 
 /**
- * ResourceBundle for English
+ * ResourceBundle for Vietnamese
  * 
  */
-public class AdminForm_en_US extends ListResourceBundle{
-
+public class ConfigForm_vi_VN extends ListResourceBundle{
+    
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Administrator" },
-            { "lblEmployee", "Employee Management" },
-            { "lblPrivacy", "Change Password" },
-            { "lblUser", "User Management" },
-            { "lblConfig", "System Configuration" }
+            { "lblTitle", "Cấu hình hệ thống" }
         };
     }
-    
 }
