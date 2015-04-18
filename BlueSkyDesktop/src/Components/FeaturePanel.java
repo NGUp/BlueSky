@@ -34,22 +34,26 @@ import javax.swing.JPanel;
 
 public class FeaturePanel extends JPanel {
     private final JLabel title;
+    
+    private final FlowLayout layout;
+    
     private final ImagePanel imagePanel;
     
     public FeaturePanel(String title, Image imageIcon) {
         this.imagePanel = new ImagePanel(imageIcon);
+        this.layout = new FlowLayout();
         
         this.title = new JLabel();
         this.title.setText(title);
         this.title.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         this.title.setForeground(new Color(33, 33, 33));
-        
+        this.layout.setAlignment(FlowLayout.LEFT);
         this.setBackground(Color.WHITE);
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.setLayout(new FlowLayout());
+        this.setLayout(this.layout);
         this.setComponentOrientation(
                 ComponentOrientation.LEFT_TO_RIGHT);
-        this.add(imagePanel);
+        this.add(this.imagePanel);
         this.add(this.title);
     }
 }
