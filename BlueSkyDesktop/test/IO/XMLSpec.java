@@ -60,8 +60,8 @@ public class XMLSpec {
             assertEquals(Config.database, "qlcb");
             assertEquals(Config.username, "root");
             assertEquals(Config.password, "vertrigo");
-            assertEquals(Config.language, "vi_VN");
-            assertEquals(Config.theme, "Indigo");
+            assertEquals(Config.language, "en_US");
+            assertEquals(Config.theme, "Red");
         } catch (ParserConfigurationException | IOException | SAXException ex) {
             Logger.getLogger(XMLSpec.class.getName()).log(Level.SEVERE, null, ex);
         }

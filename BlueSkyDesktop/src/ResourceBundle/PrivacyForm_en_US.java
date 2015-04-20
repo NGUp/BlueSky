@@ -34,7 +34,12 @@ public class PrivacyForm_en_US extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Change Password" }
+            { "lblTitle", "Change Password" },
+            { "lblOldPassword", "Old password" },
+            { "lblNewPassword", "New password" },
+            { "lblConfirmPassword", "Confirm password" },
+            { "btnOK", "OK" },
+            { "btnCancel", "Cancel" }
         };
     }
 }

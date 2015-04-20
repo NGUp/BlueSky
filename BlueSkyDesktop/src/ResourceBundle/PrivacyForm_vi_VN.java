@@ -34,7 +34,12 @@ public class PrivacyForm_vi_VN extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Thay đổi mật khẩu" }
+            { "lblTitle", "Thay đổi mật khẩu" },
+            { "lblOldPassword", "Mật khẩu cũ" },
+            { "lblNewPassword", "Mật khẩu mới" },
+            { "lblConfirmPassword", "Xác nhận mật khẩu" },
+            { "btnOK", "Đồng ý" },
+            { "btnCancel", "Hủy" }
         };
     }
 }
