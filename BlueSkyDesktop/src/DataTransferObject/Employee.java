@@ -265,4 +265,13 @@ public class Employee {
     public String getPhone() {
         return this.phone;
     }
+    
+    /**
+     * Get employee's sex
+     * 
+     * @return String
+     */
+    public String getSex() {
+        return this.sex;
+    }
 }

@@ -26,9 +26,15 @@ package BusinessLogicLayer;
 import Core.Cryptography;
 import DataAccessLayer.EmployeeDAO;
 import DataTransferObject.Employee;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 public class EmployeeBUS {
     private final EmployeeDAO dao;
@@ -73,5 +79,18 @@ public class EmployeeBUS {
                     NoSuchAlgorithmException, UnsupportedEncodingException {
         password = this.crypto.encode(password);
         return this.dao.changePassword(password);
+    }
+    
+    public int importFile(File file) throws ParserConfigurationException, SAXException, IOException, ParseException, SQLException, ClassNotFoundException {
+        ArrayList<Employee> employees = this.dao.importEmployees(file);
+        int count = 0;
+        
+        for(Employee employee : employees) {
+            if (this.dao.insert(employee)) {
+                count++;
+            }
+        }
+        
+        return count;
     }
 }

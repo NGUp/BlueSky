@@ -34,7 +34,10 @@ public class EmployeeForm_en_US extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Employee Management" }
+            { "lblTitle", "Employee Management" },
+            { "btnImport", "Import" },
+            { "lblSuccessfully", " employee(s) was added" },
+            { "lblDialog", "Notification" }
         };
     }
 }

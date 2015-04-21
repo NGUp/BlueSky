@@ -26,8 +26,21 @@ package DataAccessLayer;
 import Core.Provider;
 import Core.Session;
 import DataTransferObject.Employee;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class EmployeeDAO {
     private final Provider provider;
@@ -65,6 +78,14 @@ public class EmployeeDAO {
         return result;
     }
     
+    /**
+     * Check user's password is valid
+     * 
+     * @param password String
+     * @return boolean
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public boolean checkPassword(String password)
             throws SQLException, ClassNotFoundException {
         String sql = String.format(
@@ -82,6 +103,14 @@ public class EmployeeDAO {
         return false;
     }
     
+    /**
+     * Change user's password
+     * 
+     * @param password String
+     * @return boolean
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public boolean changePassword(String password)
             throws SQLException, ClassNotFoundException {
         String sql = String.format(
@@ -94,5 +123,90 @@ public class EmployeeDAO {
         }
         
         return false;
+    }
+    
+    public boolean insert(Employee employee) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "INSERT INTO `nhanvien`(`MaNV`, `TenNV`, `MaLoai`, `CMND`, `TenDangNhap`, `MatKhau`, `NgSinh`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                employee.getID(), employee.getName(), employee.getPermission(), employee.getIdentityCard(), employee.getUsername(), employee.getPassword(),
+                new SimpleDateFormat("yyyy/MM/dd").format(employee.getBirthday()), employee.getSex(), employee.getAddress(), employee.getPhone());
+        
+        return (this.provider.executeNonQuery(sql) == 1);
+    }
+    
+    public ArrayList<Employee> importEmployees(File file)
+            throws ParserConfigurationException, SAXException,
+                    IOException, ParseException {
+        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+        Document doc = docBuilder.parse(file);
+        doc.getDocumentElement().normalize();
+        NodeList nodeList = doc.getElementsByTagName("employee");
+        
+        ArrayList<Employee> lists = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        
+        for (int index = 0; index < nodeList.getLength(); index++) {
+            Node node = nodeList.item(index);
+        
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                Employee employee = new Employee();
+
+                NodeList idElementList = element.getElementsByTagName("id");
+                Element idElement = (Element) idElementList.item(0);
+                NodeList id = idElement.getChildNodes();
+                employee.setID(((Node) id.item(0)).getNodeValue());
+
+                NodeList nameElementList = element.getElementsByTagName("name");
+                Element nameElement = (Element) nameElementList.item(0);
+                NodeList name = nameElement.getChildNodes();
+                employee.setName(((Node) name.item(0)).getNodeValue());
+
+                NodeList permissionElementList = element.getElementsByTagName("permission");
+                Element permissionElement = (Element) permissionElementList.item(0);
+                NodeList permission = permissionElement.getChildNodes();
+                employee.setPermission(((Node) permission.item(0)).getNodeValue());
+
+                NodeList identityElementList = element.getElementsByTagName("identity");
+                Element identityElement = (Element) identityElementList.item(0);
+                NodeList identity = identityElement.getChildNodes();
+                employee.setIdentityCard(((Node) identity.item(0)).getNodeValue());
+                
+                NodeList usernameElementList = element.getElementsByTagName("username");
+                Element usernameElement = (Element) usernameElementList.item(0);
+                NodeList username = usernameElement.getChildNodes();
+                employee.setUsername(((Node) username.item(0)).getNodeValue());
+
+                NodeList passwordElementList = element.getElementsByTagName("password");
+                Element passwordElement = (Element) passwordElementList.item(0);
+                NodeList password = passwordElement.getChildNodes();
+                employee.setPassword(((Node) password.item(0)).getNodeValue());
+
+                NodeList birthdayElementList = element.getElementsByTagName("birthday");
+                Element birthdayElement = (Element) birthdayElementList.item(0);
+                NodeList birthday = birthdayElement.getChildNodes();
+                employee.setBirthday(formatter.parse(((Node) birthday.item(0)).getNodeValue()));
+
+                NodeList sexElementList = element.getElementsByTagName("sex");
+                Element sexElement = (Element) sexElementList.item(0);
+                NodeList sex = sexElement.getChildNodes();
+                employee.setSex(((Node) sex.item(0)).getNodeValue());
+                
+                NodeList addressElementList = element.getElementsByTagName("address");
+                Element addressElement = (Element) addressElementList.item(0);
+                NodeList address = addressElement.getChildNodes();
+                employee.setAddress(((Node) address.item(0)).getNodeValue());
+                
+                NodeList phoneElementList = element.getElementsByTagName("phone");
+                Element phoneElement = (Element) phoneElementList.item(0);
+                NodeList phone = phoneElement.getChildNodes();
+                employee.setPhone(((Node) phone.item(0)).getNodeValue());
+                
+                lists.add(employee);
+            }
+        }
+        
+        return lists;
     }
 }

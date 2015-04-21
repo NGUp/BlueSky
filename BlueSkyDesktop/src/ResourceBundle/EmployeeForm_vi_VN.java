@@ -34,7 +34,10 @@ public class EmployeeForm_vi_VN extends ListResourceBundle{
     @Override
     protected Object[][] getContents() {
         return new Object[][] {
-            { "lblTitle", "Quản lý nhân viên" }
+            { "lblTitle", "Quản lý nhân viên" },
+            { "btnImport", "Chọn file" },
+            { "lblSuccessfully", " nhân viên đã được thêm" },
+            { "lblDialog", "Thông báo" }
         };
     }
 }

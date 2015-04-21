@@ -23,6 +23,8 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.EmployeeBUS;
+import Components.FlatButton;
 import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,21 +32,44 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 public class EmployeeForm extends JFrame {
     private final JLabel titleLabel;
     
     private final JPanel headerPanel;
+    private final JPanel asidePanel;
+    private final JPanel importPanel;
+    
+    private final FlatButton importButton;
+    
+    private final JFileChooser fileChooser;
     
     private final Dimension headerDimension;
     
     private Color theme;
+    
+    private JFrame frame;
     
     private ResourceBundle bundle;
     
@@ -54,6 +79,14 @@ public class EmployeeForm extends JFrame {
         this.titleLabel = new JLabel();
         
         this.headerPanel = new JPanel();
+        this.asidePanel = new JPanel();
+        this.importPanel = new JPanel();
+        
+        this.importButton = new FlatButton();
+        
+        this.fileChooser = new JFileChooser();
+        
+        this.frame = this;
         
         this.headerDimension = new Dimension();
     }
@@ -73,6 +106,10 @@ public class EmployeeForm extends JFrame {
         this.bundle = ResourceBundle.getBundle(
                 "ResourceBundle.EmployeeForm", Language.getLanguage());
         
+        FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
+        this.fileChooser.setAcceptAllFileFilterUsed(false);
+        this.fileChooser.addChoosableFileFilter(filter);
+        
         this.titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 36));
         this.titleLabel.setForeground(Color.WHITE);
         this.titleLabel.setLocation(90, 0);
@@ -88,6 +125,10 @@ public class EmployeeForm extends JFrame {
                 "</body></html>"
         );
         
+        this.importButton.setText(
+                this.bundle.getString("btnImport"));
+        this.importButton.addActionListener(new importListener());
+        
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
@@ -99,8 +140,17 @@ public class EmployeeForm extends JFrame {
         this.headerPanel.setBackground(this.theme);
         this.headerPanel.setPreferredSize(this.headerDimension);
         
+        this.importPanel.add(this.importButton);
+        this.importPanel.setSize(300, 100);
+        this.importPanel.setBackground(Color.WHITE);
+        
+        this.asidePanel.setBackground(Color.WHITE);
+        this.asidePanel.add(importPanel);
+        this.asidePanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.BLACK));
+        
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
+        this.add(this.asidePanel, BorderLayout.EAST);
         this.addWindowListener(new windowListener());
         
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));
@@ -112,6 +162,31 @@ public class EmployeeForm extends JFrame {
             AdminForm form = new AdminForm();
             form.build();
             dispose();
+        }
+    }
+    
+    private class importListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int returnVal = fileChooser.showOpenDialog(frame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                EmployeeBUS bus = new EmployeeBUS();
+                
+                try {
+                    int count = bus.importFile(file);
+                    
+                    JOptionPane.showMessageDialog(null,
+                            count + bundle.getString("lblSuccessfully"),
+                            bundle.getString("lblDialog"),
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (ParserConfigurationException | SAXException |
+                        IOException | ParseException |
+                        SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 }
