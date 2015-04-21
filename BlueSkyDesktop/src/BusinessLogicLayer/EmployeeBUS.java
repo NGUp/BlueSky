@@ -32,9 +32,11 @@ import java.sql.SQLException;
 
 public class EmployeeBUS {
     private final EmployeeDAO dao;
+    private final Cryptography crypto;
     
     public EmployeeBUS() {
         this.dao = new EmployeeDAO();
+        this.crypto = new Cryptography();
     }
 
     /**
@@ -50,14 +52,26 @@ public class EmployeeBUS {
     public boolean login(Employee employee)
             throws NoSuchAlgorithmException, UnsupportedEncodingException,
                     SQLException, ClassNotFoundException {
-        Cryptography crypto = new Cryptography();
+        
         
         employee.setPassword(
-                crypto.getMD5(
-                        "9dbh32kzkj2" +
-                        crypto.getSHA1(employee.getPassword()) +
-                        "32jsa9d82h"));
+                this.crypto.encode(employee.getPassword()));
         
         return this.dao.login(employee);
+    }
+    
+    public boolean checkPassword(String password)
+            throws SQLException, ClassNotFoundException,
+                    NoSuchAlgorithmException, UnsupportedEncodingException {
+        
+        password = this.crypto.encode(password);
+        return this.dao.checkPassword(password);
+    }
+    
+    public boolean changePassword(String password)
+            throws SQLException, ClassNotFoundException,
+                    NoSuchAlgorithmException, UnsupportedEncodingException {
+        password = this.crypto.encode(password);
+        return this.dao.changePassword(password);
     }
 }

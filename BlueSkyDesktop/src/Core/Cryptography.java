@@ -41,7 +41,7 @@ public class Cryptography {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException 
      */
-    public String getMD5(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    private String getMD5(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("MD5");
         byte[] bytesOfHash = hash.getBytes("UTF-8");
         byte[] theDigest = digest.digest(bytesOfHash);
@@ -66,7 +66,7 @@ public class Cryptography {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException 
      */
-    public String getSHA1(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    private String getSHA1(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         byte[] bytesOfHash = hash.getBytes("UTF-8");
         byte[] theDigest = digest.digest(bytesOfHash);
@@ -81,5 +81,21 @@ public class Cryptography {
         }
         
         return hexString.toString();
+    }
+    
+    /**
+     * Encode password
+     * 
+     * @param hash Password
+     * @return Hash
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException 
+     */
+    public String encode(String hash)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        return this.getMD5(
+                        "9dbh32kzkj2" +
+                        this.getSHA1(hash) +
+                        "32jsa9d82h");
     }
 }

@@ -39,7 +39,16 @@ public class PrivacyForm_en_US extends ListResourceBundle{
             { "lblNewPassword", "New password" },
             { "lblConfirmPassword", "Confirm password" },
             { "btnOK", "OK" },
-            { "btnCancel", "Cancel" }
+            { "btnCancel", "Cancel" },
+            { "errOldPassword", "Password is wrong" },
+            { "errConfirmPassword", "Confirm password is not match" },
+            { "errChangePassword", "Change password was failed" },
+            { "lblSuccessfully", "Change password successfully" },
+            { "lblFailed", "Change password Failed" },
+            { "lblDialog", "Notification" },
+            { "errOldPasswordMatch", "Old password is invalid"},
+            { "errNewPasswordMatch", "New password is invalid"},
+            { "errConfirmPasswordMatch", "Confirm password is invalid"}
         };
     }
 }

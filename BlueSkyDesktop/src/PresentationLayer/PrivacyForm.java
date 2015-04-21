@@ -23,6 +23,7 @@
  */
 package PresentationLayer;
 
+import BusinessLogicLayer.EmployeeBUS;
 import Components.FlatButton;
 import Components.SpringUtilities;
 import ResourceBundle.Language;
@@ -36,12 +37,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 import javax.swing.SpringLayout;
 
 public class PrivacyForm extends JFrame {
@@ -49,14 +58,16 @@ public class PrivacyForm extends JFrame {
     private final JLabel newPasswordLabel;
     private final JLabel confirmPasswordLabel;
     private final JLabel oldPasswordLabel;
+    private final JLabel errorLabel;
     
     private final JPanel headerPanel;
     private final JPanel privacyPanel;
     private final JPanel bodyPanel;
+    private final JPanel nothingPanel;
     
-    private final JTextField oldPaswordTextField;
-    private final JTextField newPaswordTextField;
-    private final JTextField confirmPaswordTextField;
+    private final JPasswordField oldPasswordTextField;
+    private final JPasswordField newPasswordTextField;
+    private final JPasswordField confirmPasswordTextField;
     
     private final FlatButton cancelButton;
     private final FlatButton okButton;
@@ -76,14 +87,16 @@ public class PrivacyForm extends JFrame {
         this.oldPasswordLabel = new JLabel();
         this.newPasswordLabel = new JLabel();
         this.confirmPasswordLabel = new JLabel();
+        this.errorLabel = new JLabel();
         
         this.headerPanel = new JPanel();
         this.privacyPanel = new JPanel();
         this.bodyPanel = new JPanel();
+        this.nothingPanel = new JPanel();
         
-        this.oldPaswordTextField = new JTextField();
-        this.newPaswordTextField = new JTextField();
-        this.confirmPaswordTextField = new JTextField();
+        this.oldPasswordTextField = new JPasswordField();
+        this.newPasswordTextField = new JPasswordField();
+        this.confirmPasswordTextField = new JPasswordField();
         
         this.cancelButton = new FlatButton();
         this.okButton = new FlatButton();
@@ -123,6 +136,9 @@ public class PrivacyForm extends JFrame {
                 "</body></html>"
         );
         
+        this.errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        this.errorLabel.setForeground(Color.RED);
+        
         this.oldPasswordLabel.setFont(font);
         this.oldPasswordLabel.setText(
                 this.bundle.getString("lblOldPassword") + ": ");
@@ -141,12 +157,15 @@ public class PrivacyForm extends JFrame {
         
         this.okButton.setText(
                 this.bundle.getString("btnOK") + ": ");
+        this.okButton.addActionListener(new changePasswordListener());
         
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
                 .getWidth();
         this.headerDimension.height = 64;
+        
+        this.nothingPanel.setBackground(Color.WHITE);
         
         this.headerPanel.add(this.titleLabel);
         this.headerPanel.setLayout(new BorderLayout());
@@ -156,17 +175,20 @@ public class PrivacyForm extends JFrame {
         this.privacyPanel.setLayout(new SpringLayout());
         this.privacyPanel.setBackground(Color.WHITE);
         this.privacyPanel.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
-        this.privacyPanel.setPreferredSize(new Dimension(500, 250));
+        this.privacyPanel.setPreferredSize(new Dimension(500, 270));
         this.privacyPanel.add(this.oldPasswordLabel);
-        this.privacyPanel.add(this.oldPaswordTextField);
+        this.privacyPanel.add(this.oldPasswordTextField);
         this.privacyPanel.add(this.newPasswordLabel);
-        this.privacyPanel.add(this.newPaswordTextField);
+        this.privacyPanel.add(this.newPasswordTextField);
         this.privacyPanel.add(this.confirmPasswordLabel);
-        this.privacyPanel.add(this.confirmPaswordTextField);
+        this.privacyPanel.add(this.confirmPasswordTextField);
         this.privacyPanel.add(this.cancelButton);
         this.privacyPanel.add(this.okButton);
+        this.privacyPanel.add(this.nothingPanel);
+        this.privacyPanel.add(this.errorLabel);
+        
         SpringUtilities.makeGrid(this.privacyPanel,
-                         4, 2, //rows, cols
+                         5, 2, //rows, cols
                          0, 0, //initialX, initialY
                          8, 8);//xPad, yPad
         
@@ -199,6 +221,65 @@ public class PrivacyForm extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             exit();
+        }
+    }
+    
+    private class changePasswordListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            EmployeeBUS bus = new EmployeeBUS();
+            
+            try {
+                String passwordPattern = "^[a-zA-Z0-9!@#$%^&*?_~]{7,}$";
+                Pattern regex = Pattern.compile(passwordPattern);
+                Matcher matcher = regex.matcher(oldPasswordTextField.getText());
+                
+                if (matcher.matches() == false) {
+                    errorLabel.setText(
+                            bundle.getString("errOldPasswordMatch"));
+                } else {
+                    if (bus.checkPassword(oldPasswordTextField.getText()) == true) {
+                        
+                        matcher = regex.matcher(newPasswordTextField.getText());
+                        
+                        if (matcher.matches() == false) {
+                            errorLabel.setText(
+                                    bundle.getString("errNewPasswordMatch"));
+                        } else {
+                            matcher = regex.matcher(confirmPasswordTextField.getText());
+                            
+                            if (matcher.matches() == false) {
+                                errorLabel.setText(
+                                        bundle.getString("errConfirmPasswordMatch"));
+                            } else {
+                                if (newPasswordTextField.getText().equals(confirmPasswordTextField.getText())) {
+                                    if (bus.changePassword(newPasswordTextField.getText())) {
+                                        errorLabel.setText("");
+                                        JOptionPane.showMessageDialog(null,
+                                                bundle.getString("lblSuccessfully"),
+                                                bundle.getString("lblDialog"),
+                                                JOptionPane.INFORMATION_MESSAGE);
+                                        exit();
+                                    } else {
+                                        errorLabel.setText(
+                                            bundle.getString("errChangePassword"));
+                                    }
+                                } else {
+                                    errorLabel.setText(
+                                        bundle.getString("errConfirmPassword"));
+                                }
+                            }
+                        }
+                    } else {
+                        errorLabel.setText(
+                            bundle.getString("errOldPassword"));
+                    }
+                }
+            } catch (SQLException | ClassNotFoundException |
+                    NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+                Logger.getLogger(PrivacyForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

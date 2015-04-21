@@ -39,7 +39,16 @@ public class PrivacyForm_vi_VN extends ListResourceBundle{
             { "lblNewPassword", "Mật khẩu mới" },
             { "lblConfirmPassword", "Xác nhận mật khẩu" },
             { "btnOK", "Đồng ý" },
-            { "btnCancel", "Hủy" }
+            { "btnCancel", "Hủy" },
+            { "errOldPassword", "Mật khẩu không đúng" },
+            { "errConfirmPassword", "Mật khẩu xác nhận không khớp" },
+            { "errChangePassword", "Thay đổi mật khẩu thất bại" },
+            { "lblSuccessfully", "Thay đổi mật khẩu thành công" },
+            { "lblFailed", "Thay đổi mật khẩu thất bại" },
+            { "lblDialog", "Thông báo" },
+            { "errOldPasswordMatch", "Mật khẩu cũ không hợp lệ"},
+            { "errNewPasswordMatch", "Mật khẩu mới không hợp lệ"},
+            { "errConfirmPasswordMatch", "Mật khẩu xác nhận không hợp lệ"}
         };
     }
 }

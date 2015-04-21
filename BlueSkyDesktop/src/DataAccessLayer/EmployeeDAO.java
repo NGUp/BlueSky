@@ -44,7 +44,8 @@ public class EmployeeDAO {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public boolean login(Employee employee) throws SQLException, ClassNotFoundException {
+    public boolean login(Employee employee)
+            throws SQLException, ClassNotFoundException {
         String sql = String.format(
                 "Select MaNV, MaLoai From NhanVien Where TenDangNhap = '%s' And MatKhau = '%s'",
                 employee.getUsername(), employee.getPassword());
@@ -62,5 +63,36 @@ public class EmployeeDAO {
         this.provider.closeConnection();
         
         return result;
+    }
+    
+    public boolean checkPassword(String password)
+            throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Select MatKhau From NhanVien Where MaNV = '%s'",
+                Session.USER_ID);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        
+        if (data.next()) {
+            if (password == null ? data.getString("MatKhau") == null : password.equals(data.getString("MatKhau"))) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean changePassword(String password)
+            throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Update NhanVien Set MatKhau = '%s' Where MaNV = '%s'",
+                password, Session.USER_ID
+        );
+        
+        if (this.provider.executeNonQuery(sql) == 1) {
+            return true;
+        }
+        
+        return false;
     }
 }
