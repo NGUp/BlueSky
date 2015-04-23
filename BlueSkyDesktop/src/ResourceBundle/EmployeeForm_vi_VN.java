@@ -37,7 +37,9 @@ public class EmployeeForm_vi_VN extends ListResourceBundle{
             { "lblTitle", "Quản lý nhân viên" },
             { "btnImport", "Chọn file" },
             { "lblSuccessfully", " nhân viên đã được thêm" },
-            { "lblDialog", "Thông báo" }
+            { "lblDialog", "Thông báo" },
+            { "btnPrevious", "Trang trước" },
+            { "btnNext", "Trang sau" }
         };
     }
 }

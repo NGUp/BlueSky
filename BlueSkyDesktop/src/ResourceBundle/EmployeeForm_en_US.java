@@ -37,7 +37,9 @@ public class EmployeeForm_en_US extends ListResourceBundle{
             { "lblTitle", "Employee Management" },
             { "btnImport", "Import" },
             { "lblSuccessfully", " employee(s) was added" },
-            { "lblDialog", "Notification" }
+            { "lblDialog", "Notification" },
+            { "btnPrevious", "Previous page" },
+            { "btnNext", "Next page" }
         };
     }
 }

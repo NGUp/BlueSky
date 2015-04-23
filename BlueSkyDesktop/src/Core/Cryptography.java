@@ -41,7 +41,7 @@ public class Cryptography {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException 
      */
-    private String getMD5(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    String getMD5(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("MD5");
         byte[] bytesOfHash = hash.getBytes("UTF-8");
         byte[] theDigest = digest.digest(bytesOfHash);
@@ -66,7 +66,7 @@ public class Cryptography {
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException 
      */
-    private String getSHA1(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    String getSHA1(String hash) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         byte[] bytesOfHash = hash.getBytes("UTF-8");
         byte[] theDigest = digest.digest(bytesOfHash);

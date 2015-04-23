@@ -81,7 +81,9 @@ public class EmployeeBUS {
         return this.dao.changePassword(password);
     }
     
-    public int importFile(File file) throws ParserConfigurationException, SAXException, IOException, ParseException, SQLException, ClassNotFoundException {
+    public int importFile(File file)
+            throws ParserConfigurationException, SAXException,
+                    IOException, ParseException, SQLException, ClassNotFoundException {
         ArrayList<Employee> employees = this.dao.importEmployees(file);
         int count = 0;
         
@@ -92,5 +94,10 @@ public class EmployeeBUS {
         }
         
         return count;
+    }
+    
+    
+    public int getPages() throws SQLException, ClassNotFoundException {
+        return (this.dao.countAll() / 15) + 1;
     }
 }

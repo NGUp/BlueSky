@@ -33,6 +33,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -100,6 +101,8 @@ public class EmployeeDAO {
             }
         }
         
+        this.provider.closeConnection();
+        
         return false;
     }
     
@@ -123,6 +126,21 @@ public class EmployeeDAO {
         }
         
         return false;
+    }
+    
+    public int countAll() throws SQLException, ClassNotFoundException {
+        String sql = "Select Count(MaNV) As SoLuong From NhanVien";
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        int count = 0;
+        
+        if (data.next()) {
+            count = data.getInt("SoLuong");
+        }
+        
+        this.provider.closeConnection();
+        
+        return count;
     }
     
     public boolean insert(Employee employee) throws SQLException, ClassNotFoundException {
@@ -208,5 +226,32 @@ public class EmployeeDAO {
         }
         
         return lists;
+    }
+    
+    public ArrayList<Employee> limit(int page)
+            throws SQLException, ClassNotFoundException {
+        String sql = String.format("Select * From NhanVien Limit %d, 15", page * 15);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Employee> employees = new ArrayList<>();
+        
+        while (result.next()) {
+            Employee employee = new Employee();
+            employee.setAddress(result.getString("DiaChi"));
+            employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
+            employee.setID(result.getString("MaNV"));
+            employee.setIdentityCard(result.getString("CMND"));
+            employee.setName(result.getString("TenNV"));
+            employee.setPermission(result.getString("MaLoai"));
+            employee.setPhone(result.getString("DienThoai"));
+            employee.setSex(result.getString("GioiTinh"));
+            employee.setUsername(result.getString("TenDangNhap"));
+            employees.add(employee);
+        }
+        
+        this.provider.closeConnection();
+        
+        return employees;
     }
 }

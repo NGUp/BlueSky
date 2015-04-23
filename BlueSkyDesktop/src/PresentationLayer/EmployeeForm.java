@@ -25,10 +25,13 @@ package PresentationLayer;
 
 import BusinessLogicLayer.EmployeeBUS;
 import Components.FlatButton;
+import Components.SpringUtilities;
+import Model.EmployeeTableModelLimit;
 import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
@@ -49,49 +52,81 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SpringLayout;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 public class EmployeeForm extends JFrame {
     private final JLabel titleLabel;
+    private final JLabel currentPageLabel;
+    private final JLabel totalPageLabel;
     
     private final JPanel headerPanel;
     private final JPanel asidePanel;
+    private final JPanel bodyPanel;
     private final JPanel importPanel;
+    private final JPanel pagingPanel;
+    private final JPanel countPanel;
     
     private final FlatButton importButton;
+    private final FlatButton previousButton;
+    private final FlatButton nextButton;
     
     private final JFileChooser fileChooser;
     
     private final Dimension headerDimension;
     
+    private final JTable employeeTable;
+    
     private Color theme;
     
-    private JFrame frame;
+    private int currentPage;
+    
+    private final JFrame frame;
+    
+    private final DefaultTableCellRenderer centerRenderer;
     
     private ResourceBundle bundle;
     
     public EmployeeForm() {
         super("BlueSky");
         
+        this.currentPage = 0;
+        
         this.titleLabel = new JLabel();
+        this.currentPageLabel = new JLabel();
+        this.totalPageLabel = new JLabel();
         
         this.headerPanel = new JPanel();
         this.asidePanel = new JPanel();
         this.importPanel = new JPanel();
+        this.bodyPanel = new JPanel();
+        this.pagingPanel = new JPanel();
+        this.countPanel = new JPanel();
         
         this.importButton = new FlatButton();
+        this.previousButton = new FlatButton();
+        this.nextButton = new FlatButton();
         
         this.fileChooser = new JFileChooser();
         
         this.frame = this;
         
+        this.employeeTable = new JTable();
+        
+        this.centerRenderer = new DefaultTableCellRenderer();
+        
         this.headerDimension = new Dimension();
     }
     
-    public void build() {
+    public void build() throws SQLException, ClassNotFoundException {
         this.initialize();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(GraphicsEnvironment
@@ -100,7 +135,7 @@ public class EmployeeForm extends JFrame {
         this.setVisible(true);
     }
     
-    public void initialize() {
+    public void initialize() throws SQLException, ClassNotFoundException {
         this.theme = Palette.getTheme();
         
         this.bundle = ResourceBundle.getBundle(
@@ -129,6 +164,35 @@ public class EmployeeForm extends JFrame {
                 this.bundle.getString("btnImport"));
         this.importButton.addActionListener(new importListener());
         
+        this.previousButton.setText(
+                this.bundle.getString("btnPrevious"));
+        this.previousButton.addActionListener(new previousListener());
+        
+        this.nextButton.setText(
+                this.bundle.getString("btnNext"));
+        this.nextButton.addActionListener(new nextListener());
+        
+        this.centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        this.employeeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        EmployeeBUS bus = new EmployeeBUS();
+        this.totalPageLabel.setText(Integer.toString(bus.getPages()));
+        
+        JScrollPane relativesScrollPane =  new JScrollPane(this.employeeTable);
+        relativesScrollPane.setPreferredSize(new Dimension(900, 550));
+        relativesScrollPane.setBackground(Color.WHITE);
+        relativesScrollPane.setOpaque(true);
+        relativesScrollPane.getViewport().setBackground(Color.WHITE);
+        
+        this.bodyPanel.setLayout(new FlowLayout());
+        this.bodyPanel.setBackground(Color.WHITE);
+        this.bodyPanel.add(relativesScrollPane);
+        
+        this.countPanel.add(this.currentPageLabel);
+        this.countPanel.add(this.totalPageLabel);
+        this.countPanel.setBackground(Color.WHITE);
+        
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
@@ -140,20 +204,67 @@ public class EmployeeForm extends JFrame {
         this.headerPanel.setBackground(this.theme);
         this.headerPanel.setPreferredSize(this.headerDimension);
         
-        this.importPanel.add(this.importButton);
+        this.pagingPanel.add(this.previousButton);
+        this.pagingPanel.add(this.nextButton);
+        this.pagingPanel.setLayout(new SpringLayout());
+        this.pagingPanel.setBackground(Color.WHITE);
+        SpringUtilities.makeGrid(this.pagingPanel,
+                         1, 2, //rows, cols
+                         0, 0, //initialX, initialY
+                         8, 8);//xPad, yPad
+        
+        this.importPanel.setLayout(new SpringLayout());
         this.importPanel.setSize(300, 100);
         this.importPanel.setBackground(Color.WHITE);
+        this.importPanel.add(this.importButton);
+        this.importPanel.add(this.pagingPanel);
+        this.importPanel.add(this.countPanel);
+        SpringUtilities.makeGrid(this.importPanel,
+                         3, 1, //rows, cols
+                         0, 0, //initialX, initialY
+                         8, 8);//xPad, yPad
         
         this.asidePanel.setBackground(Color.WHITE);
-        this.asidePanel.add(importPanel);
+        this.asidePanel.add(this.importPanel);
         this.asidePanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.BLACK));
         
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
+        this.add(this.bodyPanel, BorderLayout.CENTER);
         this.add(this.asidePanel, BorderLayout.EAST);
         this.addWindowListener(new windowListener());
         
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));
+        this.reload(currentPage);
+    }
+    
+    private void reload(int page) throws SQLException, ClassNotFoundException {
+        this.currentPageLabel.setText(Integer.toString(this.currentPage + 1) + " /");
+        this.employeeTable.setModel(new EmployeeTableModelLimit(page));
+        this.employeeTable.setBackground(Color.WHITE);
+        this.employeeTable.getTableHeader().setReorderingAllowed(false);
+        this.employeeTable.getTableHeader().setBackground(Color.WHITE);
+        this.employeeTable.setRowHeight(32);
+        this.employeeTable.setOpaque(true);
+        this.employeeTable.getColumnModel()
+                .getColumn(0).setCellRenderer(this.centerRenderer);
+        this.employeeTable.getColumnModel()
+                .getColumn(2).setCellRenderer(this.centerRenderer);
+        this.employeeTable.getColumnModel()
+                .getColumn(3).setCellRenderer(this.centerRenderer);
+        this.employeeTable.getColumnModel()
+                .getColumn(5).setCellRenderer(this.centerRenderer);
+        this.employeeTable.getColumnModel()
+                .getColumn(6).setCellRenderer(this.centerRenderer);
+        this.employeeTable.setTableHeader(
+                new JTableHeader(this.employeeTable.getColumnModel()) {
+                    @Override
+                    public Dimension getPreferredSize() {
+                        Dimension dimension = super.getPreferredSize();
+                        dimension.height = 64;
+                        return dimension;
+                    }
+                });
     }
     
     private class windowListener extends WindowAdapter {
@@ -181,9 +292,44 @@ public class EmployeeForm extends JFrame {
                             count + bundle.getString("lblSuccessfully"),
                             bundle.getString("lblDialog"),
                             JOptionPane.INFORMATION_MESSAGE);
+                    
+                    currentPage = 0;
+                    reload(currentPage);
                 } catch (ParserConfigurationException | SAXException |
                         IOException | ParseException |
                         SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    private class previousListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (currentPage > 0) {
+                currentPage--;
+
+                try {
+                    reload(currentPage);
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    private class nextListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (currentPage < Integer.parseInt(totalPageLabel.getText()) - 1) {
+                currentPage++;
+
+                try {
+                    reload(currentPage);
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
