@@ -33,6 +33,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -221,6 +222,11 @@ public class EmployeeDAO {
                 NodeList phone = phoneElement.getChildNodes();
                 employee.setPhone(((Node) phone.item(0)).getNodeValue());
                 
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(employee.getBirthday());
+                calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1970);
+                employee.setBirthday(calendar.getTime());
+                
                 lists.add(employee);
             }
         }
@@ -243,6 +249,7 @@ public class EmployeeDAO {
             employee.setID(result.getString("MaNV"));
             employee.setIdentityCard(result.getString("CMND"));
             employee.setName(result.getString("TenNV"));
+            employee.setState(result.getInt("TrangThai"));
             employee.setPermission(result.getString("MaLoai"));
             employee.setPhone(result.getString("DienThoai"));
             employee.setSex(result.getString("GioiTinh"));

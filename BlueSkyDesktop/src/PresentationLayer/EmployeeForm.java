@@ -95,6 +95,8 @@ public class EmployeeForm extends JFrame {
     
     private ResourceBundle bundle;
     
+    private final EmployeeBUS bus;
+    
     public EmployeeForm() {
         super("BlueSky");
         
@@ -124,6 +126,8 @@ public class EmployeeForm extends JFrame {
         this.centerRenderer = new DefaultTableCellRenderer();
         
         this.headerDimension = new Dimension();
+        
+        this.bus = new EmployeeBUS();
     }
     
     public void build() throws SQLException, ClassNotFoundException {
@@ -175,9 +179,6 @@ public class EmployeeForm extends JFrame {
         this.centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         
         this.employeeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        EmployeeBUS bus = new EmployeeBUS();
-        this.totalPageLabel.setText(Integer.toString(bus.getPages()));
         
         JScrollPane relativesScrollPane =  new JScrollPane(this.employeeTable);
         relativesScrollPane.setPreferredSize(new Dimension(900, 550));
@@ -239,6 +240,7 @@ public class EmployeeForm extends JFrame {
     }
     
     private void reload(int page) throws SQLException, ClassNotFoundException {
+        this.totalPageLabel.setText(Integer.toString(this.bus.getPages()));
         this.currentPageLabel.setText(Integer.toString(this.currentPage + 1) + " /");
         this.employeeTable.setModel(new EmployeeTableModelLimit(page));
         this.employeeTable.setBackground(Color.WHITE);
@@ -283,10 +285,11 @@ public class EmployeeForm extends JFrame {
             int returnVal = fileChooser.showOpenDialog(frame);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                EmployeeBUS bus = new EmployeeBUS();
                 
                 try {
                     int count = bus.importFile(file);
+                    
+                    reload(currentPage);
                     
                     JOptionPane.showMessageDialog(null,
                             count + bundle.getString("lblSuccessfully"),
@@ -294,7 +297,6 @@ public class EmployeeForm extends JFrame {
                             JOptionPane.INFORMATION_MESSAGE);
                     
                     currentPage = 0;
-                    reload(currentPage);
                 } catch (ParserConfigurationException | SAXException |
                         IOException | ParseException |
                         SQLException | ClassNotFoundException ex) {

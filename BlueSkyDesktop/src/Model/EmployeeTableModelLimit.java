@@ -51,6 +51,7 @@ public class EmployeeTableModelLimit extends AbstractTableModel {
             row.add(employee.getPermission());
             row.add(employee.getIdentityCard());
             row.add(employee.getUsername());
+            row.add(Integer.toString(employee.getState()));
             row.add(formatter.format(employee.getBirthday()));
             row.add(employee.getSex());
             row.add(employee.getPhone());
@@ -63,6 +64,7 @@ public class EmployeeTableModelLimit extends AbstractTableModel {
         this.columnHeader.add("Quyền");
         this.columnHeader.add("CMND");
         this.columnHeader.add("Tên đăng nhập");
+        this.columnHeader.add("Trạng thái");
         this.columnHeader.add("Ngày sinh");
         this.columnHeader.add("Giới tính");
         this.columnHeader.add("Điện thoại");

@@ -36,6 +36,7 @@ public class Employee {
     private String identityCard;
     private String username;
     private String password;
+    private int state;
     private Date birthday;
     private String sex;
     private String address;
@@ -56,6 +57,7 @@ public class Employee {
      * @param identityCard  The identity card number
      * @param username      The username of the account
      * @param password      The password of the account 
+     * @param state         The state of the employee
      * @param birthday      The birthday
      * @param sex           The sex
      * @param address       The address
@@ -63,7 +65,7 @@ public class Employee {
      */
     public Employee(
             String ID, String name, String permission, String identityCard,
-            String username, String password, Date birthday, String sex,
+            String username, String password, int state, Date birthday, String sex,
             String address, String phone) {
         this.ID = ID;
         this.name = name;
@@ -72,6 +74,7 @@ public class Employee {
         this.username = username;
         this.password = password;
         this.birthday = birthday;
+        this.state = state;
         this.sex = sex;
         this.address = address;
         this.phone = phone;
@@ -89,6 +92,7 @@ public class Employee {
         this.identityCard = employee.identityCard;
         this.username = employee.username;
         this.password = employee.password;
+        this.state = employee.state;
         this.birthday = employee.birthday;
         this.sex = employee.sex;
         this.address = employee.address;
@@ -147,6 +151,15 @@ public class Employee {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    /**
+     * Set the state
+     * 
+     * @param state Integer
+     */
+    public void setState(int state) {
+        this.state = state;
     }
     
     /**
@@ -237,6 +250,15 @@ public class Employee {
      */
     public String getPassword() {
         return this.password;
+    }
+    
+    /**
+     * Get the state
+     * 
+     * @return Integer
+     */
+    public int getState() {
+        return this.state;
     }
     
     /**
