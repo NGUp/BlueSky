@@ -27,6 +27,7 @@ import ResourceBundle.Language;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
@@ -36,15 +37,22 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class UserForm extends JFrame {
     private final JLabel titleLabel;
     
     private final JPanel headerPanel;
+    private final JPanel bodyPanel;
+    private final JPanel asidePanel;
     
     private final Dimension headerDimension;
     
     private Color theme;
+    
+    private JTable usersTable;
     
     private ResourceBundle bundle;
     
@@ -54,6 +62,10 @@ public class UserForm extends JFrame {
         this.titleLabel = new JLabel();
         
         this.headerPanel = new JPanel();
+        this.bodyPanel = new JPanel();
+        this.asidePanel = new JPanel();
+        
+        this.usersTable = new JTable();
         
         this.headerDimension = new Dimension();
     }
@@ -88,6 +100,14 @@ public class UserForm extends JFrame {
                 "</body></html>"
         );
         
+        this.usersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        JScrollPane relativesScrollPane =  new JScrollPane(this.usersTable);
+        relativesScrollPane.setPreferredSize(new Dimension(900, 550));
+        relativesScrollPane.setBackground(Color.WHITE);
+        relativesScrollPane.setOpaque(true);
+        relativesScrollPane.getViewport().setBackground(Color.WHITE);
+        
         this.headerDimension.width = (int) GraphicsEnvironment
                 .getLocalGraphicsEnvironment()
                 .getMaximumWindowBounds()
@@ -99,8 +119,13 @@ public class UserForm extends JFrame {
         this.headerPanel.setBackground(this.theme);
         this.headerPanel.setPreferredSize(this.headerDimension);
         
+        this.bodyPanel.setLayout(new FlowLayout());
+        this.bodyPanel.setBackground(Color.WHITE);
+        this.bodyPanel.add(relativesScrollPane);
+        
         this.setLayout(new BorderLayout());
         this.add(this.headerPanel, BorderLayout.NORTH);
+        this.add(this.bodyPanel, BorderLayout.CENTER);
         this.addWindowListener(new windowListener());
         
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("lib/form/favicon.png"));

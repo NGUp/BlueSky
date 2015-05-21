@@ -1,0 +1,56 @@
+header {
+    background-color: #673ab7;
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.nav-pills > li.active > a {
+    background-color: #673ab7;
+}
+
+.banner {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.banner img {
+    width: 100%;
+}
+
+h2 {
+    color: #f44336;
+}
+
+.book-content {
+    min-height: 385px;
+}
+
+.book {
+    margin: 8px 0;
+}
+
+.book .book-label {
+    line-height: 2.25em;
+}
+
+.btn-book {
+    float: right;
+    margin-right: 16px;
+    margin-top: 8px;
+    background-color: #009688;
+    background-image: none;
+    border-color: #009688;
+}
+
+.clear {
+    clear: both;
+}
+
+footer {
+    height: 100px;
+    margin-top: 32px;
+    background-color: #673ab7;
+}
