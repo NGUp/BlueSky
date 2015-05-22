@@ -1,0 +1,37 @@
+article {
+    width: 300px;
+    margin: 72px auto;
+    min-height: 350px;
+}
+
+h2 {
+    color: #f44336;
+    margin-bottom: 16px;
+}
+
+h4 {
+    color: #1976d2;
+}
+
+.register-input {
+    margin: 8px 0;
+}
+
+.btn-register {
+    float: right;
+    color: #fff;
+    background-color: #009688;
+    background-image: none;
+    border-color: #009688;
+}
+
+.btn-register:hover {
+    color: #fff;
+    background-color: #00796b;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

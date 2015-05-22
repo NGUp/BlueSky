@@ -1,12 +1,3 @@
-header {
-    background-color: #673ab7;
-}
-
-.navbar-brand,
-.navbar-brand:hover {
-    color: #fff;
-}
-
 .nav-pills > li.active > a {
     background-color: #673ab7;
 }
@@ -47,10 +38,4 @@ h2 {
 
 .clear {
     clear: both;
-}
-
-footer {
-    height: 100px;
-    margin-top: 32px;
-    background-color: #673ab7;
 }

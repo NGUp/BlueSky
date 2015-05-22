@@ -1,3 +1,5 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.GregorianCalendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -10,6 +12,7 @@
         <link rel="stylesheet" href="/BlueSkyWeb/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/BlueSkyWeb/public/css/bootstrap-datepicker.css"/>
         <link rel="stylesheet" href="/BlueSkyWeb/public/css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="/BlueSkyWeb/public/css/app.css"/>
         <link rel="stylesheet" href="/BlueSkyWeb/public/css/index.css"/>
     </head>
     <body>
@@ -29,8 +32,8 @@
                     <aside>
                         <ul class="nav nav-pills nav-stacked">
                             <li role="presentation" class="active"><a href="javascript:void(0)">Home</a></li>
-                            <li role="presentation"><a href="javascript:void(0)">Đăng nhập</a></li>
-                            <li role="presentation"><a href="javascript:void(0)">Đăng ký</a></li>
+                            <li role="presentation"><a href="/BlueSkyWeb/login.jsp">Đăng nhập</a></li>
+                            <li role="presentation"><a href="/BlueSkyWeb/register.jsp">Đăng ký</a></li>
                             <li role="presentation"><a href="javascript:void(0)">Cập nhật thông tin</a></li>
                             <li role="presentation"><a href="javascript:void(0)">Mua vé</a></li>
                             <li role="presentation"><a href="javascript:void(0)">Lịch sử mua vé</a></li>
@@ -81,11 +84,16 @@
                         </article>
                     </section>
                 </div>
-            </div>
+            </div>  
         </div>
         <footer>
             <div class="container">
-                Footer
+                <div class="footer-copyright">
+                    &copy; <%
+                        GregorianCalendar cal = new GregorianCalendar();
+                        out.print(cal.get(Calendar.YEAR));
+                    %> - 110001NP Development Team
+                </div>
             </div>
         </footer>
         
@@ -94,9 +102,9 @@
         <script src="public/js/bootstrap-datepicker.js"></script>
         
         <script type="text/javascript">
-                $('.input-group.date').datepicker({
-        daysOfWeekDisabled: "1"
-    });
+            $('.input-group.date').datepicker({
+                daysOfWeekDisabled: "1"
+            });
         </script>
     </body>
 </html>

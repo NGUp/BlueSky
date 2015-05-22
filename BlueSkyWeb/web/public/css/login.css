@@ -1,0 +1,33 @@
+article {
+    width: 300px;
+    margin: 72px auto;
+    min-height: 350px;
+}
+
+h2 {
+    color: #f44336;
+    margin-bottom: 16px;
+}
+
+.login-input {
+    margin: 8px 0;
+}
+
+.btn-login {
+    float: right;
+    color: #fff;
+    background-color: #009688;
+    background-image: none;
+    border-color: #009688;
+}
+
+.btn-login:hover {
+    color: #fff;
+    background-color: #00796b;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

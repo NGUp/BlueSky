@@ -1,0 +1,22 @@
+header {
+    background-color: #673ab7;
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+    color: #fff;
+}
+
+footer {
+    height: 100px;
+    margin-top: 32px;
+    background-color: #673ab7;
+}
+
+.footer-copyright {
+    float: right;
+    margin-top: 32px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
