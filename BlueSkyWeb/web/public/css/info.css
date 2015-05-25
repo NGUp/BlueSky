@@ -13,31 +13,25 @@ h4 {
     color: #1976d2;
 }
 
-.register-input {
+aside {
+    margin-top: 72px;
+}
+
+.info-input {
     margin: 8px 0;
 }
 
-.btn-cancel:hover {
-    background-color: #e0e0e0;
-}
-
-.btn-register {
+.btn-info {
+    float: right;
     color: #fff;
     background-color: #009688;
     background-image: none;
     border-color: #009688;
 }
 
-.btn-register:hover {
+.btn-info:hover {
     color: #fff;
     background-color: #00796b;
-}
-
-.btn-register,
-.btn-cancel {
-    float: right;
-    margin-left: 8px;
-    width: 100px;
 }
 
 footer {

@@ -4,9 +4,25 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Admin.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginHandler</servlet-name>
+        <servlet-class>App.LoginHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterHandler</servlet-name>
+        <servlet-class>App.RegisterHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginHandler</servlet-name>
+        <url-pattern>/loginhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterHandler</servlet-name>
+        <url-pattern>/registerhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

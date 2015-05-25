@@ -30,22 +30,23 @@
                     <form action="/BlueSkyWeb/registerhandler" method="post">
                         <div class="register-input">
                             <h4>Họ tên</h4>
-                            <input class="form-control" type="text" placeholder="Họ tên"/>
+                            <input class="form-control" type="text" name="txtFullName" placeholder="Họ tên"/>
                         </div>
                         <div class="register-input">
                             <h4>Email</h4>
-                            <input class="form-control" type="email" placeholder="Email"/>
+                            <input class="form-control" type="email" name="txtEmail" placeholder="Email"/>
                         </div>
                         <div class="register-input">
                             <h4>Mật khẩu</h4>
-                            <input class="form-control" type="password" placeholder="Mật khẩu"/>
+                            <input class="form-control" type="password" name="txtPassword" placeholder="Mật khẩu"/>
                         </div>
                         <div class="register-input">
                             <h4>Xác nhận mật khẩu</h4>
-                            <input class="form-control" type="password" placeholder="Xác nhận mật khẩu"/>
+                            <input class="form-control" type="password" name="txtConfirm" placeholder="Xác nhận mật khẩu"/>
                         </div>
                         <div class="register-input">
                             <button type="submit" class="btn btn-register">Đăng ký</button>
+                            <button type="button" class="btn btn-cancel">Hủy</button>
                         </div>
                     </form>
                 </article>

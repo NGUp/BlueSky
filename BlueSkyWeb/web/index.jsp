@@ -31,13 +31,13 @@
                 <div class="col-md-3">
                     <aside>
                         <ul class="nav nav-pills nav-stacked">
-                            <li role="presentation" class="active"><a href="javascript:void(0)">Home</a></li>
+                            <li role="presentation" class="active"><a href="javascript:void(0)">Menu</a></li>
                             <li role="presentation"><a href="/BlueSkyWeb/login.jsp">Đăng nhập</a></li>
                             <li role="presentation"><a href="/BlueSkyWeb/register.jsp">Đăng ký</a></li>
-                            <li role="presentation"><a href="javascript:void(0)">Cập nhật thông tin</a></li>
+                            <li role="presentation"><a href="/BlueSkyWeb/info.jsp">Cập nhật thông tin</a></li>
                             <li role="presentation"><a href="javascript:void(0)">Mua vé</a></li>
                             <li role="presentation"><a href="javascript:void(0)">Lịch sử mua vé</a></li>
-                            <li role="presentation"><a href="javascript:void(0)">Thoát</a></li>
+                            <li role="presentation"><a href="/BlueSkyWeb/logouthander">Thoát</a></li>
                         </ul>
                     </aside>
                 </div>

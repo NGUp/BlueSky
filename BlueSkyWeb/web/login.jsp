@@ -35,6 +35,7 @@
                             <input class="form-control" type="password" placeholder="Mật khẩu"/>
                         </div>
                         <div class="login-input">
+                            <button type="button" class="btn btn-default">Hủy</button>
                             <button type="submit" class="btn btn-login">Đăng nhập</button>
                         </div>
                     </form>
