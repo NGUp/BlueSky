@@ -1,0 +1,33 @@
+header {
+    background-color: #673ab7;
+}
+
+.header-user-name {
+    float: right;
+    color: #fff;
+    margin-top: 16px;
+}
+
+.navbar-brand,
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.navbar-brand:hover {
+    background-color: #512da8;
+}
+
+
+footer {
+    height: 100px;
+    margin-top: 32px;
+    background-color: #673ab7;
+}
+
+.footer-copyright {
+    float: right;
+    margin-top: 32px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+}
