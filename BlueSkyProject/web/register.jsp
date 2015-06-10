@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="/public/img/favicon.png" rel="shortcut icon">
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
-        <link rel="stylesheet" href="/public/css/bootstrap-datepicker.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/app.css"/>
         <link rel="stylesheet" href="/public/css/register.css"/>
@@ -33,11 +32,11 @@
                     <form action="/app/registerhandler" method="post">
                         <div class="register-input">
                             <h4>Họ tên</h4>
-                            <input class="form-control" type="text" name="txtFullName" placeholder="Họ tên"/>
+                            <input class="form-control" type="text" name="txtFullName" placeholder="Họ tên" autocomplete="off" spellcheck="false"/>
                         </div>
                         <div class="register-input">
                             <h4>Email</h4>
-                            <input class="form-control" type="email" name="txtEmail" placeholder="Email"/>
+                            <input class="form-control" type="email" name="txtEmail" placeholder="Email" autocomplete="off" spellcheck="false"/>
                         </div>
                         <div class="register-input">
                             <h4>Mật khẩu</h4>

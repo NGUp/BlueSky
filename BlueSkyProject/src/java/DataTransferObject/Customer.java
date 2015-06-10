@@ -15,15 +15,21 @@ public class Customer {
     private String Name;
     private String Email;
     private String Password;
+    private String IdentityCard;
+    private String Phone;
+    private String Address;
     private int Enabled;
     
     public Customer() {}
     
-    public Customer(String id, String name, String email, String password, int enabled) {
+    public Customer(String id, String name, String email, String identityCard, String phone, String address, String password, int enabled) {
         this.ID = id;
         this.Name = name;
         this.Email = email;
         this.Password = password;
+        this.IdentityCard = identityCard;
+        this.Phone = phone;
+        this.Address = address;
         this.Enabled = enabled;
     }
     
@@ -32,6 +38,9 @@ public class Customer {
         this.Name = customer.Name;
         this.Email = customer.Email;
         this.Password = customer.Password;
+        this.IdentityCard = customer.IdentityCard;
+        this.Phone = customer.Phone;
+        this.Address = customer.Address;
         this.Enabled = customer.Enabled;
     }
     
@@ -49,6 +58,18 @@ public class Customer {
     
     public void setPassword(String password) {
         this.Password = password;
+    }
+    
+    public void setIdentityCard(String identityCard) {
+        this.IdentityCard = identityCard;
+    }
+    
+    public void setPhone(String phone) {
+        this.Phone = phone;
+    }
+    
+    public void setAddress(String address) {
+        this.Address = address;
     }
     
     public void setEnable(int enable) {
@@ -69,6 +90,18 @@ public class Customer {
     
     public String getPassword() {
         return this.Password;
+    }
+    
+    public String getIdentityCard() {
+        return this.IdentityCard;
+    }
+    
+    public String getPhone() {
+        return this.Phone;
+    }
+    
+    public String getAddress() {
+        return this.Address;
     }
     
     public int getEnable() {

@@ -10,7 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="/public/img/favicon.png" rel="shortcut icon">
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
-        <link rel="stylesheet" href="/public/css/bootstrap-datepicker.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/app.css"/>
         <link rel="stylesheet" href="/public/css/login.css"/>

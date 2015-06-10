@@ -62,4 +62,31 @@ public class CustomerHandler {
         
         return result;
     }
+    
+    public Customer one(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format("Select Ten, Email, SDT, DiaChi, CMND From KhachHang Where Ma = '%s' And KichHoat = 1", ID);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        Customer customer = new Customer();
+        
+        if (data.next()) {
+            customer.setName((new String(data.getString("Ten").getBytes("8859_1"),"UTF-8")));
+            customer.setEmail(data.getString("Email"));
+            customer.setPhone(data.getString("SDT"));
+            customer.setAddress(data.getString("DiaChi"));
+            customer.setIdentityCard(data.getString("CMND"));
+        }
+        
+        this.provider.closeConnection();
+        
+        return customer;
+    }
+    
+    public boolean updateInfo(Customer customer) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Update KhachHang Set Ten = '%s', SDT = '%s', DiaChi = '%s', CMND = '%s' Where Ma = '%s'",
+                customer.getName(), customer.getPhone(), customer.getAddress(), customer.getIdentityCard(), customer.getID());
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
