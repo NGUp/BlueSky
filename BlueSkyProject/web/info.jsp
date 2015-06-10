@@ -47,12 +47,12 @@
                 </div>
                 <div class="col-md-9">
                     <section class="row content">
+                        <% 
+                            CustomerHandler handler = new CustomerHandler();
+                            Customer customer = handler.one(session.getAttribute("userID").toString());
+                        %>
+                        <h2>Cập nhật thông tin</h2>
                         <article class="col-md-6">
-                            <h2>Cập nhật thông tin</h2>
-                            <% 
-                                CustomerHandler handler = new CustomerHandler();
-                                Customer customer = handler.one(session.getAttribute("userID").toString());
-                            %>
                             <form action="/app/infohandler" method="post">
                                 <div class="info-input">
                                     <h4>Chứng minh thư</h4>
@@ -94,9 +94,10 @@
                                 </div>
                                 <div class="info-input">
                                     <h4>Xác nhận mật khẩu mới</h4>
-                                    <input class="form-control" type="password" name="txtConfirm" placeholder="Xác nhận mật khẩu mới"/>
+                                    <input class="form-control" type="password" name="txtPasswordConfirm" placeholder="Xác nhận mật khẩu mới"/>
                                 </div>
                                 <div class="info-input">
+                                    <input type="hidden" name="txtID" value="<%= session.getAttribute("userID") %>" />
                                     <button type="submit" class="btn btn-update">Thay đổi mật khẩu</button>
                                     <button type="button" class="btn btn-cancel">Hủy</button>
                                 </div>

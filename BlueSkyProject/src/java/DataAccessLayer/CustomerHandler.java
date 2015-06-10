@@ -89,4 +89,24 @@ public class CustomerHandler {
         
         return (this.provider.executeNonQuery(sql) > 0);
     }
+    
+    public boolean updatePassword(String customer, String oldPassword, String newPassword) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        String sql = String.format("Select MatKhau From KhachHang Where Ma = '%s'", customer);
+        ResultSet data = this.provider.executeQuery(sql);
+        Cryptography crypto = new Cryptography();        
+        
+        if (data.next()) {
+            if (!(crypto.encode(oldPassword).equals(data.getString("MatKhau")))) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        
+        sql = String.format(
+                "Update KhachHang Set MatKhau = '%s' Where Ma = '%s'",
+                crypto.encode(newPassword), customer);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
