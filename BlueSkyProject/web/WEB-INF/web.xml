@@ -20,6 +20,10 @@
         <servlet-name>PasswordHandler</servlet-name>
         <servlet-class>App.PasswordHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminLoginHandler</servlet-name>
+        <servlet-class>Admin.LoginHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>PasswordHandler</servlet-name>
         <url-pattern>/app/passwordhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLoginHandler</servlet-name>
+        <url-pattern>/admin/loginhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

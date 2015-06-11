@@ -31,7 +31,6 @@ public class CustomerHandler {
     public String login(Customer customer) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException, ClassNotFoundException {
         Cryptography crypto = new Cryptography();
         customer.setPassword(crypto.encode(customer.getPassword()));
-        customer.setID(crypto.encode((new Date()).toString()));
         
         String sql = String.format("Select Ma From KhachHang Where Email = '%s' And MatKhau = '%s' And KichHoat = 1",
                 customer.getEmail(), customer.getPassword());
@@ -73,7 +72,7 @@ public class CustomerHandler {
             customer.setName((new String(data.getString("Ten").getBytes("8859_1"),"UTF-8")));
             customer.setEmail(data.getString("Email"));
             customer.setPhone(data.getString("SDT"));
-            customer.setAddress(data.getString("DiaChi"));
+            customer.setAddress((new String(data.getString("DiaChi").getBytes("8859_1"),"UTF-8")));
             customer.setIdentityCard(data.getString("CMND"));
         }
         
