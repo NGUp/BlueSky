@@ -66,7 +66,7 @@ public class LoginHandler extends HttpServlet {
             if (ID != null && !"".equals(ID)) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("userID", ID);
-                session.setAttribute("userPermission", "USER");
+                session.setAttribute("userPermission", handler.getPermission(ID));
                 session.setAttribute("userName", handler.getName(ID));
             } else {
                 response.sendRedirect("/admin/login.jsp");

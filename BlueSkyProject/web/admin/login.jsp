@@ -1,5 +1,3 @@
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.GregorianCalendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>

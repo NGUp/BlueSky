@@ -50,4 +50,39 @@ public class EmployeeHandler {
         
         return result;
     }
+    
+    public String getPermission(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format("Select MaLoai From NhanVien Where Ma = '%s' And TrangThai = 1", ID);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        String result = "";
+        
+        if (data.next()) {
+            result = data.getString("MaLoai");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
+    }
+    
+    public boolean updatePassword(String employee, String oldPassword, String newPassword) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        String sql = String.format("Select MatKhau From NhanVien Where Ma = '%s'", employee);
+        ResultSet data = this.provider.executeQuery(sql);
+        Cryptography crypto = new Cryptography();        
+        
+        if (data.next()) {
+            if (!(crypto.encode(oldPassword).equals(data.getString("MatKhau")))) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        
+        sql = String.format(
+                "Update NhanVien Set MatKhau = '%s' Where Ma = '%s'",
+                crypto.encode(newPassword), employee);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
