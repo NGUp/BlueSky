@@ -1,0 +1,15 @@
+article {
+    width: 275px;
+    margin: 0 auto;
+    margin-top: 72px;
+}
+
+.btn {
+    float: right;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.title {
+    margin-bottom: 32px;
+}
