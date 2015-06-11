@@ -41,7 +41,7 @@
             <aside class="col-md-3 nav-menu">
                 <h3 class="nav-header">Menu</h3>
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="/admin/admin/info.jsp">Thay đổi mật khẩu</a></li>
+                    <li role="presentation"><a href="/admin/info.jsp">Thay đổi mật khẩu</a></li>
                     <li role="presentation"><a href="#">Tạo tài khoản nhân viên</a></li>
                     <li role="presentation"><a href="#">Quản lý tài khoản người dùng</a></li>
                     <li role="presentation"><a href="#">Quản lý cấu hình Website</a></li>

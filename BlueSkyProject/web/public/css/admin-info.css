@@ -1,4 +1,4 @@
-article {
+.content {
     width: 275px;
     margin: 0 auto;
     margin-top: 72px;
@@ -12,4 +12,12 @@ article {
 
 .title {
     margin-bottom: 32px;
+}
+
+.info-input {
+    margin-top: 16px; 
+}
+
+.info-input h4 {
+    color: #337AB7;
 }
