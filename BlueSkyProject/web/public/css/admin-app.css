@@ -47,3 +47,16 @@ header h1 a:hover {
     text-decoration: none;
     background-color: #265A88;
 }
+
+.nav-menu {
+    background: #FAFAFA none repeat scroll 0% 0%;
+    padding: 32px 16px;
+}
+
+.nav-header {
+    background-color: #337AB7;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
