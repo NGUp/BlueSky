@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="/public/css/bootstrap-combobox.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-datepicker.css"/>
         <link rel="stylesheet" href="/public/css/admin-app.css"/>
-        <link rel="stylesheet" href="/public/css/admin-employee.css"/>
+        <link rel="stylesheet" href="/public/css/admin-create-employee.css"/>
     </head>
     <body>
         
@@ -112,5 +112,5 @@
         <script src="/public/js/bootstrap.js"></script>
         <script src="/public/js/bootstrap-combobox.js"></script>
         <script src="/public/js/bootstrap-datepicker.js"></script>
-        <script src="/public/js/admin-employee.js"></script>
+        <script src="/public/js/admin-create-employee.js"></script>
     </body>

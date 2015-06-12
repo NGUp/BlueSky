@@ -60,3 +60,7 @@ header h1 a:hover {
     padding: 10px 15px;
     border-radius: 4px;
 }
+
+section {
+    margin: 0 auto !important;
+}

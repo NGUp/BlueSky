@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerHandler {
@@ -106,6 +107,34 @@ public class CustomerHandler {
                 "Update KhachHang Set MatKhau = '%s' Where Ma = '%s'",
                 crypto.encode(newPassword), customer);
         
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public ArrayList<Customer> limit(int page)
+            throws SQLException, ClassNotFoundException {
+        String sql = String.format("Select Ma, Ten, Email, KichHoat From KhachHang Limit %d, 20", (page - 1) * 20);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Customer> customers = new ArrayList<>();
+        
+        while (result.next()) {
+            
+            Customer customer = new Customer();
+            customer.setID(result.getString("Ma"));
+            customer.setName(result.getString("Ten"));
+            customer.setEmail(result.getString("Email"));
+            customer.setEnable(result.getInt("KichHoat"));
+            customers.add(customer);
+        }
+        
+        this.provider.closeConnection();
+        
+        return customers;
+    }
+    
+    public boolean delete(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Delete From `KhachHang` Where Ma = '%s'", ID);
         return (this.provider.executeNonQuery(sql) > 0);
     }
 }

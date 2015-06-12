@@ -36,6 +36,10 @@
         <servlet-name>CreateEmployeeHandler</servlet-name>
         <servlet-class>Admin.CreateEmployeeHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveCustomerHandler</servlet-name>
+        <servlet-class>Admin.RemoveCustomerHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>CreateEmployeeHandler</servlet-name>
         <url-pattern>/admin/employee/createhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCustomerHandler</servlet-name>
+        <url-pattern>/admin/customer/removehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
