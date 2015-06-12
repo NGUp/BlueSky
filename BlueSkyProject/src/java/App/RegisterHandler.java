@@ -1,5 +1,6 @@
 package App;
 
+import Core.Email;
 import DataAccessLayer.CustomerHandler;
 import DataTransferObject.Customer;
 import java.io.IOException;
@@ -105,6 +106,8 @@ public class RegisterHandler extends HttpServlet {
             response.sendRedirect("/register.jsp");
             
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(RegisterHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(RegisterHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
