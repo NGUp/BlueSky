@@ -1,0 +1,24 @@
+.btn {
+    float: right;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.employee-input {
+    margin-top: 16px;
+}
+
+.employee-input h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.typeahead.dropdown-menu {
+    width: 100%;
+}

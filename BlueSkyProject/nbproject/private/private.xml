@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/Core/Auth.java</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/App/LogoutHandler.java</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/admin/login.jsp</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/admin/admin/info.jsp</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/Admin/LoginHandler.java</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/css/admin-employee.css</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/admin/employee.jsp</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/Core/Cryptography.java</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/css/admin-app.css</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/Admin/CreateEmployeeHandler.java</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/js/admin-employee.js</file>
             <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/admin/index.jsp</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/Admin/LogoutHandler.java</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/DataAccessLayer/EmployeeHandler.java</file>
         </group>
     </open-files>
 </project-private>

@@ -106,11 +106,6 @@
         <script src="public/js/jquery.js"></script>
         <script src="public/js/bootstrap.js"></script>
         <script src="public/js/bootstrap-datepicker.js"></script>
-        
-        <script type="text/javascript">
-            $('.input-group.date').datepicker({
-                daysOfWeekDisabled: "1"
-            });
-        </script>
+        <script src="public/js/index.js"></script>
     </body>
 </html>

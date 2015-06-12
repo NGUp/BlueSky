@@ -123,7 +123,7 @@ public class Employee {
         return this.gender;
     }
     
-    public String getIdentityCart() {
+    public String getIdentityCard() {
         return this.identityCard;
     }
     

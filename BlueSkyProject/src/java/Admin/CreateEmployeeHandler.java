@@ -1,12 +1,20 @@
-package App;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-import DataAccessLayer.CustomerHandler;
-import DataTransferObject.Customer;
+package Admin;
+
+import Core.Cryptography;
+import DataAccessLayer.EmployeeHandler;
+import DataTransferObject.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namvh
  */
-public class RegisterHandler extends HttpServlet {
+public class CreateEmployeeHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +45,10 @@ public class RegisterHandler extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterHandler</title>");            
+            out.println("<title>Servlet CreateEmployeeHandler</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterHandler at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateEmployeeHandler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,38 +82,52 @@ public class RegisterHandler extends HttpServlet {
             throws ServletException, IOException, UnsupportedEncodingException {
         String fullName = request.getParameter("txtFullName");
         String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String confirm = request.getParameter("txtConfirm");
+        String userName = request.getParameter("txtUserName");
+        String birthday = request.getParameter("txtBirthday");
+        String ID = request.getParameter("txtID");
+        String address = request.getParameter("txtAddress");
+        String phone = request.getParameter("txtPhone");
+        String gender = request.getParameter("cbxGender");
         
-        if (password == null || confirm == null) {
-            response.sendRedirect("/register.jsp");
+        if (fullName == null || email == null || userName == null || ID == null) {
+            response.sendRedirect("/admin/employee.jsp");
         }
         
-        if (password.length() == 0 || confirm.length() == 0) {
-            response.sendRedirect("/register.jsp");
+        if ("".equals(fullName) || "".equals(email) || "".equals(userName) || "".equals(ID)) {
+            response.sendRedirect("/admin/employee.jsp");
         }
         
-        if (!(password.equals(confirm))) {
-            response.sendRedirect("/register.jsp");
-        }
+        Employee employee = new Employee();
+        employee.setGender(gender);
+        employee.setEmail(email);
+        employee.setName(fullName);
+        employee.setIdentityCard(ID);
+        employee.setAddress(address);
+        employee.setPhone(phone);
+        employee.setBirthday(new Date(birthday));
+        employee.setUsername(userName);
         
-        Customer customer = new Customer();
-        customer.setEmail(email);
-        customer.setName(fullName);
-        customer.setPassword(password);
-        
-        CustomerHandler handler = new CustomerHandler();
+        Cryptography crypto = new Cryptography();
         
         try {
-            if (handler.register(customer)) {
-                response.sendRedirect("/login.jsp");
+            employee.setID(crypto.encode((new Date()).toString()));
+            employee.setPassword(crypto.encode("123456789"));
+            
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CreateEmployeeHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        EmployeeHandler handler = new EmployeeHandler();
+        
+        try {
+            if (handler.create(employee)) {
+                response.sendRedirect("/admin/index.jsp");
                 return;
             }
             
-            response.sendRedirect("/register.jsp");
-            
-        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException ex) {
-            Logger.getLogger(RegisterHandler.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("/admin/employee.jsp");
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(CreateEmployeeHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

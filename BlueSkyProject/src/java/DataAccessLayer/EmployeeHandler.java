@@ -2,13 +2,12 @@ package DataAccessLayer;
 
 import Core.Cryptography;
 import Core.Provider;
-import DataTransferObject.Customer;
 import DataTransferObject.Employee;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class EmployeeHandler {
     private final Provider provider;
@@ -82,6 +81,18 @@ public class EmployeeHandler {
         sql = String.format(
                 "Update NhanVien Set MatKhau = '%s' Where Ma = '%s'",
                 crypto.encode(newPassword), employee);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean create(Employee employee) throws SQLException, ClassNotFoundException
+    {
+        String sql = String.format(
+                "INSERT INTO `nhanvien`(`Ma`, `Ten`, `MaLoai`, `CMND`, `TenDangNhap`, `Email`, `MatKhau`, `NgSinh`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('%s','%s', 'EMPLOYEE','%s','%s','%s','%s','%s','%s','%s','%s')",
+                employee.getID(), employee.getName(), employee.getIdentityCard(), employee.getUsername(), employee.getEmail(), employee.getPassword(),
+                new SimpleDateFormat("yyyy-MM-dd").format(employee.getBirthday()), employee.getGender(), employee.getAddress(), employee.getPhone());
+        
+        System.out.print(sql);
         
         return (this.provider.executeNonQuery(sql) > 0);
     }
