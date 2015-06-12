@@ -43,9 +43,6 @@
         </header>
         
         <section class="container row">
-            <%
-                if (session.getAttribute("userPermission").equals("ADMIN")) {
-            %>
             <aside class="col-md-3 nav-menu">
                 <h3 class="nav-header">Menu</h3>
                 <ul class="nav nav-pills nav-stacked">
@@ -53,10 +50,9 @@
                     <li role="presentation"><a href="/admin/create.jsp">Tạo tài khoản nhân viên</a></li>
                     <li role="presentation"><a href="/admin/customer.jsp">Quản lý tài khoản khách hàng</a></li>
                     <li role="presentation"><a href="/admin/employee.jsp">Quản lý tài khoản nhân viên</a></li>
-                    <li role="presentation"><a href="#">Quản lý cấu hình Website</a></li>
+                    <li role="presentation"><a href="/admin/config.jsp">Quản lý cấu hình Website</a></li>
                 </ul>
             </aside>
-            <% } %>
             <article class="col-md-9">
                 <div class="input-group group-search">
                     <input class="form-control" placeholder="Từ khóa">

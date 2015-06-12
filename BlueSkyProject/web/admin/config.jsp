@@ -11,10 +11,10 @@
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/admin-app.css"/>
-        <link rel="stylesheet" href="/public/css/admin-info.css"/>
+        <link rel="stylesheet" href="/public/css/admin-index.css"/>
     </head>
     <body>
-        
+
         <%
             if (Auth.authorizeAdmin(session) == false) {
                 response.sendRedirect("/login.jsp");
@@ -34,7 +34,7 @@
             </ul>
         </header>
         
-        <section class="container">
+        <section class="container row">
             <aside class="col-md-3 nav-menu">
                 <h3 class="nav-header">Menu</h3>
                 <ul class="nav nav-pills nav-stacked">
@@ -46,32 +46,11 @@
                 </ul>
             </aside>
             <article class="col-md-9">
-                <div class="content">
-                    <h2 class="title">Thay đổi mật khẩu</h2>
-                    <form action="/admin/passwordhandler" method="post">
-                        <div class="info-input">
-                            <h4>Mật khẩu cũ</h4>
-                            <input class="form-control" type="password" name="txtPasswordOld" placeholder="Mật khẩu cũ"/>
-                        </div>
-                        <div class="info-input">
-                            <h4>Mật khẩu mới</h4>
-                            <input class="form-control" type="password" name="txtPasswordNew" placeholder="Mật khẩu mới"/>
-                        </div>
-                        <div class="info-input">
-                            <h4>Xác nhận mật khẩu mới</h4>
-                            <input class="form-control" type="password" name="txtPasswordConfirm" placeholder="Xác nhận mật khẩu mới"/>
-                        </div>
-                        <div class="info-input">
-                            <input type="hidden" name="txtID" value="<%= session.getAttribute("userID") %>" />
-                            <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
-                            <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
-                        </div>
-                    </form>
-                </div> 
+                Chưa hỗ trợ chức năng này.
             </article>
         </section>
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/admin-info.js"></script>
     </body>
+</html>

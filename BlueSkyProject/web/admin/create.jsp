@@ -44,7 +44,7 @@
                     <li role="presentation"><a href="/admin/create.jsp">Tạo tài khoản nhân viên</a></li>
                     <li role="presentation"><a href="/admin/customer.jsp">Quản lý tài khoản khách hàng</a></li>
                     <li role="presentation"><a href="/admin/employee.jsp">Quản lý tài khoản nhân viên</a></li>
-                    <li role="presentation"><a href="#">Quản lý cấu hình Website</a></li>
+                    <li role="presentation"><a href="/admin/config.jsp">Quản lý cấu hình Website</a></li>
                 </ul>
             </aside>
             <article class="col-md-9">
