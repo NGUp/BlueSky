@@ -1,0 +1,66 @@
+header {
+    height: 72px;
+    background-color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+header h1.navbar-brand {
+    padding: 0;
+    margin: 0;
+    line-height: 3em;
+    height: 100%;
+    margin-left: 32px;
+    font-size: 24px;
+}
+
+header h1 a,
+header h1 a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-user {
+    display: flex;
+    color: #fff;
+    float: right;
+    font-size: 16px;
+    margin-top: 26px;
+    margin-right: 32px;
+}
+
+.nav-user li {
+    list-style-type: none;
+    margin-left: 16px;
+}
+
+.nav-user li a {
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #337AB7;
+}
+
+.nav-user li a:hover {
+    text-decoration: none;
+    background-color: #265A88;
+}
+
+.nav-menu {
+    background: #FAFAFA none repeat scroll 0% 0%;
+    padding: 32px 16px;
+}
+
+.nav-header {
+    background-color: #337AB7;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+section {
+    margin: 0 auto !important;
+}

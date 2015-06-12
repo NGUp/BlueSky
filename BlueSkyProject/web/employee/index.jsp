@@ -10,13 +10,13 @@
         <link href="/public/img/favicon.png" rel="shortcut icon">
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
-        <link rel="stylesheet" href="/public/css/admin-app.css"/>
-        <link rel="stylesheet" href="/public/css/admin-index.css"/>
+        <link rel="stylesheet" href="/public/css/employee-app.css"/>
+        <link rel="stylesheet" href="/public/css/employee-index.css"/>
     </head>
     <body>
 
         <%
-            if (Auth.authorizeAdmin(session) == false) {
+            if (Auth.authorizeEmployee(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -24,7 +24,7 @@
         
         <header>
             <h1 class="navbar-brand">
-                <a href="/admin/index.jsp">BlueSky</a>
+                <a href="/employee/index.jsp">BlueSky</a>
             </h1>
             <ul class="nav-user">
                 <li><%= session.getAttribute("userName") %></li>
@@ -36,16 +36,27 @@
         
         <section class="container row">
             <aside class="col-md-3 nav-menu">
-                <h3 class="nav-header">Menu</h3>
+                <h3 class="nav-header">
+                    <%= session.getAttribute("userPermission") %>
+                </h3>
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="/admin/info.jsp">Thay đổi mật khẩu</a></li>
-                    <li role="presentation"><a href="/admin/create.jsp">Tạo tài khoản nhân viên</a></li>
-                    <li role="presentation"><a href="/admin/customer.jsp">Quản lý tài khoản khách hàng</a></li>
-                    <li role="presentation"><a href="/admin/employee.jsp">Quản lý tài khoản nhân viên</a></li>
-                    <li role="presentation"><a href="/admin/config.jsp">Quản lý cấu hình Website</a></li>
+                    <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
+                    <%
+                        if (session.getAttribute("userPermission").equals("ADMIN")) {
+                    %>
+                        <!-- for Administrator -->
+                    <% } else if (session.getAttribute("userPermission").equals("MANAGER")) { %>
+                        <!-- for Manager -->
+                    <% } else if (session.getAttribute("userPermission").equals("TICKER")) { %>
+                        <!-- for Ticker -->
+                    <% } else if (session.getAttribute("userPermission").equals("TICKER")) { %>
+                        <!-- for Employee -->
+                    <% } %>
                 </ul>
             </aside>
-            <article class="col-md-9"></article>
+            <article class="col-md-9">
+                <!-- TO DO -->
+            </article>
         </section>
         
         <script src="/public/js/jquery.js"></script>
