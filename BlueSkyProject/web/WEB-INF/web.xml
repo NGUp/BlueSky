@@ -40,6 +40,10 @@
         <servlet-name>RemoveCustomerHandler</servlet-name>
         <servlet-class>Admin.RemoveCustomerHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DisabledCustomerHandler</servlet-name>
+        <servlet-class>Admin.DisabledCustomerHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>RemoveCustomerHandler</servlet-name>
         <url-pattern>/admin/customer/removehandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisabledCustomerHandler</servlet-name>
+        <url-pattern>/admin/customer/disabledhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
