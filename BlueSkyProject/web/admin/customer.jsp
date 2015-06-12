@@ -95,9 +95,9 @@
                                 <td><%= customer.getEmail() %></td>
                                 <td>
                                     <% if (customer.getEnable() == 1) { %>
-                                        <button class="btn btn-default btn-disabled">Disabled</button>
+                                        <button class="btn btn-default btn-disable">Disable</button>
                                     <% } else  { %>
-                                        <button class="btn btn-success">Enabled</button>
+                                        <button class="btn btn-success btn-enable">Enable</button>
                                     <% } %>
                                 </td>
                                 <td>

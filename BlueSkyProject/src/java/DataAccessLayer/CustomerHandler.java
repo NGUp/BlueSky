@@ -142,4 +142,9 @@ public class CustomerHandler {
         String sql = String.format("Update `KhachHang` Set KichHoat = 0 Where Ma = '%s'", ID);
         return (this.provider.executeNonQuery(sql) > 0);
     }
+    
+    public boolean enable(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Update `KhachHang` Set KichHoat = 1 Where Ma = '%s'", ID);
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
