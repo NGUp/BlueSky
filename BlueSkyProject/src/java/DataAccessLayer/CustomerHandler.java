@@ -111,7 +111,7 @@ public class CustomerHandler {
     }
     
     public ArrayList<Customer> limit(int page)
-            throws SQLException, ClassNotFoundException {
+            throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
         String sql = String.format("Select Ma, Ten, Email, KichHoat From KhachHang Limit %d, 20", (page - 1) * 20);
         
         ResultSet result = this.provider.executeQuery(sql);
@@ -122,7 +122,7 @@ public class CustomerHandler {
             
             Customer customer = new Customer();
             customer.setID(result.getString("Ma"));
-            customer.setName(result.getString("Ten"));
+            customer.setName((new String(result.getString("Ten").getBytes("8859_1"),"UTF-8")));
             customer.setEmail(result.getString("Email"));
             customer.setEnable(result.getInt("KichHoat"));
             customers.add(customer);

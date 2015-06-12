@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class EmployeeHandler {
     private final Provider provider;
@@ -94,6 +96,54 @@ public class EmployeeHandler {
         
         System.out.print(sql);
         
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public ArrayList<Employee> limit(int page)
+            throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format(
+                "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
+                "From NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai " + 
+                "Where NV.MALOAI != 'ADMIN' Limit %d, 20", (page - 1) * 20);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Employee> employees = new ArrayList<>();
+        
+        while (result.next()) {
+            
+            Employee employee = new Employee();
+            employee.setID(result.getString("Ma"));
+            employee.setIdentityCard(result.getString("CMND"));
+            employee.setName((new String(result.getString("Ten").getBytes("8859_1"),"UTF-8")));
+            employee.setEmail(result.getString("Email"));
+            employee.setPermission(result.getString("TenLoai"));
+            employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
+            employee.setUsername(result.getString("TenDangNhap"));
+            employee.setGender(result.getString("GioiTinh"));
+            employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
+            employee.setPhone(result.getString("DienThoai"));
+            employee.setState(result.getInt("TrangThai"));
+            employees.add(employee);
+        }
+        
+        this.provider.closeConnection();
+        
+        return employees;
+    }
+    
+    public boolean delete(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Delete From `NhanVien` Where Ma = '%s'", ID);
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean disable(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Update `NhanVien` Set TrangThai = 0 Where Ma = '%s'", ID);
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean enable(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Update `NhanVien` Set TrangThai = 1 Where Ma = '%s'", ID);
         return (this.provider.executeNonQuery(sql) > 0);
     }
 }

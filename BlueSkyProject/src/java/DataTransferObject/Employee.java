@@ -14,10 +14,11 @@ public class Employee {
     private String gender;
     private String address;
     private String phone;
+    private int state;
     
     public Employee() {}
     
-    public Employee(String ID, String name, String permission, String identityCard, String userName, String email, String password, Date birthday, String gender, String phone, String address) {
+    public Employee(String ID, String name, String permission, String identityCard, String userName, String email, String password, Date birthday, String gender, String phone, String address, int state) {
         this.ID = ID;
         this.name = name;
         this.identityCard = identityCard;
@@ -28,6 +29,7 @@ public class Employee {
         this.birthday = birthday;
         this.gender = gender;
         this.phone = phone;
+        this.state = state;
     }
     
     public Employee(Employee employee) {
@@ -41,6 +43,7 @@ public class Employee {
         this.birthday = employee.birthday;
         this.gender = employee.gender;
         this.phone = employee.phone;
+        this.state = employee.state;
     }
     
     public void setID(String ID) {
@@ -87,6 +90,10 @@ public class Employee {
         this.gender = gender;
     }
     
+    public void setState(int state) {
+        this.state = state;
+    }
+    
     public String getID() {
         return this.ID;
     }
@@ -129,5 +136,9 @@ public class Employee {
     
     public String getUsername() {
         return this.userName;
+    }
+    
+    public int getState() {
+        return this.state;
     }
 }

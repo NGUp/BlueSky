@@ -9,7 +9,7 @@ var submitForm = function(self, url) {
     var input = document.createElement('input');
     $(input).attr('type', 'hidden');
     $(input).val($(id).text());
-    $(input).attr('name', 'customerID');
+    $(input).attr('name', 'employeeID');
     
     form.appendChild(input);
     document.body.appendChild(form);
@@ -17,17 +17,17 @@ var submitForm = function(self, url) {
 };
 
 $('#btn-clear').click(function() {
-    window.location.href = '/admin/customer.jsp';
+    window.location.href = '/admin/employee.jsp';
 });
 
 $('.btn-remove').click(function() {
-    submitForm(this, '/admin/customer/removehandler');
+    submitForm(this, '/admin/employee/removehandler');
 });
 
 $('.btn-disable').click(function() {
-    submitForm(this, '/admin/customer/disablehandler');
+    submitForm(this, '/admin/employee/disablehandler');
 });
 
 $('.btn-enable').click(function() {
-    submitForm(this, '/admin/customer/enablehandler');
+    submitForm(this, '/admin/employee/enablehandler');
 });
