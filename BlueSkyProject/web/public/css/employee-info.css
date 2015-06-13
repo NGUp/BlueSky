@@ -1,0 +1,35 @@
+.content {
+    width: 275px;
+    margin: 0 auto;
+    margin-top: 72px;
+}
+
+.btn {
+    float: right;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.title {
+    margin-bottom: 32px;
+}
+
+.info-input {
+    margin-top: 16px; 
+}
+
+.info-input h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 60px;
+}
+
+.typeahead.dropdown-menu {
+    width: 100%;
+}

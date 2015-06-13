@@ -67,6 +67,37 @@ public class EmployeeHandler {
         return result;
     }
     
+    public Employee one(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format("Select * From NhanVien Where Ma = '%s' And TrangThai = 1", ID);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        Employee employee = new Employee();
+        
+        while (result.next()) {
+            employee.setID(result.getString("Ma"));
+            employee.setIdentityCard(result.getString("CMND"));
+            employee.setName((new String(result.getString("Ten").getBytes("8859_1"),"UTF-8")));
+            employee.setEmail(result.getString("Email"));
+            //employee.setPermission(result.getString("TenLoai"));
+            employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
+            employee.setUsername(result.getString("TenDangNhap"));
+            employee.setGender(result.getString("GioiTinh"));
+            employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
+            employee.setPhone(result.getString("DienThoai"));
+            employee.setState(result.getInt("TrangThai"));
+        }
+        
+        return employee;
+    }
+    
+    public boolean updateInfo(Employee employee) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Update NhanVien Set Ten = '%s', Email = '%s', NgSinh = '%s', DienThoai = '%s', DiaChi = '%s', CMND = '%s' Where Ma = '%s'",
+                employee.getName(), employee.getEmail(), new SimpleDateFormat("yyyy-MM-dd").format(employee.getBirthday()), employee.getPhone(), employee.getAddress(), employee.getIdentityCard(), employee.getID());
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
     public boolean updatePassword(String employee, String oldPassword, String newPassword) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         String sql = String.format("Select MatKhau From NhanVien Where Ma = '%s'", employee);
         ResultSet data = this.provider.executeQuery(sql);
