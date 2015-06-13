@@ -1,0 +1,18 @@
+.title {
+    margin-top: 58px;
+}
+
+.group-search {
+    margin-top: 55px;
+    margin-bottom: 32px;
+}
+
+.table thead {
+    height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.center {
+    text-align: center;
+}
