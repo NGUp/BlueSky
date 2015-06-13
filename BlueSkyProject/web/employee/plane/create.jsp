@@ -47,11 +47,7 @@
                 </h3>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
-                    <%
-                        if (session.getAttribute("userPermission").equals("ADMIN")) {
-                    %>
-                        <!-- for Administrator -->
-                    <% } else if (session.getAttribute("userPermission").equals("MANAGER")) { %>
+                    <% if (session.getAttribute("userPermission").equals("MANAGER")) { %>
                         <!-- for Manager -->
                         <li><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>

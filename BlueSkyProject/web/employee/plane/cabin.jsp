@@ -1,8 +1,8 @@
-<%@page import="DataAccessLayer.PlaneHandler"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="DataTransferObject.Plane"%>
+<%@page import="DataAccessLayer.PlaneHandler"%>
+<%@page import="DataTransferObject.Cabin"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DataAccessLayer.CabinHandler"%>
 <%@page import="Core.Auth"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -16,12 +16,12 @@
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/employee-app.css"/>
-        <link rel="stylesheet" href="/public/css/employee-plane.css"/>
+        <link rel="stylesheet" href="/public/css/employee-cabin.css"/>
     </head>
     <body>
 
         <%
-            if (Auth.authorizeManager(session) == false) {
+            if (Auth.authorizeEmployee(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -59,54 +59,45 @@
                 </ul>
             </aside>
             <article class="col-md-9">
-                <h2 class="title">Quản lý danh mục máy bay</h2>
-                <div class="input-navigator">
-                    <div class="input-group group-search">
-                        <input class="form-control" placeholder="Từ khóa">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary">
-                                <span class="glyphicon glyphicon-search"></span>
-                                Tìm kiếm
-                            </button>
-                            <button class="btn btn-default" id="btn-clear">
-                                <span class="glyphicon glyphicon-repeat"></span>
-                            </button>
-                        </span>
+                <%
+                    String planeID = request.getParameter("plane");
+                    
+                    int currentPage = 1;
+                    int index = 1;
+                    CabinHandler cabinHandler = new CabinHandler();
+                    PlaneHandler planeHandler = new PlaneHandler();
+                    Plane plane = planeHandler.one(planeID);
+                %>
+                <div class="group-title">
+                    <div class="btn-navigate">
+                        <button class="btn btn-warning" id="btn-back">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </button>
                     </div>
-                    <div>
-                        <button class="btn btn-success btn-insert" id="btn-insert">Thêm máy bay</button>
+                    <h2 class="title">
+                        <span id="plane-id"><%= plane.getID() %></span> - <%= plane.getManufacturer() %> <%= plane.getName() %>
+                    </h2>
+                    <div class="btn-navigate btn-insert">
+                        <button class="btn btn-success" id="btn-insert">Thêm khoang</button>
                     </div>
                 </div>
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <th class="center">STT</th>
-                        <th>Tên</th>
-                        <th>Hãng SX</th>
-                        <th>Ngày vận hành</th>
+                        <th>Mã khoang</th>
+                        <th>Tên khoang</th>
                         <th></th>
                         <th></th>
                     </thead>
                     <tbody>
                         <%
-                            PlaneHandler handler = new PlaneHandler();
-                            
-                            int currentPage = 1;
-                            int index = 1;
-                            
-                            if (request.getParameter("page") != null) {
-                                currentPage = Integer.parseInt(request.getParameter("page"));
-                            }
-                            
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                            ArrayList<Plane> planes = handler.limit(currentPage);
-                            for (Plane plane : planes) {
+                            ArrayList<Cabin> cabins = cabinHandler.getByPlane(planeID.replace("'", "''"));
+                            for (Cabin cabin : cabins) {
                         %>
                             <tr>
                                 <td class="center"><%= index++ %></td>
-                                <td class="hidden"><%= plane.getID() %></td>
-                                <td><%= plane.getName() %></td>
-                                <td><%= plane.getManufacturer()%></td>
-                                <td><%= formatter.format(plane.getStart()) %></td>
+                                <td class="cabin-id"><%= cabin.getID() %></td>
+                                <td><%= cabin.getName() %></td>
                                 <td>
                                     <button class="btn btn-default btn-details">
                                         <span class="glyphicon glyphicon-list-alt"></span>
@@ -126,6 +117,6 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/employee-plane.js"></script>
+        <script src="/public/js/employee-cabin.js"></script>
     </body>
 </html>

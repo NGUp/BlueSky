@@ -1,0 +1,43 @@
+.title {
+    margin-top: 58px;
+}
+
+.group-search {
+    margin-top: 55px;
+    margin-bottom: 32px;
+}
+
+.table thead {
+    height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.center {
+    text-align: center;
+}
+
+.input-navigator {
+    display: flex;
+}
+
+.btn-insert {
+    margin-top: 55px;
+    margin-left: 16px;
+}
+
+.group-title {
+    display: flex;
+    position: relative;
+}
+
+.btn-navigate {
+    margin-top: 55px;
+    margin-right: 16px;
+}
+
+.btn-insert {
+    position: absolute;
+    right: 0;
+    margin-right: 0;
+}

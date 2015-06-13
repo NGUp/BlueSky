@@ -38,6 +38,22 @@ public class PlaneHandler {
         return planes;
     }
     
+    public Plane one(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Select * From MayBay Where MaMB = '%s'", ID);
+        ResultSet result = this.provider.executeQuery(sql);
+        Plane plane = new Plane();
+        
+        while (result.next()) {
+            plane.setName(result.getString("TenMB"));
+            plane.setID(result.getString("MaMB"));
+            plane.setManufacturer(result.getString("HangSanXuat"));
+            plane.setStart(new Date(result.getDate("NgayVanHanh").getTime()));
+            break;
+        }
+        
+        return plane;
+    }
+    
     public boolean insert(Plane plane) throws SQLException, ClassNotFoundException {
         String sql = String.format(
                 "Insert Into `MayBay`(MaMB, TenMB, NgayVanHanh, HangSanXuat) Values('%s', '%s', '%s', '%s')",
