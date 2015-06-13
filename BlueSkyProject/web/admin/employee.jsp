@@ -70,9 +70,9 @@
                     <thead>
                         <th class="center">STT</th>
                         <th>Họ tên</th>
+                        <th>Vị trí</th>
                         <th>Email</th>
                         <th>Giới tính</th>
-                        <th>Ngày sinh</th>
                         <th></th>
                         <th></th>
                     </thead>
@@ -87,7 +87,6 @@
                                 currentPage = Integer.parseInt(request.getParameter("page"));
                             }
                             
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                             ArrayList<Employee> employees = handler.limit(currentPage);
                             for (Employee employee : employees) {
                         %>
@@ -95,9 +94,9 @@
                                 <td class="center"><%= index++ %></td>
                                 <td class="hidden"><%= employee.getID() %></td>
                                 <td><%= employee.getName() %></td>
+                                <td><%= employee.getPermission()%></td>
                                 <td><%= employee.getEmail() %></td>
                                 <td><%= employee.getGender() %></td>
-                                <td><%= formatter.format(employee.getBirthday()) %></td>
                                 <td>
                                     <% if (employee.getState() == 1) { %>
                                         <button class="btn btn-default btn-disable">Disable</button>

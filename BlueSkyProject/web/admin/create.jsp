@@ -65,7 +65,7 @@
                                 <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" />
                             </div>
                             <div class="employee-input">
-                                <h4>CMND</h4>
+                                <h4>Giới tính</h4>
                                 <select class="combobox" name="cbxGender">
                                     <option value="Nam">Nam</option>
                                     <option value="Nữ">Nữ</option>
@@ -74,6 +74,15 @@
                             <div class="employee-input">
                                 <h4>Tên đăng nhập</h4>
                                 <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtUserName" placeholder="Tên đăng nhập" />
+                            </div>
+                            <div class="employee-input">
+                                <h4>Loại nhân viên</h4>
+                                <select class="combobox" name="cbxPermission">
+                                    <option value="MANAGER">Quản lý</option>
+                                    <option value="CONDUCTOR">Nhân viên bán vé</option>
+                                    <option value="PILOT">Phi công/option>
+                                    <option value="STEWARDESS">Tiếp viên</option>
+                                </select>
                             </div>
                             <div class="employee-input">
                                 <h4>Ngày sinh</h4>

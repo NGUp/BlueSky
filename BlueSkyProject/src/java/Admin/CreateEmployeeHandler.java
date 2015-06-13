@@ -85,6 +85,7 @@ public class CreateEmployeeHandler extends HttpServlet {
         String userName = request.getParameter("txtUserName");
         String birthday = request.getParameter("txtBirthday");
         String ID = request.getParameter("txtID");
+        String permission = request.getParameter("cbxPermission");
         String address = request.getParameter("txtAddress");
         String phone = request.getParameter("txtPhone");
         String gender = request.getParameter("cbxGender");
@@ -101,6 +102,7 @@ public class CreateEmployeeHandler extends HttpServlet {
         employee.setGender(gender);
         employee.setEmail(email);
         employee.setName(fullName);
+        employee.setPermission(permission);
         employee.setIdentityCard(ID);
         employee.setAddress(address);
         employee.setPhone(phone);

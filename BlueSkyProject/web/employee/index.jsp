@@ -47,10 +47,12 @@
                         <!-- for Administrator -->
                     <% } else if (session.getAttribute("userPermission").equals("MANAGER")) { %>
                         <!-- for Manager -->
-                    <% } else if (session.getAttribute("userPermission").equals("TICKER")) { %>
-                        <!-- for Ticker -->
-                    <% } else if (session.getAttribute("userPermission").equals("TICKER")) { %>
-                        <!-- for Employee -->
+                    <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
+                        <!-- for Conductor -->
+                    <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
+                        <!-- for Pilot -->
+                    <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
+                        <!-- for Stewardess -->
                     <% } %>
                 </ul>
             </aside>

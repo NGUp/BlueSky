@@ -16,7 +16,7 @@
     <body>
         <header>
             <h1 class="navbar-brand">
-                <a href="/admin/index.jsp">BlueSky</a>
+                <a href="/employee/index.jsp">BlueSky</a>
             </h1>
         </header>
         
