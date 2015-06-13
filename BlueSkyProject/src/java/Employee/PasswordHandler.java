@@ -1,4 +1,10 @@
-package Admin;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package Employee;
 
 import DataAccessLayer.EmployeeHandler;
 import java.io.IOException;
@@ -11,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -70,43 +77,38 @@ public class PasswordHandler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String employee = request.getParameter("txtID");
         String oldPassword = request.getParameter("txtPasswordOld");
         String newPassword = request.getParameter("txtPasswordNew");
         String confirmPassword = request.getParameter("txtPasswordConfirm");
         
-        if (employee.isEmpty()) {
-            response.sendRedirect("/admin/info.jsp");
-            return;
-        }
-        
         if (oldPassword.isEmpty()) {
-            response.sendRedirect("/admin/info.jsp");
+            response.sendRedirect("/employee/info.jsp");
             return;
         }
         
         if (newPassword.isEmpty()) {
-            response.sendRedirect("/admin/info.jsp");
+            response.sendRedirect("/employee/info.jsp");
             return;
         }
         
         if (confirmPassword.isEmpty()) {
-            response.sendRedirect("/admin/info.jsp");
+            response.sendRedirect("/employee/info.jsp");
             return;
         }
         
-        if (confirmPassword != newPassword) {
-            response.sendRedirect("/admin/info.jsp");
+        if (!confirmPassword.equals(newPassword)) {
+            response.sendRedirect("/employee/info.jsp");
             return;
         }
         
         EmployeeHandler handler = new EmployeeHandler();
+        HttpSession session = request.getSession(true);
         
         try {
-            if (handler.updatePassword(employee, oldPassword, newPassword)) {
-                response.sendRedirect("/admin/index.jsp");
+            if (handler.updatePassword(session.getAttribute("userID").toString(), oldPassword, newPassword)) {
+                response.sendRedirect("/employee/index.jsp");
             } else {
-                response.sendRedirect("/admin/info.jsp");
+                response.sendRedirect("/employee/info.jsp");
             }
             
         } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException ex) {

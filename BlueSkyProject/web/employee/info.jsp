@@ -120,7 +120,6 @@
                                 <input class="form-control" type="password" name="txtPasswordConfirm" placeholder="Xác nhận mật khẩu mới"/>
                             </div>
                             <div class="info-input">
-                                <input type="hidden" name="txtID" value="<%= session.getAttribute("userID") %>" />
                                 <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
                                 <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
                             </div>
