@@ -7,6 +7,10 @@ public class Auth {
         return (session.getAttribute("userPermission") != null && session.getAttribute("userPermission").equals("ADMIN"));
     }
     
+    public static boolean authorizeManager(HttpSession session) {
+        return (session.getAttribute("userPermission") != null && session.getAttribute("userPermission").equals("MANAGER"));
+    }
+    
     public static boolean authorizeEmployee(HttpSession session) {
         return (session.getAttribute("userPermission") != null && !session.getAttribute("userPermission").equals("ADMIN"));
     }

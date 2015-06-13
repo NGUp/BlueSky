@@ -4,6 +4,7 @@ import Core.Provider;
 import DataTransferObject.Plane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,5 +36,13 @@ public class PlaneHandler {
         this.provider.closeConnection();
         
         return planes;
+    }
+    
+    public boolean insert(Plane plane) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Insert Into `MayBay`(MaMB, TenMB, NgayVanHanh, HangSanXuat) Values('%s', '%s', '%s', '%s')",
+                plane.getID(), plane.getName(), new SimpleDateFormat("yyyy-MM-dd").format(plane.getStart()), plane.getManufacturer());
+        
+        return (this.provider.executeNonQuery(sql) > 0);
     }
 }

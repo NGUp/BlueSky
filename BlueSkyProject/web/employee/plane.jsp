@@ -21,7 +21,7 @@
     <body>
 
         <%
-            if (Auth.authorizeEmployee(session) == false) {
+            if (Auth.authorizeManager(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -64,17 +64,22 @@
             </aside>
             <article class="col-md-9">
                 <h2 class="title">Quản lý danh mục máy bay</h2>
-                <div class="input-group group-search">
-                    <input class="form-control" placeholder="Từ khóa">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary">
-                            <span class="glyphicon glyphicon-search"></span>
-                            Tìm kiếm
-                        </button>
-                        <button class="btn btn-default" id="btn-clear">
-                            <span class="glyphicon glyphicon-repeat"></span>
-                        </button>
-                    </span>
+                <div class="input-navigator">
+                    <div class="input-group group-search">
+                        <input class="form-control" placeholder="Từ khóa">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Tìm kiếm
+                            </button>
+                            <button class="btn btn-default" id="btn-clear">
+                                <span class="glyphicon glyphicon-repeat"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <div>
+                        <button class="btn btn-success btn-insert" id="btn-insert">Thêm máy bay</button>
+                    </div>
                 </div>
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
@@ -107,7 +112,7 @@
                                 <td><%= plane.getManufacturer()%></td>
                                 <td><%= formatter.format(plane.getStart()) %></td>
                                 <td>
-                                    <button class="btn btn-default btn-edit">
+                                    <button class="btn btn-default btn-details">
                                         <span class="glyphicon glyphicon-list-alt"></span>
                                     </button>
                                 </td>
@@ -125,5 +130,6 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
+        <script src="/public/js/employee-plane.js"></script>
     </body>
 </html>

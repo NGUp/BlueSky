@@ -72,6 +72,10 @@
         <servlet-name>EmployeePasswordHandler</servlet-name>
         <servlet-class>Employee.PasswordHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreatePlaneHandler</servlet-name>
+        <servlet-class>Employee.CreatePlaneHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>EmployeePasswordHandler</servlet-name>
         <url-pattern>/employee/passwordhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePlaneHandler</servlet-name>
+        <url-pattern>/employee/plane/createhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
