@@ -76,6 +76,10 @@
         <servlet-name>CreatePlaneHandler</servlet-name>
         <servlet-class>Employee.CreatePlaneHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateCabinHandler</servlet-name>
+        <servlet-class>Employee.CreateCabinHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>CreatePlaneHandler</servlet-name>
         <url-pattern>/employee/plane/createhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCabinHandler</servlet-name>
+        <url-pattern>/employee/plane/cabin/createhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

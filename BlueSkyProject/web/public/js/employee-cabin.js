@@ -1,5 +1,5 @@
 $('#btn-insert').click(function() {
-    window.location.href = '/employee/plane/cabin/create.jsp';
+    window.location.href = '/employee/plane/cabin/create.jsp?plane=' + $('#plane-id').text();
 });
 
 $('#btn-back').click(function() {

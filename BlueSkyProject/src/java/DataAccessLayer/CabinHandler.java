@@ -29,4 +29,28 @@ public class CabinHandler {
         
         return cabins;
     }
+    
+    public ArrayList<Cabin> getAvailableCabins(String plane) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "SELECT a.MaKhoang, a.TenKhoang FROM Khoang a LEFT JOIN	(SELECT * FROM ChiTietMayBay WHERE MaMayBay = '%s') b ON a.MaKhoang = b.MaKhoang WHERE b.MaKhoang IS NULL", plane);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        ArrayList<Cabin> cabins = new ArrayList<>();
+        
+        while(data.next()) {
+            Cabin cabin = new Cabin();
+            cabin.setID(data.getString("MaKhoang"));
+            cabin.setName(data.getString("TenKhoang"));
+            cabins.add(cabin);
+        }
+        
+        return cabins;
+    }
+    
+    public boolean insert(String plane, String cabin) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Insert Into `ChiTietMayBay`(MaKhoang, MaMayBay) Values ('%s', '%s')",
+                cabin, plane);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
