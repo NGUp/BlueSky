@@ -1,0 +1,36 @@
+.group-navigator {
+    display: flex;
+    margin-top: 42px;
+}
+
+.title h3 {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.plane {
+    color: #337AB7;
+    font-size: 24px !important;
+}
+
+.btn {
+    float: right;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.content {
+    width: 275px;
+    margin: 0 auto;
+}
+
+.seat {
+    margin-top: 16px;
+}
+
+.seat-input h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}

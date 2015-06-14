@@ -10,7 +10,7 @@ $('.btn-details').click(function() {
     var self = this;
     var parent = $(self).parents()[1];
     var id = $(parent).children('.cabin-id');
-    window.location.href = '/employee/plane/cabin/seat.jsp?plane=' + $(id).text() + '&cabin=' + $(id).text();
+    window.location.href = '/employee/plane/cabin/seat.jsp?plane=' + $('#plane-id').text() + '&cabin=' + $(id).text();
 });
 
 $('.btn-remove').click(function() {

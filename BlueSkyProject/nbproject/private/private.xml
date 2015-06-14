@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/employee/plane/cabin.jsp</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/employee/plane/cabin/create.jsp</file>
-            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/admin/create.jsp</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/css/employee-create-cabin.css</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/js/employee-cabin.js</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/js/employee-seat.js</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/employee/plane/cabin/seat.jsp</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/src/java/DataAccessLayer/CabinHandler.java</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/public/css/employee-seat.css</file>
+            <file>file:/E:/Hoc%20tap/CNTT/PTUDQL_2/Do%20an/BlueSky/BlueSkyProject/web/employee/plane/create.jsp</file>
         </group>
     </open-files>
 </project-private>
