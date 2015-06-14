@@ -16,7 +16,7 @@ $('.btn-details').click(function() {
 $('.btn-remove').click(function() {
     var self = this;
     var parent = $(self).parents()[1];
-    var id = $(parent).children('.hidden');
+    var id = $(parent).children('.cabin-id');
     
     var form = document.createElement('form');
     $(form).attr('method', 'post');
@@ -34,6 +34,7 @@ $('.btn-remove').click(function() {
     
     form.appendChild(inputCabin);
     form.appendChild(inputPlane);
+    console.log(form);
     document.body.appendChild(form);
     form.submit();
 });

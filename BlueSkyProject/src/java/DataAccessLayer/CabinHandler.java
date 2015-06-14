@@ -48,7 +48,16 @@ public class CabinHandler {
     }
     
     public boolean insert(String plane, String cabin) throws SQLException, ClassNotFoundException {
-        String sql = String.format("Insert Into `ChiTietMayBay`(MaKhoang, MaMayBay) Values ('%s', '%s')",
+        String sql = String.format(
+                "Insert Into `ChiTietMayBay`(MaKhoang, MaMayBay) Values ('%s', '%s')",
+                cabin, plane);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean delete(String plane, String cabin) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Delete From `ChiTietMayBay` Where MaKhoang = '%s' And MaMayBay = '%s'",
                 cabin, plane);
         
         return (this.provider.executeNonQuery(sql) > 0);

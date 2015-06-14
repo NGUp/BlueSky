@@ -80,6 +80,10 @@
         <servlet-name>CreateCabinHandler</servlet-name>
         <servlet-class>Employee.CreateCabinHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveCabinHandler</servlet-name>
+        <servlet-class>Employee.RemoveCabinHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>CreateCabinHandler</servlet-name>
         <url-pattern>/employee/plane/cabin/createhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveCabinHandler</servlet-name>
+        <url-pattern>/employee/plane/cabin/removehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
