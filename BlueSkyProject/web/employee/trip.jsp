@@ -1,3 +1,6 @@
+<%@page import="DataTransferObject.Trip"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DataAccessLayer.TripHandler"%>
 <%@page import="Core.Auth"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -86,21 +89,36 @@
                     </thead>
                     <tbody>
                         <%
-//                            PlaneHandler handler = new PlaneHandler();
-//                            
-//                            int currentPage = 1;
-//                            int index = 1;
-//                            
-//                            if (request.getParameter("page") != null) {
-//                                currentPage = Integer.parseInt(request.getParameter("page"));
-//                            }
-//                            
-//                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//                            ArrayList<Plane> planes = handler.limit(currentPage);
-//                            for (Plane plane : planes) {
+                            TripHandler handler = new TripHandler();
+                            
+                            int currentPage = 1;
+                            int index = 1;
+                            
+                            if (request.getParameter("page") != null) {
+                                currentPage = Integer.parseInt(request.getParameter("page"));
+                            }
+                            
+                            ArrayList<Trip> trips = handler.limit(currentPage);
+                            for (Trip trip : trips) {
                         %>
-    
-                        <% // } %>
+                            <tr>
+                                <td class="center"><%= index++ %></td>
+                                <td><%= trip.getID() %></td>
+                                <td><%= trip.getName() %></td>
+                                <td><%= handler.getName(trip.getFrom()) %></td>
+                                <td><%= handler.getName(trip.getTo()) %></td>
+                                <td>
+                                    <button class="btn btn-default btn-details">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger btn-remove">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </article>
@@ -108,5 +126,6 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
+        <script src="/public/js/employee-trip.js"></script>
     </body>
 </html>

@@ -1,3 +1,5 @@
+<%@page import="DataTransferObject.Airport"%>
+<%@page import="DataAccessLayer.AirportHandler"%>
 <%@page import="DataAccessLayer.PlaneHandler"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="DataTransferObject.Plane"%>
@@ -15,9 +17,9 @@
         <link href="/public/img/favicon.png" rel="shortcut icon">
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
-        <link rel="stylesheet" href="/public/css/bootstrap-datepicker.css"/>
+        <link rel="stylesheet" href="/public/css/bootstrap-combobox.css"/>
         <link rel="stylesheet" href="/public/css/employee-app.css"/>
-        <link rel="stylesheet" href="/public/css/employee-create-plane.css"/>
+        <link rel="stylesheet" href="/public/css/employee-create-trip.css"/>
     </head>
     <body>
 
@@ -26,6 +28,15 @@
                 response.sendRedirect("/login.jsp");
                 return;
             }
+            
+            if (Auth.authorizeManager(session) == false) {
+                response.sendRedirect("/login.jsp");
+                return;
+            }
+            
+            AirportHandler airportHandler = new AirportHandler();            
+            
+            ArrayList<Airport> airports = airportHandler.getAll();
         %>
         
         <header>
@@ -63,31 +74,38 @@
             </aside>
             <article class="col-md-9">
                 <div class="content">
-                    <h2 class="title">Thêm máy bay</h2>
-                    <form action="/employee/plane/createhandler" method="post">
-                        <div class="plane-input">
-                            <h4>Mã máy bay</h4>
-                            <input class="form-control" type="text" name="txtID" placeholder="Mã máy bay" autocomplete="off" spellcheck="false"/>
+                    <div class="group-navigator">
+                        <h2 class="title">
+                            Thêm tuyến bay
+                        </h2>
+                    </div>
+                    <form action="/employee/trip/createhandler" method="post">
+                        <div class="trip-input">
+                            <h4>Mã tuyến bay</h4>
+                            <input class="form-control" type="text" name="txtID" placeholder="Mã tuyến bay" autocomplete="off" spellcheck="false"/>
                         </div>
-                        <div class="plane-input">
-                            <h4>Tên máy bay</h4>
-                            <input class="form-control" type="text" name="txtName" placeholder="Tên máy bay" autocomplete="off" spellcheck="false"/>
+                        <div class="trip-input">
+                            <h4>Tên tuyến bay</h4>
+                            <input class="form-control" type="text" name="txtName" placeholder="Tên tuyến bay" autocomplete="off" spellcheck="false"/>
                         </div>
-                        <div class="plane-input">
-                            <h4>Hãng sản xuất</h4>
-                            <input class="form-control" type="text" name="txtManufacturer" placeholder="Hãng sản xuất" spellcheck="false"/>
+                        <div class="trip-input">
+                            <h4>Sân bay đi</h4>
+                            <select class="combobox" name="cbxFrom">
+                                <% for (Airport airport : airports) { %>
+                                    <option value="<%= airport.getID() %>"><%= airport.getName() %></option>
+                                <% } %>
+                            </select>
                         </div>
-                        <div class="plane-input">
-                            <h4>Ngày vận hành</h4>
-                            <div class="input-group date">
-                                <input type="text" class="form-control" name="txtStart">
-                                <span class="input-group-addon">
-                                    <i class="glyphicon glyphicon-th"></i>
-                                </span>
-                            </div>
+                        <div class="trip-input">
+                            <h4>Sân bay đến</h4>
+                            <select class="combobox" name="cbxTo">
+                                <% for (Airport airport : airports) { %>
+                                    <option value="<%= airport.getID() %>"><%= airport.getName() %></option>
+                                <% } %>
+                            </select>
                         </div>
-                        <div class="register-input">
-                            <button type="submit" class="btn btn-primary">Thêm máy bay</button>
+                        <div class="trip-input">
+                            <button type="submit" class="btn btn-primary">Thêm tuyến bay</button>
                             <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
                         </div>
                     </form>
@@ -97,7 +115,7 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/bootstrap-datepicker.js"></script>
-        <script src="/public/js/employee-create-plane.js"></script>
+        <script src="/public/js/bootstrap-combobox.js"></script>
+        <script src="/public/js/employee-create-trip.js"></script>
     </body>
 </html>
