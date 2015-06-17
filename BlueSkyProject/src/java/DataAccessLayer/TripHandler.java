@@ -1,13 +1,11 @@
 package DataAccessLayer;
 
 import Core.Provider;
-import DataTransferObject.Plane;
 import DataTransferObject.Trip;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class TripHandler {
     private final Provider provider;
@@ -26,7 +24,29 @@ public class TripHandler {
     
     public ArrayList<Trip> limit(int page) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
         String sql = String.format(
-                "Select * From TuyenBay Limit %d, 20", (page - 1));
+                "Select * From TuyenBay Limit %d, 10", (page - 1) * 10);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Trip> trips = new ArrayList<>();
+        
+        while (result.next()) {
+            Trip trip = new Trip();
+            trip.setID(result.getString("MaTuyen"));
+            trip.setName((new String(result.getString("TenTuyen").getBytes("8859_1"),"UTF-8")));
+            trip.setFrom(result.getString("MaSB_Den"));
+            trip.setTo(result.getString("MaSB_Di"));
+            trips.add(trip);
+        }
+        
+        this.provider.closeConnection();
+        
+        return trips;
+    }
+    
+    public ArrayList<Trip> limitWithKeyword(int page, String keyword) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql =
+                "Select * From TuyenBay Where TenTuyen Like '%" + keyword + "%' Limit " + Integer.toString((page - 1) * 10) + ", 10";
         
         ResultSet result = this.provider.executeQuery(sql);
         
@@ -87,5 +107,35 @@ public class TripHandler {
                 trip.getName(), trip.getFrom(), trip.getTo(), trip.getID());
         
         return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public int totalPage() throws SQLException, ClassNotFoundException {
+        String sql = "Select Ceiling(Count(MaTuyen) / 10) as Total From TuyenBay";
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        int result = 0;
+        
+        if (data.next()) {
+            result = data.getInt("Total");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
+    }
+    
+    public int totalPageWithKeyword(String keyword) throws SQLException, ClassNotFoundException {
+        String sql = "Select Ceiling(Count(MaTuyen) / 10) as Total From TuyenBay Where TenTuyen Like '%" + keyword + "%'";
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        int result = 0;
+        
+        if (data.next()) {
+            result = data.getInt("Total");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
     }
 }

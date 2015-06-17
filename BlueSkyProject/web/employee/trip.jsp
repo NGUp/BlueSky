@@ -23,6 +23,12 @@
                 response.sendRedirect("/login.jsp");
                 return;
             }
+            
+            String keyword = "";
+            
+            if (request.getParameter("keyword") != null) {
+                keyword = request.getParameter("keyword");
+            }
         %>
         
         <header>
@@ -62,9 +68,9 @@
                 <h2 class="title">Quản lý tuyến bay</h2>
                 <div class="input-navigator">
                     <div class="input-group group-search">
-                        <input class="form-control" placeholder="Từ khóa">
+                        <input class="form-control" placeholder="Từ khóa" id="keyword" value="<%= keyword %>">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="btn-search">
                                 <span class="glyphicon glyphicon-search"></span>
                                 Tìm kiếm
                             </button>
@@ -98,7 +104,17 @@
                                 currentPage = Integer.parseInt(request.getParameter("page"));
                             }
                             
-                            ArrayList<Trip> trips = handler.limit(currentPage);
+                            int totalPage = 0;
+                            ArrayList<Trip> trips = null;
+                            
+                            if ("".equals(keyword)) {
+                                totalPage = handler.totalPage();
+                                trips = handler.limit(currentPage);
+                            } else {
+                                totalPage = handler.totalPageWithKeyword(keyword);
+                                trips = handler.limitWithKeyword(currentPage, keyword);
+                            }
+                            
                             for (Trip trip : trips) {
                         %>
                             <tr>
@@ -121,6 +137,15 @@
                         <% } %>
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pager">
+                        <li><a href="javascript:void(0)" id="btn-previous">Previous</a></li>
+                        <li>
+                            <span id="current-page"><%= currentPage %></span> / <span id="total-page"><%= totalPage %></span>
+                        </li>
+                        <li><a href="javascript:void(0)" id="btn-next">Next</a></li>
+                    </ul>
+                </nav>
             </article>
         </section>
         
