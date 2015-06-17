@@ -10,7 +10,7 @@ $('.btn-details').click(function() {
 });
 
 $('#btn-clear').click(function() {
-    window.location.href = '/employee/trip.jsp?page=1';
+    window.location.href = '/employee/trip.jsp';
 });
 
 $('#btn-previous').click(function() {
@@ -42,7 +42,6 @@ $('#btn-next').click(function() {
             window.location.href = '/employee/trip.jsp?page=' + (parseInt(currentPage) + 1) + '&keyword=' + keyword;
         }
     }
-    
 });
 
 $('#btn-search').click(function() {

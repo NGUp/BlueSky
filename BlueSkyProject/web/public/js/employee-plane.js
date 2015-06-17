@@ -31,3 +31,40 @@ $('.btn-remove').click(function() {
     document.body.appendChild(form);
     form.submit();
 });
+
+$('#btn-previous').click(function() {
+    var currentPage = $('#current-page').text(),
+        keyword = $('#keyword').val();
+        
+    if (keyword === '') {
+        if (currentPage > 1) {
+            window.location.href = '/employee/plane.jsp?page=' + (parseInt(currentPage) - 1);
+        }
+    } else {
+        if (currentPage > 1) {
+            window.location.href = '/employee/plane.jsp?page=' + (parseInt(currentPage) - 1) + '&keyword=' + keyword;
+        }
+    }
+});
+
+$('#btn-next').click(function() {
+    var currentPage = $('#current-page').text(),
+        totalPage = $('#total-page').text(),
+        keyword = $('#keyword').val();
+        
+    if (keyword === '') {
+        if (currentPage < totalPage) {
+            window.location.href = '/employee/plane.jsp?page=' + (parseInt(currentPage) + 1);
+        }
+    } else {
+        if (currentPage < totalPage) {
+            window.location.href = '/employee/plane.jsp?page=' + (parseInt(currentPage) + 1) + '&keyword=' + keyword;
+        }
+    }
+});
+
+$('#btn-search').click(function() {
+    var keyword = $('#keyword').val();
+    
+    window.location.href = '/employee/plane.jsp?keyword=' + keyword;
+});

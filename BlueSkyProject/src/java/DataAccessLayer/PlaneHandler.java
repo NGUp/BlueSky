@@ -17,7 +17,30 @@ public class PlaneHandler {
     
     public ArrayList<Plane> limit(int page) throws SQLException, ClassNotFoundException {
         String sql = String.format(
-                "Select * From MayBay Limit %d, 20", (page - 1));
+                "Select * From MayBay Limit %d, 10", (page - 1) * 10);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Plane> planes = new ArrayList<>();
+        
+        while (result.next()) {
+            Plane plane = new Plane();
+            plane.setID(result.getString("MaMB"));
+            plane.setName(result.getString("TenMB"));
+            plane.setStart(new Date(result.getDate("NgayVanHanh").getTime()));
+            plane.setManufacturer(result.getString("HangSanXuat"));
+            
+            planes.add(plane);
+        }
+        
+        this.provider.closeConnection();
+        
+        return planes;
+    }
+    
+    public ArrayList<Plane> limitWithKeyword(int page, String keyword) throws SQLException, ClassNotFoundException {
+        String sql =
+                "Select * From MayBay Where TenMB Like '%" + keyword + "%' Limit " + Integer.toString((page - 1) * 10) + ", 10";
         
         ResultSet result = this.provider.executeQuery(sql);
         
@@ -60,5 +83,35 @@ public class PlaneHandler {
                 plane.getID(), plane.getName(), new SimpleDateFormat("yyyy-MM-dd").format(plane.getStart()), plane.getManufacturer());
         
         return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public int totalPage() throws SQLException, ClassNotFoundException {
+        String sql = "Select Ceiling(Count(MaMB) / 10) as Total From MayBay";
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        int result = 0;
+        
+        if (data.next()) {
+            result = data.getInt("Total");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
+    }
+    
+    public int totalPageWithKeyword(String keyword) throws SQLException, ClassNotFoundException {
+        String sql = "Select Ceiling(Count(MaMB) / 10) as Total From MayBay Where TenMB Like '%" + keyword + "%'";
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        int result = 0;
+        
+        if (data.next()) {
+            result = data.getInt("Total");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
     }
 }

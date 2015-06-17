@@ -25,6 +25,12 @@
                 response.sendRedirect("/login.jsp");
                 return;
             }
+            
+            String keyword = "";
+            
+            if (request.getParameter("keyword") != null) {
+                keyword = request.getParameter("keyword");
+            }
         %>
         
         <header>
@@ -46,27 +52,18 @@
                 </h3>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
-                    <% if (session.getAttribute("userPermission").equals("MANAGER")) { %>
-                        <!-- for Manager -->
-                        <li><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
-                        <li><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
-                        <li><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
-                    <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
-                        <!-- for Conductor -->
-                    <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
-                        <!-- for Pilot -->
-                    <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
-                        <!-- for Stewardess -->
-                    <% } %>
+                    <li role="presentation"><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
+                    <li role="presentation"><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
+                    <li role="presentation"><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
                 </ul>
             </aside>
             <article class="col-md-9">
                 <h2 class="title">Quản lý danh mục máy bay</h2>
                 <div class="input-navigator">
                     <div class="input-group group-search">
-                        <input class="form-control" placeholder="Từ khóa">
+                        <input class="form-control" placeholder="Từ khóa" id="keyword" value="<%= keyword %>">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" id="btn-search">
                                 <span class="glyphicon glyphicon-search"></span>
                                 Tìm kiếm
                             </button>
@@ -99,8 +96,18 @@
                                 currentPage = Integer.parseInt(request.getParameter("page"));
                             }
                             
+                            int totalPage = 0;
+                            ArrayList<Plane> planes = null;
+                            
+                            if ("".equals(keyword)) {
+                                totalPage = handler.totalPage();
+                                planes = handler.limit(currentPage);
+                            } else {
+                                totalPage = handler.totalPageWithKeyword(keyword);
+                                planes = handler.limitWithKeyword(currentPage, keyword);
+                            }
+                            
                             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                            ArrayList<Plane> planes = handler.limit(currentPage);
                             for (Plane plane : planes) {
                         %>
                             <tr>
@@ -123,6 +130,15 @@
                         <% } %>
                     </tbody>
                 </table>
+                <nav>
+                    <ul class="pager">
+                        <li><a href="javascript:void(0)" id="btn-previous">Previous</a></li>
+                        <li>
+                            <span id="current-page"><%= currentPage %></span> / <span id="total-page"><%= totalPage %></span>
+                        </li>
+                        <li><a href="javascript:void(0)" id="btn-next">Next</a></li>
+                    </ul>
+                </nav>
             </article>
         </section>
         
