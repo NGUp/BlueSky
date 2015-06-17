@@ -1,8 +1,3 @@
-<%@page import="DataAccessLayer.PlaneHandler"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="DataTransferObject.Plane"%>
 <%@page import="Core.Auth"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -16,12 +11,12 @@
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/employee-app.css"/>
-        <link rel="stylesheet" href="/public/css/employee-plane.css"/>
+        <link rel="stylesheet" href="/public/css/employee-flight.css"/>
     </head>
     <body>
 
         <%
-            if (Auth.authorizeManager(session) == false) {
+            if (Auth.authorizeEmployee(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -61,7 +56,7 @@
                 </ul>
             </aside>
             <article class="col-md-9">
-                <h2 class="title">Quản lý danh mục máy bay</h2>
+                <h2 class="title">Quản lý chuyến bay</h2>
                 <div class="input-navigator">
                     <div class="input-group group-search">
                         <input class="form-control" placeholder="Từ khóa">
@@ -90,37 +85,21 @@
                     </thead>
                     <tbody>
                         <%
-                            PlaneHandler handler = new PlaneHandler();
-                            
-                            int currentPage = 1;
-                            int index = 1;
-                            
-                            if (request.getParameter("page") != null) {
-                                currentPage = Integer.parseInt(request.getParameter("page"));
-                            }
-                            
-                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                            ArrayList<Plane> planes = handler.limit(currentPage);
-                            for (Plane plane : planes) {
+//                            PlaneHandler handler = new PlaneHandler();
+//                            
+//                            int currentPage = 1;
+//                            int index = 1;
+//                            
+//                            if (request.getParameter("page") != null) {
+//                                currentPage = Integer.parseInt(request.getParameter("page"));
+//                            }
+//                            
+//                            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//                            ArrayList<Plane> planes = handler.limit(currentPage);
+//                            for (Plane plane : planes) {
                         %>
-                            <tr>
-                                <td class="center"><%= index++ %></td>
-                                <td class="hidden"><%= plane.getID() %></td>
-                                <td><%= plane.getName() %></td>
-                                <td><%= plane.getManufacturer()%></td>
-                                <td><%= formatter.format(plane.getStart()) %></td>
-                                <td>
-                                    <button class="btn btn-default btn-details">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger btn-remove">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
-                                </td>
-                            </tr>
-                        <% } %>
+    
+                        <% // } %>
                     </tbody>
                 </table>
             </article>
@@ -128,6 +107,5 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/employee-plane.js"></script>
     </body>
 </html>

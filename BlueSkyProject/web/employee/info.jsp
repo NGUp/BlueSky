@@ -52,6 +52,9 @@
                         <!-- for Administrator -->
                     <% } else if (session.getAttribute("userPermission").equals("MANAGER")) { %>
                         <!-- for Manager -->
+                        <li><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
+                        <li><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
+                        <li><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
                         <!-- for Conductor -->
                     <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
