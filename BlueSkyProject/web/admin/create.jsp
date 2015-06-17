@@ -80,7 +80,7 @@
                                 <select class="combobox" name="cbxPermission">
                                     <option value="MANAGER">Quản lý</option>
                                     <option value="CONDUCTOR">Nhân viên bán vé</option>
-                                    <option value="PILOT">Phi công/option>
+                                    <option value="PILOT">Phi công</option>
                                     <option value="STEWARDESS">Tiếp viên</option>
                                 </select>
                             </div>
