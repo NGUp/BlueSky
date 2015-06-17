@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namvh
  */
-public class CreateTripHandler extends HttpServlet {
+public class UpdateTripHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,10 @@ public class CreateTripHandler extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateTripHandler</title>");            
+            out.println("<title>Servlet UpdateTripHandler</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateTripHandler at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateTripHandler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,12 +76,12 @@ public class CreateTripHandler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         if (request.getParameter("txtID") == null ||
                 request.getParameter("txtName") == null ||
                 request.getParameter("cbxFrom") == null ||
                 request.getParameter("cbxTo") == null) {
-            response.sendRedirect("/employee/trip/create.jsp");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
             return;
         }
         
@@ -91,7 +91,14 @@ public class CreateTripHandler extends HttpServlet {
         String to = request.getParameter("cbxTo");
         
         if ("".equals(ID) || "".equals(name) || "".equals(from) || "".equals(to)) {
-            response.sendRedirect("/employee/trip/create.jsp");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
+            return;
+        }
+        
+        if (from.equals(to)) {
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
             return;
         }
         
@@ -104,12 +111,13 @@ public class CreateTripHandler extends HttpServlet {
         trip.setTo(to);
         
         try {
-            if (tripHandler.insert(trip)) {
+            if (tripHandler.update(trip)) {
                 response.sendRedirect("/employee/trip.jsp");
                 return;
             }
             
-            response.sendRedirect("/employee/trip/create.jsp");
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CreateTripHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

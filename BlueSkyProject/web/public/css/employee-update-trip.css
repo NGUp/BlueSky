@@ -1,0 +1,44 @@
+.group-navigator {
+    display: flex;
+}
+
+.btn-navigate {
+    margin-top: 2px;
+    margin-right: 16px;
+}
+
+.content {
+    margin-top: 36px;
+}
+
+form {
+    width: 275px;
+    margin: 72px auto;
+}
+
+.btn {
+    float: right;
+    margin-top: 16px;
+    margin-left: 8px;
+}
+
+.typeahead.dropdown-menu {
+    width: 100%;
+}
+
+.trip-input {
+    margin-top: 16px;
+}
+
+.trip-input h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.trip-id {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 400;
+    color: #212121;
+}

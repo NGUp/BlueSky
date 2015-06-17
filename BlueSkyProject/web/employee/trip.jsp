@@ -103,7 +103,7 @@
                         %>
                             <tr>
                                 <td class="center"><%= index++ %></td>
-                                <td><%= trip.getID() %></td>
+                                <td class="trip-id"><%= trip.getID() %></td>
                                 <td><%= trip.getName() %></td>
                                 <td><%= handler.getName(trip.getFrom()) %></td>
                                 <td><%= handler.getName(trip.getTo()) %></td>

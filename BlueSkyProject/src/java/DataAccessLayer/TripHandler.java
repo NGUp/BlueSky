@@ -28,8 +28,6 @@ public class TripHandler {
         String sql = String.format(
                 "Select * From TuyenBay Limit %d, 20", (page - 1));
         
-        System.out.println(sql);
-        
         ResultSet result = this.provider.executeQuery(sql);
         
         ArrayList<Trip> trips = new ArrayList<>();
@@ -61,5 +59,33 @@ public class TripHandler {
         this.provider.closeConnection();
         
         return result;
+    }
+    
+    public Trip one(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format(
+                "Select * From TuyenBay Where MaTuyen = '%s'", ID);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        Trip trip = new Trip();
+        
+        if (result.next()) {
+            trip.setID(result.getString("MaTuyen"));
+            trip.setName((new String(result.getString("TenTuyen").getBytes("8859_1"),"UTF-8")));
+            trip.setFrom(result.getString("MaSB_Den"));
+            trip.setTo(result.getString("MaSB_Di"));
+        }
+        
+        this.provider.closeConnection();
+        
+        return trip;
+    }
+    
+    public boolean update(Trip trip) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Update `TuyenBay` Set TenTuyen = '%s', MaSB_Den = '%s', MaSB_Di = '%s' Where MaTuyen = '%s'",
+                trip.getName(), trip.getFrom(), trip.getTo(), trip.getID());
+        
+        return (this.provider.executeNonQuery(sql) > 0);
     }
 }
