@@ -96,6 +96,10 @@
         <servlet-name>UpdateTripHandler</servlet-name>
         <servlet-class>Employee.UpdateTripHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveTripHandler</servlet-name>
+        <servlet-class>Employee.RemoveTripHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>UpdateTripHandler</servlet-name>
         <url-pattern>/employee/trip/updatehandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveTripHandler</servlet-name>
+        <url-pattern>/employee/trip/removehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

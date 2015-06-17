@@ -50,3 +50,22 @@ $('#btn-search').click(function() {
     
     window.location.href = '/employee/trip.jsp?keyword=' + keyword;
 });
+
+$('.btn-remove').click(function() {
+    var self = this;
+    var parent = $(self).parents()[1];
+    var id = $(parent).children('.trip-id');
+    
+    var form = document.createElement('form');
+    $(form).attr('method', 'post');
+    $(form).attr('action', '/employee/trip/removehandler');
+
+    var input = document.createElement('input');
+    $(input).attr('type', 'hidden');
+    $(input).val($(id).text());
+    $(input).attr('name', 'tripID');
+    
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+});

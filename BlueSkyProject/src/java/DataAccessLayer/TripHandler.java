@@ -138,4 +138,11 @@ public class TripHandler {
         
         return result;
     }
+    
+    public boolean delete(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Delete From TuyenBay Where MaTuyen = '%s'", ID);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
 }
