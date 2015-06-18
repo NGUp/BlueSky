@@ -38,6 +38,28 @@ public class PlaneHandler {
         return planes;
     }
     
+    public ArrayList<Plane> getAll() throws SQLException, ClassNotFoundException {
+        String sql = "Select * From MayBay";
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Plane> planes = new ArrayList<>();
+        
+        while (result.next()) {
+            Plane plane = new Plane();
+            plane.setID(result.getString("MaMB"));
+            plane.setName(result.getString("TenMB"));
+            plane.setStart(new Date(result.getDate("NgayVanHanh").getTime()));
+            plane.setManufacturer(result.getString("HangSanXuat"));
+            
+            planes.add(plane);
+        }
+        
+        this.provider.closeConnection();
+        
+        return planes;
+    }
+    
     public ArrayList<Plane> limitWithKeyword(int page, String keyword) throws SQLException, ClassNotFoundException {
         String sql =
                 "Select * From MayBay Where TenMB Like '%" + keyword + "%' Limit " + Integer.toString((page - 1) * 10) + ", 10";

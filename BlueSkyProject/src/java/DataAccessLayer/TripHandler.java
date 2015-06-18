@@ -145,4 +145,25 @@ public class TripHandler {
         
         return (this.provider.executeNonQuery(sql) > 0);
     }
+    
+    public ArrayList<Trip> getAll() throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = "Select * From TuyenBay";
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Trip> trips = new ArrayList<>();
+        
+        while (result.next()) {
+            Trip trip = new Trip();
+            trip.setID(result.getString("MaTuyen"));
+            trip.setName((new String(result.getString("TenTuyen").getBytes("8859_1"),"UTF-8")));
+            trip.setFrom(result.getString("MaSB_Den"));
+            trip.setTo(result.getString("MaSB_Di"));
+            trips.add(trip);
+        }
+        
+        this.provider.closeConnection();
+        
+        return trips;
+    }
 }

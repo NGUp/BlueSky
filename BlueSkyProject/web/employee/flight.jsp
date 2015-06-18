@@ -103,8 +103,12 @@
                                 totalPage = flightHandler.totalPage();
                                 flights = flightHandler.limit(currentPage);
                             } else {
-                                totalPage = flightHandler.totalPageWithKeyword(keyword);
+                                totalPage = flightHandler.totalPageWithKeyword(keyword);                                
                                 flights = flightHandler.limitWithKeyword(currentPage, keyword);
+                                
+                                if (totalPage == 0) {
+                                    currentPage = 0;
+                                }
                             }
                             
                             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

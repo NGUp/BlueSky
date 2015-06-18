@@ -6,7 +6,7 @@ $('.btn-details').click(function() {
     var self = this;
     var parent = $(self).parents()[1];
     var id = $(parent).children('.trip-id');
-    //.window.location.href = '/employee/flight/update.jsp?trip=' + $(id).text();
+    window.location.href = '/employee/flight/update.jsp?flight=' + $(id).text();
 });
 
 $('#btn-clear').click(function() {

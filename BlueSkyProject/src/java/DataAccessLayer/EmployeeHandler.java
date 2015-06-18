@@ -177,4 +177,70 @@ public class EmployeeHandler {
         String sql = String.format("Update `NhanVien` Set TrangThai = 1 Where Ma = '%s'", ID);
         return (this.provider.executeNonQuery(sql) > 0);
     }
+    
+    public ArrayList<Employee> getPilot()
+            throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = 
+                "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
+                "From NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai " + 
+                "Where NV.MALOAI = 'PILOT'";
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Employee> employees = new ArrayList<>();
+        
+        while (result.next()) {
+            
+            Employee employee = new Employee();
+            employee.setID(result.getString("Ma"));
+            employee.setIdentityCard(result.getString("CMND"));
+            employee.setName((new String(result.getString("Ten").getBytes("8859_1"),"UTF-8")));
+            employee.setEmail(result.getString("Email"));
+            employee.setPermission(result.getString("TenLoai"));
+            employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
+            employee.setUsername(result.getString("TenDangNhap"));
+            employee.setGender(result.getString("GioiTinh"));
+            employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
+            employee.setPhone(result.getString("DienThoai"));
+            employee.setState(result.getInt("TrangThai"));
+            employees.add(employee);
+        }
+        
+        this.provider.closeConnection();
+        
+        return employees;
+    }
+    
+    public ArrayList<Employee> getStewardess()
+            throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = 
+                "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
+                "From NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai " + 
+                "Where NV.MALOAI = 'STEWARDESS'";
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Employee> employees = new ArrayList<>();
+        
+        while (result.next()) {
+            
+            Employee employee = new Employee();
+            employee.setID(result.getString("Ma"));
+            employee.setIdentityCard(result.getString("CMND"));
+            employee.setName((new String(result.getString("Ten").getBytes("8859_1"),"UTF-8")));
+            employee.setEmail(result.getString("Email"));
+            employee.setPermission(result.getString("TenLoai"));
+            employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
+            employee.setUsername(result.getString("TenDangNhap"));
+            employee.setGender(result.getString("GioiTinh"));
+            employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
+            employee.setPhone(result.getString("DienThoai"));
+            employee.setState(result.getInt("TrangThai"));
+            employees.add(employee);
+        }
+        
+        this.provider.closeConnection();
+        
+        return employees;
+    }
 }

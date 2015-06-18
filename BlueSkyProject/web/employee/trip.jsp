@@ -104,6 +104,10 @@
                             } else {
                                 totalPage = handler.totalPageWithKeyword(keyword);
                                 trips = handler.limitWithKeyword(currentPage, keyword);
+                                
+                                if (totalPage == 0) {
+                                    currentPage = 0;
+                                }
                             }
                             
                             for (Trip trip : trips) {
