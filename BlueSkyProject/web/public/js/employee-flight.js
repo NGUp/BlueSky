@@ -9,6 +9,13 @@ $('.btn-details').click(function() {
     window.location.href = '/employee/flight/update.jsp?flight=' + $(id).text();
 });
 
+$('.btn-employee').click(function() {
+    var self = this;
+    var parent = $(self).parents()[1];
+    var id = $(parent).children('.trip-id');
+    window.location.href = '/employee/flight/stewardess/details.jsp?flight=' + $(id).text();
+});
+
 $('#btn-clear').click(function() {
     window.location.href = '/employee/flight.jsp';
 });

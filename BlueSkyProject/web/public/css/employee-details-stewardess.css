@@ -1,0 +1,51 @@
+article {
+    margin-bottom: 120px;
+}
+
+.btn-insert {
+    margin-top: 40px;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.cabin {
+    margin-top: 48px;
+}
+
+.table {
+    margin-top: 16px;
+}
+
+.index {
+    width: 60px;
+    text-align: center;
+}
+
+.cabin-id,
+.stewardess-id {
+    display: none;
+}
+
+.group-navigator {
+    display: flex;
+}
+
+.btn-navigate {
+    margin-top: 55px;
+    margin-right: 16px;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 24px;    
+    margin-top: 60px;
+}

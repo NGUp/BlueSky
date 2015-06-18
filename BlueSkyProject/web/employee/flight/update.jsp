@@ -29,7 +29,7 @@
     <body>
 
         <%
-            if (Auth.authorizeEmployee(session) == false) {
+            if (Auth.authorizeManager(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
