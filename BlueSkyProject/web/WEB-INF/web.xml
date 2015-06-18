@@ -104,6 +104,10 @@
         <servlet-name>CreateFlightHandler</servlet-name>
         <servlet-class>Employee.CreateFlightHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateFlightHandler</servlet-name>
+        <servlet-class>Employee.UpdateFlightHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>CreateFlightHandler</servlet-name>
         <url-pattern>/employee/flight/createhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFlightHandler</servlet-name>
+        <url-pattern>/employee/flight/updatehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

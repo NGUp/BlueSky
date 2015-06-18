@@ -30,6 +30,7 @@ public class FlightHandler {
             flight.setArrival(new Date(result.getTimestamp("TG_HaCanh").getTime()));
             flight.setMainPilot(result.getString("MaLaiChinh"));
             flight.setTrip(result.getString("MaTuyen"));
+            flight.setPlane(result.getString("MaMB"));
             flight.setVicePilot(result.getString("MaLaiPhu"));
             flight.setMainStewardess(result.getString("MaTiepVienTruong"));
             flights.add(flight);
@@ -55,6 +56,7 @@ public class FlightHandler {
             flight.setArrival(new Date(result.getTimestamp("TG_HaCanh").getTime()));
             flight.setMainPilot(result.getString("MaLaiChinh"));
             flight.setTrip(result.getString("MaTuyen"));
+            flight.setPlane(result.getString("MaMB"));
             flight.setVicePilot(result.getString("MaLaiPhu"));
             flight.setMainStewardess(result.getString("MaTiepVienTruong"));
             flights.add(flight);
@@ -103,5 +105,39 @@ public class FlightHandler {
                 flight.getPlane(), flight.getTrip(), flight.getMainPilot(), flight.getVicePilot(), flight.getMainStewardess());
         
         return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean update(Flight flight) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Update `ChuyenBay` Set TG_XuatPhat = '%s', TG_HaCanh = '%s', MaMB = '%s', MaTuyen = '%s', MaLaiChinh = '%s', MaLaiPhu = '%s', MaTiepVienTruong = '%s' Where MaChuyen = '%s'",
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(flight.getDeparture()), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(flight.getArrival()),
+                flight.getPlane(), flight.getTrip(), flight.getMainPilot(), flight.getVicePilot(), flight.getMainStewardess(), flight.getID());
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public Flight one(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Select * From ChuyenBay Where MaChuyen = '%s'", ID);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        Flight flight = null;
+        
+        if (result.next()) {
+            flight = new Flight();
+            flight.setID(result.getString("MaChuyen"));
+            flight.setDeparture(new Date(result.getTimestamp("TG_XuatPhat").getTime()));
+            flight.setArrival(new Date(result.getTimestamp("TG_HaCanh").getTime()));
+            flight.setMainPilot(result.getString("MaLaiChinh"));
+            flight.setTrip(result.getString("MaTuyen"));
+            flight.setPlane(result.getString("MaMB"));
+            flight.setVicePilot(result.getString("MaLaiPhu"));
+            flight.setMainStewardess(result.getString("MaTiepVienTruong"));
+        }
+        
+        this.provider.closeConnection();
+        
+        return flight;
     }
 }

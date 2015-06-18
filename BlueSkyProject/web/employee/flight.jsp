@@ -84,6 +84,7 @@
                         <th>Mã tuyến</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <%
@@ -123,6 +124,11 @@
                                 <td>
                                     <button class="btn btn-default btn-details">
                                         <span class="glyphicon glyphicon-list-alt"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-employee">
+                                        <span class="glyphicon glyphicon-user"></span>
                                     </button>
                                 </td>
                                 <td>

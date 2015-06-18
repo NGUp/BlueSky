@@ -67,13 +67,13 @@ public class TripHandler {
     }
     
     public String getName(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
-        String sql = String.format("Select TenSB From SanBay Where MaSB = '%s'", ID);
+        String sql = String.format("Select TenTuyen From TuyenBay Where MaTuyen = '%s'", ID);
         
         ResultSet data = this.provider.executeQuery(sql);
         String result = "";
         
         if (data.next()) {
-            result = data.getString("TenSB");
+            result = (new String(data.getString("TenTuyen").getBytes("8859_1"),"UTF-8"));
         }
         
         this.provider.closeConnection();

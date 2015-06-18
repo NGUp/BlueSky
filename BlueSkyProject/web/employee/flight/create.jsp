@@ -150,7 +150,7 @@
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary">Tạo chuyến bay</button>
-                            <button type="button" class="btn btn-default">Hủy</button>
+                            <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
                         </div>
                     </form>
                 </div>

@@ -1,3 +1,10 @@
+<%@page import="DataTransferObject.Flight"%>
+<%@page import="DataAccessLayer.FlightHandler"%>
+<%@page import="DataTransferObject.Plane"%>
+<%@page import="DataAccessLayer.PlaneHandler"%>
+<%@page import="DataTransferObject.Trip"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DataAccessLayer.TripHandler"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DataTransferObject.Employee"%>
@@ -33,6 +40,13 @@
             }
             
             String flightID = request.getParameter("flight");
+            FlightHandler flightHandler = new FlightHandler();
+            
+            Flight flight = flightHandler.one(flightID);
+            
+            if (flight == null) {
+                response.sendRedirect("/employee/flight.jsp");
+            }
         %>
         
         <header>
@@ -60,67 +74,128 @@
                 </ul>
             </aside>
             <article class="col-md-9">
+                <%
+                    DateFormat formatterDate = new SimpleDateFormat("dd/MM/yyyy");
+                    DateFormat formatterTime = new SimpleDateFormat("HH:mm");
+                    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    TripHandler tripHandler = new TripHandler();
+                    EmployeeHandler employeeHandler = new EmployeeHandler();
+                    PlaneHandler planeHandler = new PlaneHandler();
+
+                    ArrayList<Trip> trips = tripHandler.getAll();
+                    ArrayList<Employee> pilots = employeeHandler.getPilot();
+                    ArrayList<Employee> stewardesses = employeeHandler.getStewardess();
+                    ArrayList<Plane> planes = planeHandler.getAll();
+                %>
                 <div class="row">
-                    <%
-                        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                        EmployeeHandler handler = new EmployeeHandler();
-                        Employee employee = handler.one(session.getAttribute("userID").toString());
-                    %>
-                    <div class="col-md-6">
-                        <h2 class="title">Chi tiết chuyến bay: <%= flightID %></h2>
-                        <form action="/employee/infohandler" method="post">
-                            <div class="info-input">
-                                <h4>Họ tên</h4>
-                                <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtFullName" placeholder="Họ tên" value="<%= employee.getName() %>" />
-                            </div>
-                            <div class="info-input">
-                                <h4>CMND</h4>
-                                <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtIdentityCard" placeholder="CMND" value="<%= employee.getIdentityCard() %>" />
-                            </div>
-                            <div class="info-input">
-                                <h4>Email</h4>
-                                <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" value="<%= employee.getEmail() %>" />
-                            </div>
-                            <div class="info-input">
-                                <h4>Ngày sinh</h4>
-                                <div class="input-group date">
-                                    <input type="text" class="form-control" name="txtBirthday" value="<%= formatter.format(employee.getBirthday()) %>">
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-th"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="info-input">
-                                <h4>Địa chỉ</h4>
-                                <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtAddress" placeholder="Địa chỉ" value="<%= employee.getAddress() %>" />
-                            </div>
-                            <div class="info-input">
-                                <h4>Số điện thoại</h4>
-                                <input type="tel" class="form-control" autocomplete="off" spellcheck="false" name="txtPhone" placeholder="Điện thoại" value="<%= employee.getPhone() %>" />
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
-                                <button type="button" class="btn btn-default">Hủy</button>
-                            </div>
-                        </form>
+                    <div class="col-md-6 flight-info">
+                        <h2 class="title">Thông tin chuyến bay</h2>
+                        <div>
+                            <h4>Mã chuyến: <span><%= flight.getID() %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Thời gian khởi hành: <span><%= formatter.format(flight.getDeparture()) %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Thời gian hạ cánh: <span><%= formatter.format(flight.getArrival()) %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Tuyến: <span><%= tripHandler.getName(flight.getTrip()) %></span></h4>
+                        </div>
+                        <div>
+                            <%
+                                Plane _plane = planeHandler.one(flight.getPlane());
+                            %>
+                            <h4>Máy bay: <span><%= _plane.getManufacturer() %> <%= _plane.getName() %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Phi công chính: <span><%= employeeHandler.getName(flight.getMainPilot()) %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Phi công phụ: <span><%= employeeHandler.getName(flight.getVicePilot()) %></span></h4>
+                        </div>
+                        <div>
+                            <h4>Tiếp viên trưởng: <span><%= employeeHandler.getName(flight.getMainStewardess()) %></span></h4>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <h2 class="title">Thay đổi mật khẩu</h2>
-                        <form action="/employee/passwordhandler" method="post">
-                            <div class="info-input">
-                                <h4>Mật khẩu cũ</h4>
-                                <input class="form-control" type="password" name="txtPasswordOld" placeholder="Mật khẩu cũ"/>
+                        <h2 class="title">Cập nhật chuyến bay</h2>
+                        <form action="/employee/flight/updatehandler" method="post">
+                            <input type="hidden" name="txtID" value="<%= flight.getID() %>" />
+                            <div class="flight-input">
+                                <h4>Khởi hành</h4>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" name="txtDateDeparture" value="<%= formatterDate.format(flight.getDeparture()) %>">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-th"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtTimeDeparture" placeholder="hh:mm" value="<%= formatterTime.format(flight.getDeparture()) %>">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="info-input">
-                                <h4>Mật khẩu mới</h4>
-                                <input class="form-control" type="password" name="txtPasswordNew" placeholder="Mật khẩu mới"/>
+                            <div class="flight-input">
+                                <h4>Hạ cánh</h4>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group date">
+                                            <input type="text" class="form-control" name="txtDateArrival" value="<%= formatterDate.format(flight.getArrival()) %>">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-th"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtTimeArrival" placeholder="hh:mm" value="<%= formatterTime.format(flight.getArrival()) %>">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="info-input">
-                                <h4>Xác nhận mật khẩu mới</h4>
-                                <input class="form-control" type="password" name="txtPasswordConfirm" placeholder="Xác nhận mật khẩu mới"/>
+                            <div class="flight-input">
+                                <h4>Tuyến</h4>
+                                <select class="combobox" name="cbxTrip">
+                                    <% for (Trip trip : trips) { %>
+                                        <option value="<%= trip.getID() %>"><%= trip.getName() %></option>
+                                    <% } %>
+                                </select>
                             </div>
-                            <div class="info-input">
-                                <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
+                            <div class="flight-input">
+                                <h4>Máy bay</h4>
+                                <select class="combobox" name="cbxPlane">
+                                    <% for (Plane plane : planes) { %>
+                                        <option value="<%= plane.getID() %>"><%= plane.getID() %> - <%= plane.getName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="flight-input">
+                                <h4>Phi công trưởng</h4>
+                                <select class="combobox" name="cbxMainPilot">
+                                    <% for (Employee pilot : pilots) { %>
+                                        <option value="<%= pilot.getID() %>"><%= pilot.getName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="flight-input">
+                                <h4>Phi công phụ</h4>
+                                <select class="combobox" name="cbxVicePilot">
+                                    <% for (Employee pilot : pilots) { %>
+                                        <option value="<%= pilot.getID() %>"><%= pilot.getName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="flight-input">
+                                <h4>Tiếp viên trưởng</h4>
+                                <select class="combobox" name="cbxMainStewardess">
+                                    <% for (Employee stewardess : stewardesses) { %>
+                                        <option value="<%= stewardess.getID() %>"><%= stewardess.getName() %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Cập nhật chuyến bay</button>
                                 <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
                             </div>
                         </form>
@@ -131,8 +206,8 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/bootstrap-datepicker.js"></script>
         <script src="/public/js/bootstrap-combobox.js"></script>
+        <script src="/public/js/bootstrap-datepicker.js"></script>
         <script src="/public/js/employee-update-flight.js"></script>
     </body>
 </html>
