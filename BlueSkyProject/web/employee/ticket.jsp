@@ -1,5 +1,6 @@
-<%@page import="DataAccessLayer.TicketHandler"%>
-<%@page import="DataTransferObject.Ticket"%>
+<%@page import="DataAccessLayer.CabinHandler"%>
+<%@page import="DataAccessLayer.TicketPriceHandler"%>
+<%@page import="DataTransferObject.TicketPrice"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Core.Auth"%>
@@ -15,12 +16,12 @@
         <link rel="stylesheet" href="/public/css/bootstrap.css"/>
         <link rel="stylesheet" href="/public/css/bootstrap-theme.css"/>
         <link rel="stylesheet" href="/public/css/employee-app.css"/>
-        <link rel="stylesheet" href="/public/css/employee-ticket.css"/>
+        <link rel="stylesheet" href="/public/css/employee-ticketprice.css"/>
     </head>
     <body>
 
         <%
-            if (Auth.authorizeEmployee(session) == false) {
+            if (Auth.authorizeManager(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -79,17 +80,18 @@
                 <table class="table table-striped table-hover table-responsive">
                     <thead>
                         <th class="center">STT</th>
-                        <th>Mã giá</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
                         <th>Chuyến bay</th>
                         <th>Khoang</th>
+                        <th>Giá vé</th>
                         <th></th>
                         <th></th>
                     </thead>
                     <tbody>
                         <%
-                            TicketHandler ticketHandler = new TicketHandler();
+                            TicketPriceHandler ticketPriceHandler = new TicketPriceHandler();
+                            CabinHandler cabinHandler = new CabinHandler();
                             
                             int currentPage = 1;
                             int index = 1;
@@ -99,14 +101,14 @@
                             }
                             
                             int totalPage = 0;
-                            ArrayList<Ticket> tickets = null;
+                            ArrayList<TicketPrice> tickets = null;
                             
                             if ("".equals(keyword)) {
-                                totalPage = ticketHandler.totalPage();
-                                tickets = ticketHandler.limit(currentPage);
+                                totalPage = ticketPriceHandler.totalPage();
+                                tickets = ticketPriceHandler.limit(currentPage);
                             } else {
-                                totalPage = ticketHandler.totalPageWithKeyword(keyword);                                
-                                tickets = ticketHandler.limitWithKeyword(currentPage, keyword);
+                                totalPage = ticketPriceHandler.totalPageWithKeyword(keyword);                                
+                                tickets = ticketPriceHandler.limitWithKeyword(currentPage, keyword);
                                 
                                 if (totalPage == 0) {
                                     currentPage = 0;
@@ -114,23 +116,19 @@
                             }
                             
                             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-                            for (Ticket ticket : tickets) {
+                            for (TicketPrice ticket : tickets) {
                         %>
                             <tr>
                                 <td class="center"><%= index++ %></td>
-                                <td class="trip-id"><%= ticket.getID() %></td>
+                                <td class="ticket-price-id"><%= ticket.getID() %></td>
                                 <td><%= format.format(ticket.getStartTime()) %></td>
                                 <td><%= format.format(ticket.getEndTime()) %></td>
                                 <td><%= ticket.getFlight()%></td>
-                                <td><%= ticket.getCabin()%></td>
+                                <td><%= cabinHandler.getName(ticket.getCabin()) %></td>
+                                <td><%= ticket.getPrice() %></td>
                                 <td>
                                     <button class="btn btn-default btn-details">
                                         <span class="glyphicon glyphicon-list-alt"></span>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default btn-employee">
-                                        <span class="glyphicon glyphicon-user"></span>
                                     </button>
                                 </td>
                                 <td>
@@ -156,6 +154,6 @@
         
         <script src="/public/js/jquery.js"></script>
         <script src="/public/js/bootstrap.js"></script>
-        <script src="/public/js/employee-ticket.js"></script>
+        <script src="/public/js/employee-ticketprice.js"></script>
     </body>
 </html>

@@ -102,4 +102,19 @@ public class CabinHandler {
         
         return (this.provider.executeNonQuery(sql) > 0);
     }
+    
+    public String getName(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Select TenKhoang From Khoang Where MaKhoang = '%s'", ID);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        String result = "";
+        
+        if (data.next()) {
+            result = data.getString("TenKhoang");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
+    }
 }

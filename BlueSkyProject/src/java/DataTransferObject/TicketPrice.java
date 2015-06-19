@@ -2,7 +2,7 @@ package DataTransferObject;
 
 import java.util.Date;
 
-public class Ticket {
+public class TicketPrice {
     private String ID;
     private Date startTime;
     private Date endTime;
@@ -10,9 +10,9 @@ public class Ticket {
     private String flight;
     private String cabin;
     
-    public Ticket() {}
+    public TicketPrice() {}
     
-    public Ticket(String ID, Date startTime, Date endTime, float price, String flight, String cabin) {
+    public TicketPrice(String ID, Date startTime, Date endTime, float price, String flight, String cabin) {
         this.ID = ID;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -21,13 +21,13 @@ public class Ticket {
         this.cabin = cabin;
     }
     
-    public Ticket(Ticket ticket) {
-        this.ID = ticket.ID;
-        this.startTime = ticket.startTime;
-        this.endTime = ticket.endTime;
-        this.price = ticket.price;
-        this.flight = ticket.flight;
-        this.cabin = ticket.cabin;
+    public TicketPrice(TicketPrice ticketPrice) {
+        this.ID = ticketPrice.ID;
+        this.startTime = ticketPrice.startTime;
+        this.endTime = ticketPrice.endTime;
+        this.price = ticketPrice.price;
+        this.flight = ticketPrice.flight;
+        this.cabin = ticketPrice.cabin;
     }
     
     public void setID(String ID) {

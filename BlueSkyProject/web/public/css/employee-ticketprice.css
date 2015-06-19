@@ -29,3 +29,7 @@
 .pager li > span {
     border: none;
 }
+
+.ticket-price-id {
+    display: none;
+}

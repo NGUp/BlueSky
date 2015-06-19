@@ -116,6 +116,14 @@
         <servlet-name>DeleteStewardessHandler</servlet-name>
         <servlet-class>Employee.DeleteStewardessHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetCabinByFlight</servlet-name>
+        <servlet-class>Employee.GetCabinByFlight</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateTicketPriceHandler</servlet-name>
+        <servlet-class>Employee.CreateTicketPriceHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -232,9 +240,21 @@
         <servlet-name>DeleteStewardessHandler</servlet-name>
         <url-pattern>/employee/flight/cabin/stewardess/deletehandler</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCabinByFlight</servlet-name>
+        <url-pattern>/ajax/employee/getcabinbyflight</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateTicketPriceHandler</servlet-name>
+        <url-pattern>/employee/ticket/price/createhandler</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>Test</servlet-name>
+        <servlet-class>Employee.Test</servlet-class>
+    </servlet>
 </web-app>

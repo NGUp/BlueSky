@@ -140,4 +140,29 @@ public class FlightHandler {
         
         return flight;
     }
+    
+    public ArrayList<Flight> getAll() throws SQLException, ClassNotFoundException {
+        String sql = "Select * From ChuyenBay";
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Flight> flights = new ArrayList<>();
+        
+        while (result.next()) {
+            Flight flight = new Flight();
+            flight.setID(result.getString("MaChuyen"));
+            flight.setDeparture(new Date(result.getTimestamp("TG_XuatPhat").getTime()));
+            flight.setArrival(new Date(result.getTimestamp("TG_HaCanh").getTime()));
+            flight.setMainPilot(result.getString("MaLaiChinh"));
+            flight.setTrip(result.getString("MaTuyen"));
+            flight.setPlane(result.getString("MaMB"));
+            flight.setVicePilot(result.getString("MaLaiPhu"));
+            flight.setMainStewardess(result.getString("MaTiepVienTruong"));
+            flights.add(flight);
+        }
+        
+        this.provider.closeConnection();
+        
+        return flights;
+    }
 }
