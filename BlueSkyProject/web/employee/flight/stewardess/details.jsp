@@ -96,10 +96,10 @@
                             ArrayList<Employee> stewardesses = employeeHandler.getStewardessForAddByCabin(flight.getID(), cabin.getID());
                         %>
                         <h3>Loại khoang: <%= cabin.getName() %></h3>
-                        <form action="/employee/flight/cabin/stewardess/addhandler" method="post">
+                        <form action="/employee/flight/cabin/stewardess/inserthandler" method="post">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h4>Nhân viên</h4>
+                                    <h4>Tiếp viên</h4>
                                     <input type="hidden" name="txtFlightID" value="<%= flight.getID() %>">
                                     <input type="hidden" name="txtCabinID" value="<%= cabin.getID() %>">
                                     <select class="combobox" name="cbxStewardess">

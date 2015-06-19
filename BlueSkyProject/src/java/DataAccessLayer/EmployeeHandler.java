@@ -283,6 +283,7 @@ public class EmployeeHandler {
                 "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
                 "From (NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai) Join PhuTrachKhoang b On Ma = b.MaNV " + 
                 "Where NV.MALOAI = 'STEWARDESS' And MaChuyen = '%s' And MaKhoang = '%s'", flight, cabin);
+        /// BUG
         
         ResultSet result = this.provider.executeQuery(sql);
         
@@ -308,5 +309,13 @@ public class EmployeeHandler {
         this.provider.closeConnection();
         
         return employees;
+    }
+    
+    public boolean setTask(String flight, String cabin, String stewardess) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Insert Into `PhuTrachKhoang`(MaChuyen, MaNV, MaKhoang) Values ('%s', '%s', '%s')",
+                flight, stewardess, cabin);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
     }
 }

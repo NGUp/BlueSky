@@ -1,3 +1,4 @@
+<%@page import="DataAccessLayer.AirportHandler"%>
 <%@page import="DataTransferObject.Trip"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DataAccessLayer.TripHandler"%>
@@ -86,7 +87,8 @@
                     </thead>
                     <tbody>
                         <%
-                            TripHandler handler = new TripHandler();
+                            TripHandler tripHandler = new TripHandler();
+                            AirportHandler airportHandler = new AirportHandler();
                             
                             int currentPage = 1;
                             int index = 1;
@@ -99,11 +101,11 @@
                             ArrayList<Trip> trips = null;
                             
                             if ("".equals(keyword)) {
-                                totalPage = handler.totalPage();
-                                trips = handler.limit(currentPage);
+                                totalPage = tripHandler.totalPage();
+                                trips = tripHandler.limit(currentPage);
                             } else {
-                                totalPage = handler.totalPageWithKeyword(keyword);
-                                trips = handler.limitWithKeyword(currentPage, keyword);
+                                totalPage = tripHandler.totalPageWithKeyword(keyword);
+                                trips = tripHandler.limitWithKeyword(currentPage, keyword);
                                 
                                 if (totalPage == 0) {
                                     currentPage = 0;
@@ -116,8 +118,8 @@
                                 <td class="center"><%= index++ %></td>
                                 <td class="trip-id"><%= trip.getID() %></td>
                                 <td><%= trip.getName() %></td>
-                                <td><%= handler.getName(trip.getFrom()) %></td>
-                                <td><%= handler.getName(trip.getTo()) %></td>
+                                <td><%= airportHandler.getName(trip.getFrom()) %></td>
+                                <td><%= airportHandler.getName(trip.getTo()) %></td>
                                 <td>
                                     <button class="btn btn-default btn-details">
                                         <span class="glyphicon glyphicon-list-alt"></span>

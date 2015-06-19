@@ -2,6 +2,7 @@ package DataAccessLayer;
 
 import Core.Provider;
 import DataTransferObject.Airport;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,5 +30,20 @@ public class AirportHandler {
         this.provider.closeConnection();
         
         return airports;
+    }
+    
+    public String getName(String ID) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        String sql = String.format("Select TenSB From SanBay Where MaSB = '%s'", ID);
+        
+        ResultSet data = this.provider.executeQuery(sql);
+        String result = "";
+        
+        if (data.next()) {
+            result = data.getString("TenSB");
+        }
+        
+        this.provider.closeConnection();
+        
+        return result;
     }
 }
