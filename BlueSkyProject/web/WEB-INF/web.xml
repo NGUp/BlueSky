@@ -112,6 +112,10 @@
         <servlet-name>InsertStewardessHandler</servlet-name>
         <servlet-class>Employee.InsertStewardessHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteStewardessHandler</servlet-name>
+        <servlet-class>Employee.DeleteStewardessHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -223,6 +227,10 @@
     <servlet-mapping>
         <servlet-name>InsertStewardessHandler</servlet-name>
         <url-pattern>/employee/flight/cabin/stewardess/inserthandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteStewardessHandler</servlet-name>
+        <url-pattern>/employee/flight/cabin/stewardess/deletehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

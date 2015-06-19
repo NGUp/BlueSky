@@ -248,8 +248,8 @@ public class EmployeeHandler {
             throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
         String sql = String.format(
                 "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
-                "From (NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai) Left Join (Select * From PhuTrachKhoang Where MaChuyen = '%s' And MaKhoang = '%s') b On Ma = b.MaNV " + 
-                "Where NV.MALOAI = 'STEWARDESS' And b.MaNV IS NULL", flight, cabin);
+                "From (NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai) Left Join (Select * From PhuTrachKhoang Where MaChuyen = '%s') b On Ma = b.MaNV " + 
+                "Where NV.MALOAI = 'STEWARDESS' And b.MaNV IS NULL", flight);
         
         ResultSet result = this.provider.executeQuery(sql);
         
@@ -283,7 +283,6 @@ public class EmployeeHandler {
                 "Select Ma, Ten, Email, CMND, TenDangNhap, TrangThai, NgSinh, GioiTinh, DiaChi, DienThoai, TenLoai " +
                 "From (NhanVien NV join LoaiNV loai on NV.MaLoai = loai.MaLoai) Join PhuTrachKhoang b On Ma = b.MaNV " + 
                 "Where NV.MALOAI = 'STEWARDESS' And MaChuyen = '%s' And MaKhoang = '%s'", flight, cabin);
-        /// BUG
         
         ResultSet result = this.provider.executeQuery(sql);
         
@@ -314,6 +313,14 @@ public class EmployeeHandler {
     public boolean setTask(String flight, String cabin, String stewardess) throws SQLException, ClassNotFoundException {
         String sql = String.format(
                 "Insert Into `PhuTrachKhoang`(MaChuyen, MaNV, MaKhoang) Values ('%s', '%s', '%s')",
+                flight, stewardess, cabin);
+        
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
+    public boolean removeTask(String flight, String cabin, String stewardess) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Delete From `PhuTrachKhoang` Where MaChuyen = '%s' And MaNV = '%s' And MaKhoang = '%s'",
                 flight, stewardess, cabin);
         
         return (this.provider.executeNonQuery(sql) > 0);
