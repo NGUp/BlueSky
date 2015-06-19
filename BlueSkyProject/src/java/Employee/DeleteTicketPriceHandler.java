@@ -7,11 +7,9 @@
 package Employee;
 
 import DataAccessLayer.TicketPriceHandler;
-import DataTransferObject.TicketPrice;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -23,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namvh
  */
-public class UpdateTicketPriceHandler extends HttpServlet {
+public class DeleteTicketPriceHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class UpdateTicketPriceHandler extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateTicketPriceHandler</title>");            
+            out.println("<title>Servlet DeleteTicketPriceHandler</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateTicketPriceHandler at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteTicketPriceHandler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -78,54 +76,33 @@ public class UpdateTicketPriceHandler extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (request.getParameter("txtID") == null ||
-                request.getParameter("txtStartTime") == null ||
-                request.getParameter("txtEndTime") == null ||
-                request.getParameter("txtPrice") == null ||
-                request.getParameter("cbxFlight") == null ||
-                request.getParameter("cbxCabin") == null) {
-            response.sendRedirect("/employee/ticket/update.jsp");
+        if (request.getParameter("ticketPriceID") == null) {
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
             return;
         }
         
-        String ID = request.getParameter("txtID");
-        String starTime = request.getParameter("txtStartTime");
-        String endTime = request.getParameter("txtEndTime");
-        float price = Float.parseFloat(request.getParameter("txtPrice"));
-        String flightID = request.getParameter("cbxFlight");
-        String cabinID = request.getParameter("cbxCabin");
+        String ticketPriceID = request.getParameter("ticketPriceID");
         
-        if ("".equals(ID) || "".equals(starTime) || "".equals(endTime) || price == 0 || "".equals(flightID) || "".equals(cabinID)) {
-            response.sendRedirect("/employee/ticket/update.jsp");
-            return;
-        }
-        
-        TicketPrice ticketPrice = new TicketPrice();
-        ticketPrice.setID(ID);
-        ticketPrice.setCabin(cabinID);
-        ticketPrice.setFlight(flightID);
-        ticketPrice.setPrice(price);
-        ticketPrice.setStartTime(new Date(starTime));
-        ticketPrice.setEndTime(new Date(endTime));
-        
-        if (ticketPrice.getStartTime().after(ticketPrice.getEndTime())) {
-            response.sendRedirect("/employee/ticket/update.jsp");
+        if ("".equals(ticketPriceID)) {
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
             return;
         }
         
         TicketPriceHandler handler = new TicketPriceHandler();
         
         try {
-            if (handler.update(ticketPrice)) {
+            
+            if (handler.remove(ticketPriceID)) {
                 response.sendRedirect("/employee/ticket.jsp");
                 return;
             }
             
-            response.sendRedirect("/employee/ticket/update.jsp");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CreateTicketPriceHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateTicketPriceHandler.class.getName()).log(Level.SEVERE, null, ex);
+            String referer = request.getHeader("Referer");
+            response.sendRedirect(referer);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DeleteTicketPriceHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

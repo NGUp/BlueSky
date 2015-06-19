@@ -114,6 +114,13 @@ public class TicketPriceHandler {
         return (this.provider.executeNonQuery(sql) > 0);
     }
     
+    public boolean remove(String ID) throws SQLException, ClassNotFoundException {
+        String sql = String.format("Delete From GiaVe Where MaGia = '%s'", ID);
+        
+        System.out.println(sql);
+        return (this.provider.executeNonQuery(sql) > 0);
+    }
+    
     public TicketPrice one(String ID) throws SQLException, ClassNotFoundException {
         String sql = String.format(
                 "Select * From GiaVe Where MaGia = '%s'", ID);
