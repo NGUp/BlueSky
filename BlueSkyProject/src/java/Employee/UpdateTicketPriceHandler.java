@@ -11,7 +11,6 @@ import DataAccessLayer.TicketPriceHandler;
 import DataTransferObject.TicketPrice;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -26,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namvh
  */
-public class CreateTicketPriceHandler extends HttpServlet {
+public class UpdateTicketPriceHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +44,10 @@ public class CreateTicketPriceHandler extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateTicketPriceHandler</title>");            
+            out.println("<title>Servlet UpdateTicketPriceHandler</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateTicketPriceHandler at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateTicketPriceHandler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,29 +78,32 @@ public class CreateTicketPriceHandler extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, UnsupportedEncodingException {
+            throws ServletException, IOException {
         
-        if (request.getParameter("txtStartTime") == null ||
+        if (request.getParameter("txtID") == null ||
+                request.getParameter("txtStartTime") == null ||
                 request.getParameter("txtEndTime") == null ||
                 request.getParameter("txtPrice") == null ||
                 request.getParameter("cbxFlight") == null ||
                 request.getParameter("cbxCabin") == null) {
-            response.sendRedirect("/employee/ticket/create.jsp");
+            response.sendRedirect("/employee/ticket/update.jsp");
             return;
         }
         
+        String ID = request.getParameter("txtID");
         String starTime = request.getParameter("txtStartTime");
         String endTime = request.getParameter("txtEndTime");
         float price = Float.parseFloat(request.getParameter("txtPrice"));
         String flightID = request.getParameter("cbxFlight");
         String cabinID = request.getParameter("cbxCabin");
         
-        if ("".equals(starTime) || "".equals(endTime) || price == 0 || "".equals(flightID) || "".equals(cabinID)) {
-            response.sendRedirect("/employee/ticket/create.jsp");
+        if ("".equals(ID) || "".equals(starTime) || "".equals(endTime) || price == 0 || "".equals(flightID) || "".equals(cabinID)) {
+            response.sendRedirect("/employee/ticket/update.jsp");
             return;
         }
         
         TicketPrice ticketPrice = new TicketPrice();
+        ticketPrice.setID(ID);
         ticketPrice.setCabin(cabinID);
         ticketPrice.setFlight(flightID);
         ticketPrice.setPrice(price);
@@ -109,24 +111,23 @@ public class CreateTicketPriceHandler extends HttpServlet {
         ticketPrice.setEndTime(new Date(endTime));
         
         if (ticketPrice.getStartTime().after(ticketPrice.getEndTime())) {
-            response.sendRedirect("/employee/ticket/create.jsp");
+            response.sendRedirect("/employee/ticket/update.jsp");
             return;
         }
         
         TicketPriceHandler handler = new TicketPriceHandler();
-        Cryptography crypto = new Cryptography();
         
         try {
-            ticketPrice.setID(crypto.encode((new Date()).toString()));
-            
-            if (handler.insert(ticketPrice)) {
+            if (handler.update(ticketPrice)) {
                 response.sendRedirect("/employee/ticket.jsp");
                 return;
             }
             
-            response.sendRedirect("/employee/ticket/create.jsp");
-        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException ex) {
+            response.sendRedirect("/employee/ticket/update.jsp");
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(CreateTicketPriceHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(UpdateTicketPriceHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

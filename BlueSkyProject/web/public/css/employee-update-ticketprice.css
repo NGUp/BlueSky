@@ -1,0 +1,70 @@
+.title {
+    margin-top: 58px;
+}
+
+article {
+    margin-bottom: 120px;
+}
+
+.group-navigator {
+    display: flex;
+}
+
+.btn-navigate {
+    margin-top: 2px;
+    margin-right: 16px;
+}
+
+.content {
+    margin-top: 36px;
+    margin-bottom: 120px;
+}
+
+form {
+    margin: 32px auto;
+}
+
+.btn {
+    float: right;
+    margin-top: 16px;
+    margin-left: 8px;
+}
+
+.typeahead.dropdown-menu {
+    width: 100%;
+}
+
+.ticket-input {
+    margin-top: 16px;
+}
+
+.ticket-input h4 {
+    color: #337AB7;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+option {
+    padding: 8px;
+}
+
+option:hover {
+    cursor: pointer;
+}
+
+.ticket-price-info h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 2em;
+    color: #337AB7;
+}
+
+.ticket-price-info h4 span {
+    color: #212121;
+}
+
+.sub-title {
+    margin-top: 32px;
+    font-weight: 400;
+    font-size: 20px;
+}
