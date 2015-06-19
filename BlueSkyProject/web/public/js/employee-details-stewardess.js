@@ -1,6 +1,10 @@
 $('.combobox').addClass('form-control');
 $('.combobox').combobox();
 
+$('#btn-back').click(function() {
+    window.location.href = '/employee/flight.jsp';
+});
+
 $('.btn-remove').click(function() {
     var self = this;
     var parent = $(self).parents()[1];
