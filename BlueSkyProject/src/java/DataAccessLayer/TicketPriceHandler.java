@@ -160,4 +160,22 @@ public class TicketPriceHandler {
         
         return price;
     }
+    
+    public String getIDByFlightCabin(String flight, String cabin) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Select MaGia From GiaVe Where MaChuyen = '%s' And MaKhoang = '%s' And DATEDIFF(NOW(), NgayBD) = (Select Min(DATEDIFF(NOW(), NgayBD)) From GiaVe)",
+                flight, cabin);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        String ID = "";
+        
+        if (result.next()) {
+            
+            ID = result.getString("MaGia");
+        }
+        
+        this.provider.closeConnection();
+        
+        return ID;
+    }
 }

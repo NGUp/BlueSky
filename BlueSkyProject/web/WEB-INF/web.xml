@@ -132,6 +132,10 @@
         <servlet-name>DeleteTicketPriceHandler</servlet-name>
         <servlet-class>Employee.DeleteTicketPriceHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookTicketMemberHandler</servlet-name>
+        <servlet-class>Employee.BookTicketMemberHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>DeleteTicketPriceHandler</servlet-name>
         <url-pattern>/employee/ticket/price/deletehandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookTicketMemberHandler</servlet-name>
+        <url-pattern>/employee/ticket/book/memberhandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
