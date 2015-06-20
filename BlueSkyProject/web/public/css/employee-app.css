@@ -64,3 +64,8 @@ header h1 a:hover {
 section {
     margin: 0 auto !important;
 }
+
+.aero-plane {
+    float: right;
+    margin-top: 150px;
+}

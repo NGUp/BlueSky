@@ -21,7 +21,7 @@
     <body>
 
         <%
-            if (Auth.authorizeManager(session) == false) {
+            if (Auth.authorizeEmployee(session) == false) {
                 response.sendRedirect("/login.jsp");
                 return;
             }
@@ -46,10 +46,21 @@
                 </h3>
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
-                    <li role="presentation"><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
-                    <li role="presentation"><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
-                    <li role="presentation"><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
-                    <li role="presentation"><a href="/employee/ticket.jsp">Quản lý bảng giá vé</a></li>s
+                    <% if (session.getAttribute("userPermission").equals("MANAGER")) { %>
+                        <!-- for Manager -->
+                        <li role="presentation"><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
+                        <li role="presentation"><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
+                        <li role="presentation"><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
+                        <li role="presentation"><a href="/employee/ticket.jsp">Quản lý bảng giá vé</a></li>
+                    <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
+                        <!-- for Conductor -->
+                        <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
+                        <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
+                    <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
+                        <!-- for Pilot -->
+                    <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
+                        <!-- for Stewardess -->
+                    <% } %>
                 </ul>
             </aside>
             <article class="col-md-9">

@@ -2,6 +2,10 @@ $('#btn-insert').click(function() {
     window.location.href = '/employee/ticket/create.jsp';
 });
 
+$('#btn-clear').click(function() {
+    window.location.href = '/employee/ticket.jsp';
+});
+
 $('#btn-previous').click(function() {
     var currentPage = $('#current-page').text(),
         keyword = $('#keyword').val();

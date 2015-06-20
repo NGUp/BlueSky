@@ -43,13 +43,14 @@
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
                     <% if (session.getAttribute("userPermission").equals("MANAGER")) { %>
                         <!-- for Manager -->
-                        <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
                         <li role="presentation"><a href="/employee/trip.jsp">Quản lý tuyến bay</a></li>
                         <li role="presentation"><a href="/employee/plane.jsp">Quản lý danh mục máy bay</a></li>
                         <li role="presentation"><a href="/employee/flight.jsp">Quản lý chuyến bay</a></li>
                         <li role="presentation"><a href="/employee/ticket.jsp">Quản lý bảng giá vé</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
                         <!-- for Conductor -->
+                        <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
+                        <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
                         <!-- for Pilot -->
                     <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
@@ -58,7 +59,9 @@
                 </ul>
             </aside>
             <article class="col-md-9">
-                <!-- TO DO -->
+                <div>
+                    <img class="aero-plane" src="/public/img/aero-plane.png" alt="Aero Plane"/>
+                </div>
             </article>
         </section>
         
