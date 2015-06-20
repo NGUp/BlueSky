@@ -16,7 +16,6 @@ import DataTransferObject.Customer;
 import DataTransferObject.Ticket;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Date;
@@ -31,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author namvh
  */
-public class BookTicketMemberHandler extends HttpServlet {
+public class BookTicketNonMemberHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +49,10 @@ public class BookTicketMemberHandler extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BookTicketMemberHandler</title>");            
+            out.println("<title>Servlet BookTicketNonMemberHandler</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BookTicketMemberHandler at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookTicketNonMemberHandler at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -81,14 +80,14 @@ public class BookTicketMemberHandler extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.io.UnsupportedEncodingException
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, UnsupportedEncodingException {
+            throws ServletException, IOException {
         if (request.getParameter("txtFlightID") == null ||
                 request.getParameter("txtCabinID") == null ||
                 request.getParameter("txtSeat") == null ||
+                request.getParameter("txtName") == null ||
                 request.getParameter("txtEmail") == null) {
             String referer = request.getHeader("Referer");
             response.sendRedirect(referer);
@@ -99,8 +98,9 @@ public class BookTicketMemberHandler extends HttpServlet {
         String cabinID = request.getParameter("txtCabinID");
         String seat = request.getParameter("txtSeat");
         String email = request.getParameter("txtEmail");
+        String name = request.getParameter("txtName");
         
-        if ("".equals(flightID) || "".equals(cabinID) || "".equals(seat) || "".equals(email)) {
+        if ("".equals(flightID) || "".equals(cabinID) || "".equals(seat) || "".equals(email) || "".equals(name)) {
             String referer = request.getHeader("Referer");
             response.sendRedirect(referer);
             return;
@@ -112,37 +112,38 @@ public class BookTicketMemberHandler extends HttpServlet {
         TicketHandler ticketHandler = new TicketHandler();
         
         try {
-            Customer customer = customerHandler.getByEmail(email);
-            
-            if (customer == null) {
-                String referer = request.getHeader("Referer");
-                response.sendRedirect(referer);
-                return;
-            }
-            
+            Customer customer = new Customer();
             Cryptography crypto = new Cryptography();
-            String billID = crypto.encode((new Date()).toString());
             
-            Bill bill = new Bill();
-            bill.setID(billID);
-            bill.setTime(new Date());
-            bill.setCustomer(customer.getID());
-            bill.setTotal(ticketPriceHandler.getPriceByFlightCabin(flightID, cabinID));
+            customer.setID(crypto.encode((new Date()).toString()));
+            customer.setEmail(email);
+            customer.setName(name);
+            customer.setPassword("123456789");
             
-            if (billHandler.insert(bill)) {
-                Ticket ticket = new Ticket();
-                ticket.setID(crypto.encode((new Date()).toString()));
-                ticket.setBill(billID);
-                ticket.setCabin(cabinID);
-                ticket.setCustomer(customer.getID());
-                ticket.setFlight(flightID);
-                ticket.setPrice(ticketPriceHandler.getIDByFlightCabin(flightID, cabinID));
-                ticket.setSeat(seat);
-                ticket.setTime(bill.getTime());
-                
-                if (ticketHandler.insert(ticket)) {
-                    response.sendRedirect("/employee/search.jsp");
-                    return;
+            if (customerHandler.register(customer)) {
+                String billID = crypto.encode((new Date()).toString());
+            
+                Bill bill = new Bill();
+                bill.setID(billID);
+                bill.setTime(new Date());
+                bill.setCustomer(customer.getID());
+                bill.setTotal(ticketPriceHandler.getPriceByFlightCabin(flightID, cabinID));
+
+                if (billHandler.insert(bill)) {
+                    Ticket ticket = new Ticket();
+                    ticket.setID(crypto.encode((new Date()).toString()));
+                    ticket.setBill(billID);
+                    ticket.setCabin(cabinID);
+                    ticket.setCustomer(customer.getID());
+                    ticket.setFlight(flightID);
+                    ticket.setPrice(ticketPriceHandler.getIDByFlightCabin(flightID, cabinID));
+                    ticket.setSeat(seat);
+                    ticket.setTime(bill.getTime());
+
+                    if (ticketHandler.insert(ticket)) {
+                        response.sendRedirect("/employee/search.jsp");
+                        return;
+                    }
                 }
             }
             
