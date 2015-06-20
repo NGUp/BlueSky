@@ -1,3 +1,4 @@
+<%@page import="java.text.DateFormat"%>
 <%@page import="DataAccessLayer.CabinHandler"%>
 <%@page import="DataAccessLayer.TicketPriceHandler"%>
 <%@page import="DataTransferObject.TicketPrice"%>
@@ -115,7 +116,7 @@
                                 }
                             }
                             
-                            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                            DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                             for (TicketPrice ticket : tickets) {
                         %>
                             <tr>

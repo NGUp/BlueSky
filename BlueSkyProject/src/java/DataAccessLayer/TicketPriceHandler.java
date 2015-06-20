@@ -142,4 +142,22 @@ public class TicketPriceHandler {
         
         return ticket;
     }
+    
+    public float getPriceByFlightCabin(String flight, String cabin) throws SQLException, ClassNotFoundException {
+        String sql = String.format(
+                "Select * From GiaVe Where MaChuyen = '%s' And MaKhoang = '%s' And DATEDIFF(NOW(), NgayBD) = (Select Min(DATEDIFF(NOW(), NgayBD)) From GiaVe)",
+                flight, cabin);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        float price = 0;
+        
+        if (result.next()) {
+            
+            price = result.getFloat("Gia");
+        }
+        
+        this.provider.closeConnection();
+        
+        return price;
+    }
 }

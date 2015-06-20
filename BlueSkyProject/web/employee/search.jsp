@@ -113,12 +113,12 @@
                         %>
                             <tr>
                                 <td class="center"><%= index++ %></td>
-                                <td class="trip-id"><%= flight.getID() %></td>
+                                <td class="flight-id"><%= flight.getID() %></td>
                                 <td><%= format.format(flight.getDeparture()) %></td>
                                 <td><%= format.format(flight.getArrival()) %></td>
                                 <td><%= tripHandler.getName(flight.getTrip()) %></td>
                                 <td>
-                                    <button class="btn btn-default btn-payment">
+                                    <button class="btn btn-default btn-info">
                                         <span class="glyphicon glyphicon-plane"></span>
                                     </button>
                                 </td>

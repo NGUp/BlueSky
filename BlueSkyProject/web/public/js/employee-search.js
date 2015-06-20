@@ -1,8 +1,8 @@
-$('.btn-payment').click(function() {
+$('.btn-info').click(function() {
     var self = this;
     var parent = $(self).parents()[1];
-    var id = $(parent).children('.trip-id');
-    window.location.href = '/employee/flight/payment.jsp?flight=' + $(id).text();
+    var id = $(parent).children('.flight-id');
+    window.location.href = '/employee/flight/details.jsp?flight=' + $(id).text();
 });
 
 $('#btn-clear').click(function() {

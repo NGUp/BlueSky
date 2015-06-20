@@ -81,7 +81,7 @@ public class EmployeeHandler {
             //employee.setPermission(result.getString("TenLoai"));
             employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
             employee.setUsername(result.getString("TenDangNhap"));
-            employee.setGender(result.getString("GioiTinh"));
+            employee.setGender((new String(result.getString("GioiTinh").getBytes("8859_1"),"UTF-8")));
             employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
             employee.setPhone(result.getString("DienThoai"));
             employee.setState(result.getInt("TrangThai"));
@@ -151,7 +151,7 @@ public class EmployeeHandler {
             employee.setPermission(result.getString("TenLoai"));
             employee.setBirthday(new Date(result.getDate("NgSinh").getTime()));
             employee.setUsername(result.getString("TenDangNhap"));
-            employee.setGender(result.getString("GioiTinh"));
+            employee.setGender((new String(result.getString("GioiTinh").getBytes("8859_1"),"UTF-8")));
             employee.setAddress((new String(result.getString("DiaChi").getBytes("8859_1"),"UTF-8")));            
             employee.setPhone(result.getString("DienThoai"));
             employee.setState(result.getInt("TrangThai"));

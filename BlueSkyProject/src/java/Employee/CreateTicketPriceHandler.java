@@ -7,6 +7,7 @@
 package Employee;
 
 import Core.Cryptography;
+import Core.Time;
 import DataAccessLayer.TicketPriceHandler;
 import DataTransferObject.TicketPrice;
 import java.io.IOException;
@@ -90,22 +91,26 @@ public class CreateTicketPriceHandler extends HttpServlet {
             return;
         }
         
-        String starTime = request.getParameter("txtStartTime");
+        String startTime = request.getParameter("txtStartTime");
         String endTime = request.getParameter("txtEndTime");
         float price = Float.parseFloat(request.getParameter("txtPrice"));
         String flightID = request.getParameter("cbxFlight");
         String cabinID = request.getParameter("cbxCabin");
         
-        if ("".equals(starTime) || "".equals(endTime) || price == 0 || "".equals(flightID) || "".equals(cabinID)) {
+        if ("".equals(startTime) || "".equals(endTime) || price == 0 || "".equals(flightID) || "".equals(cabinID)) {
             response.sendRedirect("/employee/ticket/create.jsp");
             return;
         }
+        
+        Time time = new Time();
+        startTime = time.standardize(startTime);
+        endTime = time.standardize(endTime);
         
         TicketPrice ticketPrice = new TicketPrice();
         ticketPrice.setCabin(cabinID);
         ticketPrice.setFlight(flightID);
         ticketPrice.setPrice(price);
-        ticketPrice.setStartTime(new Date(starTime));
+        ticketPrice.setStartTime(new Date(startTime));
         ticketPrice.setEndTime(new Date(endTime));
         
         if (ticketPrice.getStartTime().after(ticketPrice.getEndTime())) {
