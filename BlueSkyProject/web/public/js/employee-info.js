@@ -11,3 +11,7 @@ $.each(textboxs, function(index, value) {
         $(value).val('');
     }
 });
+
+$('.btn-cancel').click(function() {
+    window.location.href = '/employee/index.jsp';
+});

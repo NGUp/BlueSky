@@ -53,7 +53,6 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
                     <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
-                    <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
                 </ul>
             </aside>
             <article class="col-md-9">

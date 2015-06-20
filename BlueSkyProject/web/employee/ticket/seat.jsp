@@ -1,3 +1,5 @@
+<%@page import="DataAccessLayer.TicketHandler"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="DataAccessLayer.TripHandler"%>
 <%@page import="DataTransferObject.Cabin"%>
 <%@page import="DataTransferObject.Plane"%>
@@ -44,6 +46,7 @@
             PlaneHandler planeHandler = new PlaneHandler();
             CabinHandler cabinHandler = new CabinHandler();
             TripHandler tripHandler = new TripHandler();
+            TicketHandler ticketHandler = new TicketHandler();
             
             Flight flight = flightHandler.one(flightID);
             Plane plane = planeHandler.one(planeID);
@@ -75,7 +78,6 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation"><a href="/employee/info.jsp">Cập nhật thông tin</a></li>
                     <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
-                    <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
                 </ul>
             </aside>
             <article class="col-md-9">
@@ -114,37 +116,45 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="group-info">
-                            <h3 class="sub-title">Khách hàng thành viên</h3>
-                            <form method="post" action="/employee/ticket/book/memberhandler">
-                                <input type="hidden" name="txtFlightID" class="txt-flight" value="<%= flightID %>" />
-                                <input type="hidden" name="txtCabinID" class="txt-flight" value="<%= cabinID %>" />
-                                <input type="hidden" name="txtSeat" class="txt-seat"/>
-                                <div class="info">
-                                    <h4>Email</h4>
-                                    <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" />
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-payment">Thanh toán</button>
-                            </form>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="group-info">
-                            <h3 class="sub-title">Khách hàng chưa là thành viên</h3>
-                            <form method="post" action="/employee/ticket/book/nonmemberhandler">
-                                <input type="hidden" name="txtFlightID" class="txt-flight" value="<%= flightID %>" />
-                                <input type="hidden" name="txtCabinID" class="txt-flight" value="<%= cabinID %>" />
-                                <input type="hidden" name="txtSeat" class="txt-seat"/>
-                                <div class="info">
-                                    <h4>Họ tên</h4>
-                                    <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtName" placeholder="Email" />
-                                </div>
-                                <div class="info">
-                                    <h4>Email</h4>
-                                    <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" />
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-payment">Thanh toán</button>
-                            </form>
-                        </div>
+                        <%
+                            ArrayList<String> bookedSeats = ticketHandler.getBookedSeats(flightID, cabinID);
+                            
+                            if (bookedSeats.size() < (cabin.getColumns() * cabin.getRows())) {
+                        %>
+                            <div class="group-info">
+                                <h3 class="sub-title">Khách hàng thành viên</h3>
+                                <form method="post" action="/employee/ticket/book/memberhandler">
+                                    <input type="hidden" name="txtFlightID" class="txt-flight" value="<%= flightID %>" />
+                                    <input type="hidden" name="txtCabinID" class="txt-cabin" value="<%= cabinID %>" />
+                                    <input type="hidden" name="txtSeat" class="txt-seat"/>
+                                    <div class="info">
+                                        <h4>Email</h4>
+                                        <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-payment">Thanh toán</button>
+                                </form>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="group-info">
+                                <h3 class="sub-title">Khách hàng chưa là thành viên</h3>
+                                <form method="post" action="/employee/ticket/book/nonmemberhandler">
+                                    <input type="hidden" name="txtFlightID" class="txt-flight" value="<%= flightID %>" />
+                                    <input type="hidden" name="txtCabinID" class="txt-cabin" value="<%= cabinID %>" />
+                                    <input type="hidden" name="txtSeat" class="txt-seat"/>
+                                    <div class="info">
+                                        <h4>Họ tên</h4>
+                                        <input type="text" class="form-control" autocomplete="off" spellcheck="false" name="txtName" placeholder="Email" />
+                                    </div>
+                                    <div class="info">
+                                        <h4>Email</h4>
+                                        <input type="email" class="form-control" autocomplete="off" spellcheck="false" name="txtEmail" placeholder="Email" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-payment">Thanh toán</button>
+                                </form>
+                            </div>
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
                 

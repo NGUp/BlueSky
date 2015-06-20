@@ -50,7 +50,6 @@
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
                         <!-- for Conductor -->
                         <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
-                        <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
                         <!-- for Pilot -->
                     <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>

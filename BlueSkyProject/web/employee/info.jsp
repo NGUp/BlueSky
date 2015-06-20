@@ -55,7 +55,6 @@
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
                         <!-- for Conductor -->
                         <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
-                        <li role="presentation"><a href="/employee/payment.jsp">Thanh toán</a></li>
                     <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
                         <!-- for Pilot -->
                     <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
@@ -104,7 +103,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">Tạo tài khoản</button>
-                                <button type="button" class="btn btn-default">Hủy</button>
+                                <button type="button" class="btn btn-default btn-cancel">Hủy</button>
                             </div>
                         </form>
                     </div>
@@ -125,7 +124,7 @@
                             </div>
                             <div class="info-input">
                                 <button type="submit" class="btn btn-primary">Thay đổi mật khẩu</button>
-                                <button type="button" class="btn btn-default" id="btn-cancel">Hủy</button>
+                                <button type="button" class="btn btn-default btn-cancel">Hủy</button>
                             </div>
                         </form>
                     </div>

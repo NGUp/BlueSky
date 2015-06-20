@@ -140,6 +140,10 @@
         <servlet-name>BookTicketNonMemberHandler</servlet-name>
         <servlet-class>Employee.BookTicketNonMemberHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetBookedSeat</servlet-name>
+        <servlet-class>Employee.GetBookedSeat</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginHandler</servlet-name>
         <url-pattern>/app/loginhandler</url-pattern>
@@ -279,6 +283,10 @@
     <servlet-mapping>
         <servlet-name>BookTicketNonMemberHandler</servlet-name>
         <url-pattern>/employee/ticket/book/nonmemberhandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetBookedSeat</servlet-name>
+        <url-pattern>/employee/getbookedseat</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

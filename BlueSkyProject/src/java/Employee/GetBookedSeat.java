@@ -8,8 +8,7 @@ package Employee;
 
 import DataAccessLayer.CabinHandler;
 import DataAccessLayer.FlightHandler;
-import DataTransferObject.Cabin;
-import DataTransferObject.Flight;
+import DataAccessLayer.TicketHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -27,7 +26,7 @@ import org.json.JSONObject;
  *
  * @author namvh
  */
-public class GetCabinByFlight extends HttpServlet {
+public class GetBookedSeat extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +45,10 @@ public class GetCabinByFlight extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetCabinByFlight</title>");            
+            out.println("<title>Servlet GetBookedSeat</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet GetCabinByFlight at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet GetBookedSeat at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -82,25 +81,19 @@ public class GetCabinByFlight extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (request.getParameter("flightID") == null) {
+        if (request.getParameter("flightID") == null ||
+                request.getParameter("cabinID") == null) {
             return;
         }
         
         String flightID = request.getParameter("flightID");
+        String cabinID = request.getParameter("cabinID");
         
-        FlightHandler flightHandler = new FlightHandler();
-        CabinHandler cabinHandler = new CabinHandler();
-        
-        Flight flight;
+        TicketHandler ticketHandler = new TicketHandler();
         
         try {
-            flight = flightHandler.one(flightID);
-            
-            if (flight == null) {
-                return;
-            }
-            
-            ArrayList<Cabin> cabins = cabinHandler.getByPlane(flight.getPlane());
+                        
+            ArrayList<String> seatIDs = ticketHandler.getBookedSeats(flightID, cabinID);
             
             response.setContentType("application/json");
             response.setHeader("Cache-Control", "nocache");
@@ -114,12 +107,8 @@ public class GetCabinByFlight extends HttpServlet {
             
             JSONArray arr = new JSONArray();
             
-            for (Cabin cabin : cabins) {
-                JSONObject objCabin = new JSONObject();
-                objCabin.put("ID", cabin.getID());
-                objCabin.put("Name", cabin.getName());
-                
-                arr.put(objCabin);
+            for (String seatID : seatIDs) {
+                arr.put(seatID);
             }
             
             json.put("data", arr);

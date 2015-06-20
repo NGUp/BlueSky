@@ -73,8 +73,11 @@ public class CustomerHandler {
             customer.setName((new String(data.getString("Ten").getBytes("8859_1"),"UTF-8")));
             customer.setEmail(data.getString("Email"));
             customer.setPhone(data.getString("SDT"));
-            customer.setAddress((new String(data.getString("DiaChi").getBytes("8859_1"),"UTF-8")));
             customer.setIdentityCard(data.getString("CMND"));
+            
+            if (data.getString("DiaChi") != null) {
+                customer.setAddress((new String(data.getString("DiaChi").getBytes("8859_1"),"UTF-8")));
+            }
         }
         
         this.provider.closeConnection();
@@ -93,8 +96,11 @@ public class CustomerHandler {
             customer.setName((new String(data.getString("Ten").getBytes("8859_1"),"UTF-8")));
             customer.setID(data.getString("Ma"));
             customer.setPhone(data.getString("SDT"));
-            customer.setAddress((new String(data.getString("DiaChi").getBytes("8859_1"),"UTF-8")));
             customer.setIdentityCard(data.getString("CMND"));
+            
+            if (data.getString("DiaChi") != null) {
+                customer.setAddress((new String(data.getString("DiaChi").getBytes("8859_1"),"UTF-8")));
+            }
         }
         
         this.provider.closeConnection();

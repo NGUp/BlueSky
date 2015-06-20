@@ -45,3 +45,7 @@ $('#btn-search').click(function() {
     
     window.location.href = '/employee/search.jsp?keyword=' + keyword;
 });
+
+$('#btn-cancel').click(function() {
+    window.location.href = '/employee/search.jsp';
+});
