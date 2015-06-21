@@ -2,6 +2,7 @@ package DataAccessLayer;
 
 import Core.Provider;
 import DataTransferObject.Flight;
+import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -184,6 +185,37 @@ public class FlightHandler {
             flight.setPlane(result.getString("MaMB"));
             flight.setVicePilot(result.getString("MaLaiPhu"));
             flight.setMainStewardess(result.getString("MaTiepVienTruong"));
+            flights.add(flight);
+        }
+        
+        this.provider.closeConnection();
+        
+        return flights;
+    }
+    
+    public ArrayList<Flight> find(String from, String to, Date start, Date end) throws SQLException, ClassNotFoundException, UnsupportedEncodingException {
+        
+        String sql = String.format(
+                "Select cb.MaChuyen, tb.TenTuyen, cb.TG_XuatPhat, cb.TG_HaCanh From ChuyenBay cb Join TuyenBay tb On cb.MaTuyen = tb.MaTuyen " +
+                "Where (TG_XuatPhat Between '%s' And '%s') And (TG_HaCanh Between '%s' And '%s') And ",
+                new SimpleDateFormat("yyyy-MM-dd").format(start), new SimpleDateFormat("yyyy-MM-dd").format(end),
+                new SimpleDateFormat("yyyy-MM-dd").format(start), new SimpleDateFormat("yyyy-MM-dd").format(end)               
+        );
+        
+        sql += "tb.TenTuyen Like '" + from + " - " + to + "'";
+        
+        System.out.println(sql);
+        
+        ResultSet result = this.provider.executeQuery(sql);
+        
+        ArrayList<Flight> flights = new ArrayList<>();
+        
+        while (result.next()) {
+            Flight flight = new Flight();
+            flight.setID(result.getString("MaChuyen"));
+            flight.setDeparture(new Date(result.getTimestamp("TG_XuatPhat").getTime()));
+            flight.setArrival(new Date(result.getTimestamp("TG_HaCanh").getTime()));
+            flight.setTrip((new String(result.getString("TenTuyen").getBytes("8859_1"),"UTF-8")));
             flights.add(flight);
         }
         

@@ -1,3 +1,5 @@
 $('.input-group.date').datepicker({
-    daysOfWeekDisabled: '1'
+    format: 'dd/mm/yyyy',
+    todayBtn: true,
+    todayHighlight: true
 });

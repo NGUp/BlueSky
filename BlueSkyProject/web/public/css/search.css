@@ -1,0 +1,24 @@
+.nav-pills > li.active > a {
+    background-color: #673ab7;
+}
+
+.banner {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.banner img {
+    width: 100%;
+}
+
+h2 {
+    color: #f44336;
+}
+
+.clear {
+    clear: both;
+}
+
+.content {
+    min-height: 400px;
+}

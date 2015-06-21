@@ -40,7 +40,6 @@
                                 <li role="presentation"><a href="/register.jsp">Đăng ký</a></li>
                             <% } else { %>
                                 <li role="presentation"><a href="/info.jsp">Cập nhật thông tin</a></li>
-                                <li role="presentation"><a href="javascript:void(0)">Mua vé</a></li>
                                 <li role="presentation"><a href="javascript:void(0)">Lịch sử mua vé</a></li>
                                 <li role="presentation"><a href="/app/logouthandler">Thoát</a></li>
                             <% } %>
@@ -51,42 +50,50 @@
                     <section>
                         <article class="book-content">
                             <h2>Mua vé trực tuyến</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row book">
-                                        <div class="col-md-2 book-label">Đi từ</div>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" spellcheck="false"/>
+                            <form method="post" action="/search.jsp">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row book">
+                                            <div class="col-md-2 book-label">Đi từ</div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="txtFrom" spellcheck="false"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row book">
-                                        <div class="col-md-2 book-label">Đến</div>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" spellcheck="false"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row book">
-                                        <div class="col-md-2 book-label">Đi từ</div>
-                                        <div class="col-md-10">
-                                            <div class="input-group date">
-                                                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                        <div class="row book">
+                                            <div class="col-md-2 book-label">Đến</div>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="txtTo" spellcheck="false"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row book">
-                                        <div class="col-md-2 book-label">Đến</div>
-                                        <div class="col-md-10">
-                                            <div class="input-group date">
-                                                <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    <div class="col-md-6">
+                                        <div class="row book">
+                                            <div class="col-md-3 book-label">Bắt đầu</div>
+                                            <div class="col-md-9">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" name="txtStartTime">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-th"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row book">
+                                            <div class="col-md-3 book-label">Kết thúc</div>
+                                            <div class="col-md-9">
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" name="txtEndTime">
+                                                    <span class="input-group-addon">
+                                                        <i class="glyphicon glyphicon-th"></i>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-book">Tìm chuyến bay</button>
-                            <div class="clear"></div>
+                                <button type="submit" class="btn btn-primary btn-book">Tìm chuyến bay</button>
+                                <div class="clear"></div>
+                            </form>
                         </article>
                     </section>
                 </div>
