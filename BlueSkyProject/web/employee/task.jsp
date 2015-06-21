@@ -33,9 +33,9 @@
             if (request.getParameter("month") != null) {
                 month = request.getParameter("month");
             }
-            
+   
             if (request.getParameter("year") != null) {
-                month = request.getParameter("year");
+                year = request.getParameter("year");
             }
         %>
         
@@ -82,27 +82,27 @@
                             tasks = taskHandler.limitForStewardess(session.getAttribute("userID").toString(), currentPage);
                         }
                     } else {
-//                        totalPage = taskHandler.totalPageWithTime(session.getAttribute("userID").toString(), month, year);
-//                        if (Auth.authorizeStewardess(session)) {
-//                            tasks = taskHandler.limitForStewardessWithTime(session.getAttribute("userID").toString(), currentPage, month, year);
-//                        }
-//
-//                        if (totalPage == 0) {
-//                            currentPage = 0;
-//                        }
+                        totalPage = taskHandler.totalPageForStewardessWithTime(session.getAttribute("userID").toString(), month, year);
+                        if (Auth.authorizeStewardess(session)) {
+                            tasks = taskHandler.limitForStewardessWithTime(session.getAttribute("userID").toString(), currentPage, month, year);
+                        }
+
+                        if (totalPage == 0) {
+                            currentPage = 0;
+                        }
                     }
                 %>
                 <h2 class="title">Phân công công việc</h2>
                 <form method="get" action="/employee/task.jsp">
                     <div class="input-navigator">
-                        <select class="combobox" name="month">
+                        <select class="combobox" id="cbx-month" name="month">
                             <% for (int _month = 1; _month < 13; _month++) { %>
                                 <option value="<%= _month %>">Tháng <%= _month %></option>
                             <% } %>
                         </select>
-                        <input type="text" name="year" class="form-control txt-year" autocomplete="off" spellcheck="false" placeholder="Năm" />
+                        <input type="text" name="year" class="form-control txt-year" id="txt-year" autocomplete="off" spellcheck="false" placeholder="Năm" />
                         <button type="submit" class="btn btn-primary btn-search">Tìm kiếm</button>
-                        <button class="btn btn-default btn-clear" id="btn-clear">
+                        <button class="btn btn-default btn-clear" type="button" id="btn-clear">
                             <span class="glyphicon glyphicon-repeat"></span>
                         </button>
                     </div>

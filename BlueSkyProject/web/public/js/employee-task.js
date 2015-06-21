@@ -14,7 +14,8 @@ $('#btn-clear').click(function() {
 
 $('#btn-previous').click(function() {
     var currentPage = $('#current-page').text(),
-        keyword = $('#keyword').val();
+        month = $('#cbx-month').val(),
+        year = $('#txt-year').val();
         
     if (keyword === '') {
         if (currentPage > 1) {
@@ -22,7 +23,7 @@ $('#btn-previous').click(function() {
         }
     } else {
         if (currentPage > 1) {
-            window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) - 1) + '&keyword=' + keyword;
+            window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) - 1) + '&month=' + month + '&year=' + year;
         }
     }
 });
@@ -30,7 +31,8 @@ $('#btn-previous').click(function() {
 $('#btn-next').click(function() {
     var currentPage = $('#current-page').text(),
         totalPage = $('#total-page').text(),
-        keyword = $('#keyword').val();
+        month = $('#cbx-month').val(),
+        year = $('#txt-year').val();
         
     if (keyword === '') {
         if (currentPage < totalPage) {
@@ -38,7 +40,7 @@ $('#btn-next').click(function() {
         }
     } else {
         if (currentPage < totalPage) {
-            window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) + 1) + '&keyword=' + keyword;
+            window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) + 1) + '&month=' + month + '&year=' + year;
         }
     }
 });

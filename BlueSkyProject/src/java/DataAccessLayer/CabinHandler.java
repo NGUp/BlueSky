@@ -81,7 +81,7 @@ public class CabinHandler {
     
     public boolean insert(String plane, String cabin) throws SQLException, ClassNotFoundException {
         String sql = String.format(
-                "Insert Into `ChiTietMayBay`(MaKhoang, MaMayBay) Values ('%s', '%s')",
+                "Insert Into `ChiTietMayBay`(MaKhoang, MaMayBay, SoDay, SoHang) Values ('%s', '%s', 0, 0)",
                 cabin, plane);
         
         return (this.provider.executeNonQuery(sql) > 0);
