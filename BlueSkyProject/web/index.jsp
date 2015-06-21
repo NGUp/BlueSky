@@ -40,7 +40,7 @@
                                 <li role="presentation"><a href="/register.jsp">Đăng ký</a></li>
                             <% } else { %>
                                 <li role="presentation"><a href="/info.jsp">Cập nhật thông tin</a></li>
-                                <li role="presentation"><a href="javascript:void(0)">Lịch sử mua vé</a></li>
+                                <li role="presentation"><a href="/history.jsp">Lịch sử mua vé</a></li>
                                 <li role="presentation"><a href="/app/logouthandler">Thoát</a></li>
                             <% } %>
                         </ul>

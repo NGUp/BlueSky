@@ -17,6 +17,12 @@
         <link rel="stylesheet" href="/public/css/info.css"/>
     </head>
     <body>
+        <%
+            if (session.getAttribute("userID") == null) {
+                response.sendRedirect("/login.jsp");
+                return;
+            }
+        %>
         <header>
             <div class="container">
                 <div class="navbar-header">
@@ -33,15 +39,9 @@
                     <aside>
                         <ul class="nav nav-pills nav-stacked">
                             <li role="presentation" class="active"><a href="javascript:void(0)">Menu</a></li>
-                            <% if (session.getAttribute("userName") == null) {  %>
-                                <li role="presentation"><a href="/login.jsp">Đăng nhập</a></li>
-                                <li role="presentation"><a href="/register.jsp">Đăng ký</a></li>
-                            <% } else { %>
-                                <li role="presentation"><a href="/info.jsp">Cập nhật thông tin</a></li>
-                                <li role="presentation"><a href="javascript:void(0)">Mua vé</a></li>
-                                <li role="presentation"><a href="javascript:void(0)">Lịch sử mua vé</a></li>
-                                <li role="presentation"><a href="/app/logouthandler">Thoát</a></li>
-                            <% } %>
+                            <li role="presentation"><a href="/info.jsp">Cập nhật thông tin</a></li>
+                            <li role="presentation"><a href="/history.jsp">Lịch sử mua vé</a></li>
+                            <li role="presentation"><a href="/app/logouthandler">Thoát</a></li>
                         </ul>
                     </aside>
                 </div>
