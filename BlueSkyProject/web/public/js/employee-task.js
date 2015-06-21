@@ -17,7 +17,7 @@ $('#btn-previous').click(function() {
         month = $('#cbx-month').val(),
         year = $('#txt-year').val();
         
-    if (keyword === '') {
+    if (month === '' || year === '') {
         if (currentPage > 1) {
             window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) - 1);
         }
@@ -34,7 +34,7 @@ $('#btn-next').click(function() {
         month = $('#cbx-month').val(),
         year = $('#txt-year').val();
         
-    if (keyword === '') {
+    if (month === '' || year === '') {
         if (currentPage < totalPage) {
             window.location.href = '/employee/task.jsp?page=' + (parseInt(currentPage) + 1);
         }

@@ -77,14 +77,20 @@
                     ArrayList<Task> tasks = null;
 
                     if ("".equals(month) && "".equals(year)) {
-                        totalPage = taskHandler.totalPageForStewardess(session.getAttribute("userID").toString());
                         if (Auth.authorizeStewardess(session)) {
+                            totalPage = taskHandler.totalPageForStewardess(session.getAttribute("userID").toString());
                             tasks = taskHandler.limitForStewardess(session.getAttribute("userID").toString(), currentPage);
+                        } else {
+                            totalPage = taskHandler.totalPageForPilot(session.getAttribute("userID").toString());
+                            tasks = taskHandler.limitForPilot(session.getAttribute("userID").toString(), currentPage);
                         }
                     } else {
-                        totalPage = taskHandler.totalPageForStewardessWithTime(session.getAttribute("userID").toString(), month, year);
                         if (Auth.authorizeStewardess(session)) {
+                            totalPage = taskHandler.totalPageForStewardessWithTime(session.getAttribute("userID").toString(), month, year);
                             tasks = taskHandler.limitForStewardessWithTime(session.getAttribute("userID").toString(), currentPage, month, year);
+                        } else {
+                            totalPage = taskHandler.totalPageForPilotWithTime(session.getAttribute("userID").toString(), month, year);
+                            tasks = taskHandler.limitForPilotWithTime(session.getAttribute("userID").toString(), currentPage, month, year);
                         }
 
                         if (totalPage == 0) {
