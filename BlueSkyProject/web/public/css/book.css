@@ -1,0 +1,67 @@
+.nav-pills > li.active > a {
+    background-color: #673ab7;
+}
+
+.banner {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.banner img {
+    width: 100%;
+}
+
+h2 {
+    color: #f44336;
+}
+
+.clear {
+    clear: both;
+}
+
+.content {
+    min-height: 400px;
+}
+
+.flight-info h4 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 2em;
+    color: #337AB7;
+}
+
+.flight-info h4 span {
+    color: #212121;
+}
+
+.title {
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 32px;
+}
+
+.index {
+    text-align: center;
+}
+
+.title-cabin {
+    margin-top: 72px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 2em;
+    color: #337AB7;
+}
+
+th {
+    font-weight: 600;
+}
+
+input[type=radio] {
+    cursor: pointer;
+}
+
+.btn {
+    float: right;
+    margin-left: 8px;
+}
