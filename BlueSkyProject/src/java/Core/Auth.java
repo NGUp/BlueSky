@@ -15,6 +15,14 @@ public class Auth {
         return (session.getAttribute("userPermission") != null && session.getAttribute("userPermission").equals("CONDUCTOR"));
     }
     
+    public static boolean authorizePilot(HttpSession session) {
+        return (session.getAttribute("userPermission") != null && session.getAttribute("userPermission").equals("PILOT"));
+    }
+    
+    public static boolean authorizeStewardess(HttpSession session) {
+        return (session.getAttribute("userPermission") != null && session.getAttribute("userPermission").equals("STEWARDESS"));
+    }
+    
     public static boolean authorizeEmployee(HttpSession session) {
         return (session.getAttribute("userPermission") != null && !session.getAttribute("userPermission").equals("ADMIN"));
     }

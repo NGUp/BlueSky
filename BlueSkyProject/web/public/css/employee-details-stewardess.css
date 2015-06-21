@@ -49,3 +49,7 @@ h4 {
     font-size: 24px;    
     margin-top: 60px;
 }
+
+.typeahead.dropdown-menu {
+    width: 100%;
+}

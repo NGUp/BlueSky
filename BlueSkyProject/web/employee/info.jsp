@@ -55,10 +55,9 @@
                     <% } else if (session.getAttribute("userPermission").equals("CONDUCTOR")) { %>
                         <!-- for Conductor -->
                         <li role="presentation"><a href="/employee/search.jsp">Tra cứu</a></li>
-                    <% } else if (session.getAttribute("userPermission").equals("PILOT")) { %>
-                        <!-- for Pilot -->
-                    <% } else if (session.getAttribute("userPermission").equals("STEWARDESS")) { %>
-                        <!-- for Stewardess -->
+                    <% } else if (session.getAttribute("userPermission").equals("PILOT") || session.getAttribute("userPermission").equals("STEWARDESS")) { %>
+                        <!-- for Pilot and Stewardess -->
+                        <li role="presentation"><a href="/employee/task.jsp">Phân công công việc</a></li>
                     <% } %>
                 </ul>
             </aside>

@@ -1,0 +1,43 @@
+.title {
+    margin-top: 58px;
+}
+
+.group-search {
+    margin-top: 55px;
+    margin-bottom: 32px;
+}
+
+.table thead {
+    height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.center {
+    text-align: center;
+}
+
+.input-navigator {
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.btn-insert {
+    margin-top: 55px;
+    margin-left: 16px;
+}
+
+.pager li > span {
+    border: none;
+}
+
+.txt-year {
+    width: 100px;
+}
+
+.txt-year,
+.btn-clear,
+.btn-search {
+    margin-left: 8px;
+}
